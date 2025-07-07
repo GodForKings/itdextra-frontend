@@ -10,6 +10,12 @@ export async function clientLoader({ params }: Route.ClientLoaderArgs) {
 
 export async function action() {}
 
+export function meta({}: Route.MetaArgs) {
+	return [
+		{ title: 'ITDextra — Веб-разработка и цифровые решения по всей России' },
+	]
+}
+
 export default function Services({ loaderData }: Route.ComponentProps) {
 	return <SpecificServicePage serviceName={loaderData.serviceName} />
 }

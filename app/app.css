@@ -4,7 +4,7 @@ html,
 body {
 	background-color: #ffffff; /* bg-white */
 	color: #111827; /* text-gray-900 (примерно) */
-	transition: background-color 0.2s ease, color 0.2s ease;
+	transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Темная тема через системные настройки */
@@ -30,6 +30,8 @@ html {
 	height: 100%;
 	line-height: 1.5;
 	-webkit-text-size-adjust: 100%;
+	scroll-behavior: smooth;
+	box-sizing: border-box;
 }
 
 body {
@@ -37,4 +39,39 @@ body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
 		'Helvetica Neue', Arial, sans-serif;
+}
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+a {
+	text-decoration: none;
+	padding: 0;
+	margin: 0;
+}
+dl,
+dt,
+dd {
+	margin: 0;
+	padding: 0;
+}
+button {
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	margin: 0;
+}
+video {
+	margin: 0;
+	padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	padding: 0;
 }
