@@ -1,7 +1,6 @@
 import type { FC } from 'react'
 
 export const ServicesPage: FC = () => {
-	console.log(import.meta.env.VITE_API_URL)
 	return (
 		<div>
 			Наши услуги: уникальные решения для вашего бизнеса в цифровом мире Мы

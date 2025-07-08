@@ -9,8 +9,10 @@ import {
 import type { Route } from './+types/root'
 
 import './app.css'
-import { Footer, Header } from '~/widgets'
+import { ScrollTrigger } from 'gsap/all'
+import { gsap } from 'gsap'
 
+import { Footer, Header } from '~/widgets'
 import { MainLayout } from '~/shared'
 
 export const links: Route.LinksFunction = () => [
@@ -51,6 +53,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+	gsap.registerPlugin(ScrollTrigger)
+
 	return (
 		<>
 			<Header />

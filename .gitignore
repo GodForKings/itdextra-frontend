@@ -23,7 +23,6 @@ yarn-error.log*
 dist
 dist/
 build/
-public/
 /.react-router/
 
 # IDE

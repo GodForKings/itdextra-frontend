@@ -15,7 +15,7 @@ export function meta({}: Route.MetaArgs) {
 		{
 			property: 'og:description',
 			content:
-				'Создавайте будущее сITDextra — эксклюзивные веб-решения для лидеров',
+				'Создавайте будущее с ITDextra — эксклюзивные веб-решения для лидеров',
 		},
 		{ property: 'og:type', content: 'website' },
 		// { property: 'og:url', content: 'https://itdextra.ru' },
