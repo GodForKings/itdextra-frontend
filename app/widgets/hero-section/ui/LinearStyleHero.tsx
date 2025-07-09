@@ -67,10 +67,8 @@ export const LinearStyleHero = () => {
 			<div
 				ref={blurLayerRef}
 				className={cn(
-					'absolute inset-0 bg-cover opacity-80',
-					'bg-[url(/bg.jpg)]'
+					'absolute inset-0 bg-cover opacity-80 bg-gradient-to-bl from-sky-800 to-neutral-950'
 				)}
-				style={{ filter: 'blur(12px)' }}
 			/>
 
 			{/* Основной контент */}
@@ -103,6 +101,7 @@ export const LinearStyleHero = () => {
 						<button className='bg-white text-gray-900 hover:bg-gray-100 font-semibold px-8 py-3 rounded-none transition-all duration-300'>
 							Начать бесплатно →
 						</button>
+
 						<button className='bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 font-semibold px-8 py-3 rounded-none transition-all duration-300'>
 							Демо
 						</button>

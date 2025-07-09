@@ -1,6 +1,6 @@
 export const ROUTES_DATA = {
 	index: {
-		path: '',
+		path: '/',
 		name: 'Главная',
 	},
 	services: {

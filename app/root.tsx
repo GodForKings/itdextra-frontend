@@ -9,11 +9,10 @@ import {
 import type { Route } from './+types/root'
 
 import './app.css'
-import { ScrollTrigger } from 'gsap/all'
-import { gsap } from 'gsap'
 
 import { Footer, Header } from '~/widgets'
 import { MainLayout } from '~/shared'
+import { useEffect } from 'react'
 
 export const links: Route.LinksFunction = () => [
 	{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -53,8 +52,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-	gsap.registerPlugin(ScrollTrigger)
-
+	useEffect(() => {
+		// Динамический импорт GSAP только на клиенте
+		if (typeof window !== 'undefined') {
+			import('gsap').then(({ gsap }) => {
+				import('gsap/ScrollTrigger').then(ScrollTrigger => {
+					gsap.registerPlugin(ScrollTrigger.default)
+				})
+			})
+		}
+	}, [])
 	return (
 		<>
 			<Header />
