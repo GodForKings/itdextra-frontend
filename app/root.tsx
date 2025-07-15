@@ -12,7 +12,6 @@ import './app.css'
 
 import { Footer, Header } from '~/widgets'
 import { MainLayout } from '~/shared'
-import { useEffect } from 'react'
 
 export const links: Route.LinksFunction = () => [
 	{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -52,16 +51,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-	useEffect(() => {
-		// Динамический импорт GSAP только на клиенте
-		if (typeof window !== 'undefined') {
-			import('gsap').then(({ gsap }) => {
-				import('gsap/ScrollTrigger').then(ScrollTrigger => {
-					gsap.registerPlugin(ScrollTrigger.default)
-				})
-			})
-		}
-	}, [])
 	return (
 		<>
 			<Header />
@@ -76,32 +65,38 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-	let message = 'Oops!'
+	let message = 'Упс! Произошла ошибка'
 	let details = 'An unexpected error occurred.'
 	let stack: string | undefined
 
 	if (isRouteErrorResponse(error)) {
 		message = error.status === 404 ? '404' : 'Error'
 		details =
-			error.status === 404
-				? 'The requested page could not be found.'
-				: error.statusText || details
+			error.status === 404 ? 'Страница не найдена' : error.statusText || details
 	} else if (import.meta.env.DEV && error && error instanceof Error) {
 		details = error.message
 		stack = error.stack
 	}
 
 	return (
-		<main className='pt-16 p-4 container mx-auto'>
-			<h1>{message}</h1>
+		<>
+			<Header />
 
-			<p>{details}</p>
+			<MainLayout>
+				<div className='rounded-xl bg-white p-5 dark:bg-gray-950 text-neutral-950 dark:text-slate-200 flex flex-col items-center justify-center text-4xl md:text-2xl font-bold'>
+					<h1>{message}</h1>
 
-			{stack && (
-				<pre className='w-full p-4 overflow-x-auto'>
-					<code>{stack}</code>
-				</pre>
-			)}
-		</main>
+					<p className='text-xl md:text-2xl'>{details}</p>
+
+					{stack && (
+						<pre className='w-full p-4 overflow-x-auto'>
+							<code>{stack}</code>
+						</pre>
+					)}
+				</div>
+			</MainLayout>
+
+			<Footer />
+		</>
 	)
 }

@@ -1,3 +1,7 @@
 export { Logo } from './components/Logo'
 export { PhoneNumber } from './components/PhoneNumber'
 export { MainLayout } from './layout/MainLayout'
+export { Button } from './button/Button'
+export { Divider } from './dividers/Divider'
+export { DashedBackground } from './dividers/DashedBackground'
+export { Link } from './links/Link'

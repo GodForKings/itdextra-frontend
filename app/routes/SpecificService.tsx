@@ -1,6 +1,6 @@
 import type { Route } from './+types/SpecificService'
 
-import { SpecificServicePage } from '~/pages/specific-service'
+import { SpecificServicePage } from '~/pages'
 
 export async function clientLoader({ params }: Route.ClientLoaderArgs) {
 	const serviceName: string = params.name

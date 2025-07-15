@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/all'
 import { cn } from '~/shared'
 
 export const LinearStyleHero = () => {
@@ -47,7 +48,7 @@ export const LinearStyleHero = () => {
 		// Параллакс при скролле
 		if (blurLayerRef.current) {
 			gsap.to(blurLayerRef.current, {
-				y: 50,
+				opacity: 1,
 				scrollTrigger: {
 					trigger: heroRef.current,
 					start: 'top bottom',
@@ -77,7 +78,7 @@ export const LinearStyleHero = () => {
 					{/* Заголовок */}
 					<h1 ref={titleRef} className='text-5xl md:text-7xl font-bold mb-6'>
 						<span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500'>
-							Инструменты для тех, кто создаёт
+							Решения для тех, кто хочет быть лидером
 						</span>
 					</h1>
 
@@ -99,11 +100,11 @@ export const LinearStyleHero = () => {
 						className='flex flex-col sm:flex-row justify-center gap-4'
 					>
 						<button className='bg-white text-gray-900 hover:bg-gray-100 font-semibold px-8 py-3 rounded-none transition-all duration-300'>
-							Начать бесплатно →
+							Старт →
 						</button>
 
 						<button className='bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 font-semibold px-8 py-3 rounded-none transition-all duration-300'>
-							Демо
+							Мы
 						</button>
 					</div>
 				</div>

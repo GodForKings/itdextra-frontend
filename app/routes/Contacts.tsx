@@ -1,6 +1,6 @@
 import type { Route } from './+types/Contacts'
 
-import { ContactsPage } from '~/pages/contacts'
+import { ContactsPage } from '~/pages'
 
 export function meta({}: Route.MetaArgs) {
 	return [

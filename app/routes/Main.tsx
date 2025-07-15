@@ -1,6 +1,6 @@
 import type { Route } from './+types/Main'
 
-import { MainPage } from '~/pages/main'
+import { MainPage } from '~/pages'
 
 export function meta({}: Route.MetaArgs) {
 	return [

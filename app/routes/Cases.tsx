@@ -1,6 +1,6 @@
 import type { Route } from './+types/Cases'
 
-import { CasesPage } from '~/pages/cases'
+import { CasesPage } from '~/pages'
 
 export async function clientLoader({ params }: Route.ClientLoaderArgs) {}
 
