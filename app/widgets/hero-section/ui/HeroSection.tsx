@@ -24,7 +24,7 @@ export const HeroSection: FC = () => {
 	useEffect(() => {
 		const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
 
-		// Фоновая сетка
+		// Фоновая сетка (опционально)
 		heroRef.current &&
 			tl.fromTo(heroRef.current, { opacity: 0 }, { opacity: 1, duration: 1.5 })
 
@@ -65,7 +65,9 @@ export const HeroSection: FC = () => {
 			)
 
 		return () => {
-			tl.kill()
+			if (tl) {
+				tl.kill()
+			}
 		}
 	}, [])
 
