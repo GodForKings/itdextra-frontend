@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import { useUnit } from 'effector-react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 import { useNavigate } from 'react-router'
 
 import { Button, DASHED_BACKGROUND, ROUTES_DATA, cn } from '~/shared'
