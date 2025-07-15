@@ -3,7 +3,6 @@ import type { FC } from 'react'
 import { useEffect, useRef } from 'react'
 import { useUnit } from 'effector-react'
 import { gsap } from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
 import { useNavigate } from 'react-router'
 
 import { cn, Button } from '~/shared'
@@ -23,8 +22,6 @@ export const HeroSection: FC = () => {
 
 	// Анимации при загрузке
 	useEffect(() => {
-		gsap.registerPlugin(ScrollTrigger)
-
 		const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
 
 		// Фоновая сетка

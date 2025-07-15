@@ -1,7 +1,6 @@
 import { useRef, useEffect } from 'react'
 import { useUnit } from 'effector-react'
 import { gsap } from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
 import { useNavigate } from 'react-router'
 
 import { Button, DASHED_BACKGROUND, ROUTES_DATA, cn } from '~/shared'
@@ -19,68 +18,61 @@ export const ServicesSection = () => {
 
 	// Инициализация анимаций после монтирования
 	useEffect(() => {
-		if (
-			!sectionRef.current ||
-			!titleRef.current ||
-			cardsRef.current.length === 0
-		) {
-			return
-		}
+		if (typeof window === 'undefined') return
 
-		gsap.registerPlugin(ScrollTrigger)
+		const initAnimations = async () => {
+			const { gsap } = await import('gsap')
+			const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+			gsap.registerPlugin(ScrollTrigger)
 
-		const tl = gsap.timeline({
-			scrollTrigger: {
-				trigger: sectionRef.current,
-				start: 'top 50%',
-				toggleActions: 'play none none none',
-			},
-			defaults: { ease: 'power4.out' },
-		})
-
-		// Анимация заголовка
-		tl.fromTo(
-			titleRef.current,
-			{
-				opacity: 0,
-				x: -100,
-				filter: 'blur(2px)',
-			},
-			{
-				opacity: 1,
-				x: 0,
-				filter: 'blur(0)',
-				duration: 0.8,
+			if (
+				!sectionRef.current ||
+				!titleRef.current ||
+				cardsRef.current.length === 0
+			) {
+				return
 			}
-		)
 
-		// Анимация карточек
-		tl.fromTo(
-			cardsRef.current,
-			{
-				opacity: 0,
-				y: 80,
-				stagger: 0.15,
-			},
-			{ opacity: 1, y: 0, duration: 0.6 }
-		)
-
-		// Параллакс для бликов
-		glowsRef.current.forEach((glow: HTMLDivElement | null) => {
-			if (!glow) return
-			gsap.to(glow, {
-				x: gsap.utils.random(-100, 100),
-				y: gsap.utils.random(-150, 150),
-				duration: 8,
-				repeat: -1,
-				yoyo: true,
-				ease: 'sine.inOut',
+			const tl = gsap.timeline({
+				scrollTrigger: {
+					trigger: sectionRef.current,
+					start: 'top 50%',
+					toggleActions: 'play none none none',
+				},
+				defaults: { ease: 'power4.out' },
 			})
-		})
 
-		return () => {
-			tl.kill()
+			tl.fromTo(
+				titleRef.current,
+				{ opacity: 0, x: -100, filter: 'blur(2px)' },
+				{ opacity: 1, x: 0, filter: 'blur(0)', duration: 0.8 }
+			)
+
+			tl.fromTo(
+				cardsRef.current,
+				{ opacity: 0, y: 80 },
+				{ opacity: 1, y: 0, duration: 0.6, stagger: 0.15 }
+			)
+
+			glowsRef.current.forEach(glow => {
+				if (!glow) return
+				gsap.to(glow, {
+					x: gsap.utils.random(-100, 100),
+					y: gsap.utils.random(-150, 150),
+					duration: 8,
+					repeat: -1,
+					yoyo: true,
+					ease: 'sine.inOut',
+				})
+			})
+
+			return () => {
+				tl.kill()
+				ScrollTrigger.getAll().forEach(st => st.kill())
+			}
 		}
+
+		initAnimations().catch(console.error)
 	}, [])
 
 	// Обработчик интерактивных эффектов
