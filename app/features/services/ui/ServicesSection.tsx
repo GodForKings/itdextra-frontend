@@ -1,15 +1,10 @@
 import { useRef, useEffect } from 'react'
 import { useUnit } from 'effector-react'
 import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useNavigate } from 'react-router'
 
-import {
-	Button,
-	DASHED_BACKGROUND,
-	ROUTES_DATA,
-	cn,
-	registerScrollTrigger,
-} from '~/shared'
+import { Button, DASHED_BACKGROUND, ROUTES_DATA, cn } from '~/shared'
 import { servicesList } from '../model/servicesList'
 
 export const ServicesSection = () => {
@@ -32,7 +27,7 @@ export const ServicesSection = () => {
 			return
 		}
 
-		registerScrollTrigger()
+		gsap.registerPlugin(ScrollTrigger)
 
 		const tl = gsap.timeline({
 			scrollTrigger: {

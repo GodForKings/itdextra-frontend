@@ -1,6 +1,5 @@
 import { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/all'
 import { cn } from '~/shared'
 
 export const LinearStyleHero = () => {
