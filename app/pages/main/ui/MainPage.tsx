@@ -18,6 +18,8 @@ export const MainPage: FC = () => {
 
 			<CaseSection />
 
+			<Divider />
+
 			<LinearStyleHero />
 		</div>
 	)

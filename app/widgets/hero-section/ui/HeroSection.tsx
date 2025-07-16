@@ -75,16 +75,18 @@ export const HeroSection: FC = () => {
 		<section
 			ref={heroRef}
 			className={cn(
-				'min-h-[90dvh] m-5 p-4 sm:p-8 relative overflow-hidden rounded-lg bg-gray-950/[2.5%] after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:inset-ring after:inset-ring-gray-950/5 dark:after:inset-ring-white/10 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/5 dark:[--pattern-fg:var(--color-white)]/10'
+				'min-h-[90dvh] m-5 p-4 sm:p-8 relative overflow-hidden rounded-lg bg-gray-950/[2.5%] after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:inset-ring after:inset-ring-gray-950/5 dark:after:inset-ring-white/10 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/5 dark:[--pattern-fg:var(--color-white)]/10 opacity-0'
 			)}
 		>
 			<div className='container mx-auto px-4 py-24 md:py-32 lg:py-40 max-w-4xl text-center flex flex-col justify-center items-center gap-12'>
+				{/* Заголовок */}
 				<h1 ref={titleRef} className='text-4xl md:text-6xl mb-6'>
 					<span className='text-transparent bg-clip-text bg-gradient-to-r from-sky-800 to-neutral-950 dark:from-white dark:to-sky-700'>
 						{hero.slogan}
 					</span>
 				</h1>
 
+				{/* Подзаголовок */}
 				<p
 					ref={subtitleRef}
 					className='text-xl md:text-2xl text-neutral-950 dark:text-slate-200 max-w-3xl mx-auto'

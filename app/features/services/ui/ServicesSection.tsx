@@ -54,7 +54,7 @@ export const ServicesSection = () => {
 				{ opacity: 1, y: 0, duration: 0.6, stagger: 0.15 }
 			)
 
-			glowsRef.current.forEach(glow => {
+			glowsRef.current.forEach((glow: HTMLDivElement | null) => {
 				if (!glow) return
 				gsap.to(glow, {
 					x: gsap.utils.random(-100, 100),
@@ -103,7 +103,7 @@ export const ServicesSection = () => {
 						if (el) glowsRef.current[i] = el
 					}}
 					className={cn(
-						'absolute rounded-full opacity-40 pointer-events-none blur-xl',
+						'absolute rounded-full opacity-80 pointer-events-none blur-xl',
 						i % 2 === 0
 							? 'bg-gradient-to-br from-sky-600/30 to-transparent w-100 h-100'
 							: 'bg-gradient-to-l from-sky-800/30 to-transparent w-80 h-80',
@@ -161,9 +161,9 @@ export const ServicesSection = () => {
 								navigate(`${ROUTES_DATA.services.path}/${service.id}`)
 							}}
 							square={false}
-							styles='my-5'
+							styles='mt-5'
 						>
-							Попробовать
+							Подробнее
 						</Button>
 
 						{/* Скрытый эффект */}
