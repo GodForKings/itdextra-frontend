@@ -2,8 +2,7 @@ import type { FC } from 'react'
 
 import { HeroSection } from '~/widgets'
 import { Divider } from '~/shared'
-import { CaseSection, ServicesSection } from '~/features'
-import { LinearStyleHero } from '~/widgets/hero-section/ui/LinearStyleHero'
+import { CaseSection, ServicesSection, WhyUsSection } from '~/features'
 
 export const MainPage: FC = () => {
 	return (
@@ -20,7 +19,7 @@ export const MainPage: FC = () => {
 
 			<Divider />
 
-			<LinearStyleHero />
+			<WhyUsSection />
 		</div>
 	)
 }

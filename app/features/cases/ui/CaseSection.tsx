@@ -32,7 +32,7 @@ export const CaseSection = () => {
 	return (
 		<section
 			ref={sectionRef}
-			className='relative m-5 rounded-lg border border-(--pattern-fg) py-18 px-4 sm:px-8 overflow-hidden bg-gradient-to-l from-white to-slate-100 dark:from-gray-950/[7.5%] dark:to-gray-700/10 flex flex-col items-center justify-center gap-10'
+			className='relative m-5 rounded-lg border border-(--pattern-fg) py-18 px-4 sm:px-8 overflow-hidden bg-gradient-to-t from-white to-slate-100 dark:from-gray-950/[7.5%] dark:to-gray-700/10 flex flex-col items-center justify-center gap-10'
 		>
 			{/* Декоративные элементы */}
 			<div className='absolute inset-0 overflow-hidden pointer-events-none'>
@@ -67,36 +67,43 @@ export const CaseSection = () => {
 						}}
 						className={cn(
 							'group relative rounded-lg overflow-hidden',
-							'bg-white/80 dark:bg-neutral-800/80 backdrop-blur-lg',
+							'bg-white/60 dark:bg-neutral-800/60 backdrop-blur-lg',
 							'border border-neutral-200 dark:border-neutral-700',
-							'shadow-xl hover:shadow-2xl transition-all duration-100',
-							'hover:-translate-y-2'
+							'shadow-xl hover:shadow-2xl transition-all duration-100'
 						)}
-						onClick={() => navigate(caseItem.link)}
+						onClick={() => {}}
 					>
 						{/* Изображение кейса */}
-						<div className='relative h-60 overflow-hidden'>
+						<div className='relative h-70 overflow-hidden'>
 							<img
-								src={cases.items[0].image}
+								src={caseItem.image}
 								alt={caseItem.title}
-								className='case-image w-full h-full object-cover transition-transform duration-700 group-hover:scale-105'
+								className='w-full h-full object-cover transition-transform duration-400 group-hover:scale-110'
 							/>
-							<div className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent' />
+
+							<div className='absolute inset-0 bg-gradient-to-t from-neutral-950/60 to-transparent' />
 						</div>
 
 						{/* Контент кейса */}
-						<div className='p-6'>
-							<h3 className='text-2xl font-bold mb-3'>{caseItem.title}</h3>
+						<div className='p-6 flex flex-col items-start justify-center gap-4'>
+							<h3 className='text-2xl text-neutral-950 dark:text-sky-600/90'>
+								{caseItem.title}
+							</h3>
 
-							<p className='text-neutral-600 dark:text-neutral-300 mb-4'>
+							<p className='text-neutral-800 dark:text-slate-200'>
 								{caseItem.description}
 							</p>
 
 							<div className='flex flex-wrap gap-2'>
-								{caseItem.tags.map(tag => (
+								{caseItem.tags.map((tag, index) => (
 									<span
 										key={tag}
-										className='px-3 py-1 rounded-full text-xs font-medium bg-sky-100 dark:bg-sky-900/50 text-sky-800 dark:text-sky-200'
+										className={cn(
+											'px-3 py-2 rounded-full text-xs font-mono text-neutral-950 dark:text-slate-200',
+											index % 2
+												? 'bg-sky-700 dark:bg-neutral-950/90'
+												: 'bg-neutral-900/50 dark:bg-sky-700/80'
+										)}
 									>
 										{tag}
 									</span>
@@ -105,7 +112,7 @@ export const CaseSection = () => {
 						</div>
 
 						{/* Эффект при наведении */}
-						<div className='absolute inset-0 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
+						<div className='absolute inset-0 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
 							<div className='absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(56,182,255,0.1)_0%,_transparent_70%)]' />
 						</div>
 					</div>
@@ -113,9 +120,11 @@ export const CaseSection = () => {
 			</div>
 
 			{/* Призыв к действию */}
-			<Button square={true} onClick={() => navigate('/contact')}>
-				Хочу такой же проект!
-			</Button>
+			<div ref={buttonRef} className=''>
+				<Button square={true} onClick={() => navigate('/contact')}>
+					Хочу такой же проект!
+				</Button>
+			</div>
 		</section>
 	)
 }

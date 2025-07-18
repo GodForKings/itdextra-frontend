@@ -1,16 +1,9 @@
-// Типы для рефов
-interface SectionAnimationRefs {
-	sectionRef: React.RefObject<HTMLDivElement | null>
-	titleRef: React.RefObject<HTMLHeadingElement | null>
-	subtitleRef: React.RefObject<HTMLParagraphElement | null>
-	casesRef: React.RefObject<(HTMLDivElement | null)[]>
-	buttonRef: React.RefObject<HTMLDivElement | null>
-}
+import type { SectionAnimationRefs } from './types'
 
 /**
- *
- * @param refs Принимает объект содержащий элементы для анимаций
- * @returns Promise пустой
+ * Функция анимации секции
+ * @param refs Объект с рефами элементов
+ * @returns Функция для очистки анимации
  */
 export const animateSection = async (
 	refs: SectionAnimationRefs
@@ -27,21 +20,30 @@ export const animateSection = async (
 			start: 'top 60%',
 			toggleActions: 'play none none none',
 		},
+		defaults: { ease: 'power4.out' },
 	})
 
 	// Анимация заголовка
 	masterTL.fromTo(
 		titleRef.current,
-		{ opacity: 0, y: 50 },
-		{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
+		{ opacity: 0, y: -150 },
+		{ opacity: 1, y: 0, duration: 0.8 }
 	)
 
 	// Анимация подзаголовка
 	masterTL.fromTo(
 		subtitleRef.current,
 		{ opacity: 0, y: 30 },
-		{ opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+		{ opacity: 1, y: 0, duration: 0.6 },
 		'-=0.4'
+	)
+
+	// Анимация кнопки
+	masterTL.fromTo(
+		buttonRef.current,
+		{ opacity: 0, y: 20 },
+		{ opacity: 1, y: 0, duration: 0.6 },
+		'+=1.5'
 	)
 
 	// Анимация кейсов
@@ -54,35 +56,15 @@ export const animateSection = async (
 				start: 'top 70%',
 				toggleActions: 'play none none none',
 			},
+			defaults: { ease: 'power1.out' },
 		})
 
 		caseTL.fromTo(
 			caseEl,
-			{ opacity: 0, y: 80 },
-			{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
+			{ opacity: 0, x: index % 2 ? 50 : -50, filter: 'blur(5px)' },
+			{ opacity: 1, x: 0, filter: 'blur(0)', duration: 0.5 }
 		)
-
-		const image = caseEl.querySelector('.case-image')
-		if (image) {
-			gsap.to(image, {
-				y: -30,
-				scrollTrigger: {
-					trigger: caseEl,
-					start: 'top bottom',
-					end: 'bottom top',
-					scrub: 1,
-				},
-			})
-		}
 	})
-
-	// Анимация кнопки
-	masterTL.fromTo(
-		buttonRef.current,
-		{ opacity: 0, y: 20 },
-		{ opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
-		'+=0.2'
-	)
 
 	// Функция для очистки (вернётся в компонент)
 	return () => {

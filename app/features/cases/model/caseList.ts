@@ -1,6 +1,6 @@
 import { createStore } from 'effector'
-import luxeCars from '../assets/luxeCars.png'
 
+import { CASE_IMGS } from '../assets'
 import type { CaseItem, CaseList } from './types'
 
 const INITIAL_CASES: CaseList<CaseItem> = {
@@ -10,27 +10,34 @@ const INITIAL_CASES: CaseList<CaseItem> = {
 		{
 			id: '1',
 			title: 'Люкс-сервис аренды эксклюзивных авто',
-			description:
-				'Увеличение конверсии на 140% за счёт уникального UX/UI-дизайна и анимаций.',
+			description: 'Увеличение конверсии на 200%.',
 			tags: ['E-commerce', 'React', 'Luxury'],
-			image: luxeCars,
+			image: CASE_IMGS.luxeCars,
 			link: 'https://luxe-drive-demo-version.netlify.app',
 		},
 		{
 			id: '2',
-			title: 'Корпоративный портал для нефтяной компании',
-			description: 'Сложная система дашбордов с аналитикой в реальном времени.',
+			title: 'Корпоративная сеть нефтяной компании',
+			description: 'Сложная система dashboard-ов с real-time аналитикой.',
 			tags: ['Enterprise', 'Data Visualization', 'Security'],
-			image: '/cases/oil-portal.jpg',
+			image: CASE_IMGS.coffee,
 			link: '/cases/oil-portal',
 		},
 		{
 			id: '3',
-			title: 'Мобильное приложение для финтех-стартапа',
+			title: 'Приложение для Web-3 блокчейн стартапа',
+			description: 'С идеи до полноценной реализации.',
+			tags: ['Fintech', 'Adaptive', 'WEB3'],
+			image: CASE_IMGS.luxeCars,
+			link: '/cases/fintech-app',
+		},
+		{
+			id: '4',
+			title: 'Re-дизайн приложения кофейни',
 			description:
-				'Приложение с нуля за 3 месяца. 500K+ скачиваний за первый год.',
-			tags: ['Fintech', 'Mobile', 'React Native'],
-			image: '/cases/fintech-app.jpg',
+				'Полноценная переработка и создание нового концепта для Кофейни.',
+			tags: ['Techno', 'React', 'UX/UI'],
+			image: CASE_IMGS.coffee,
 			link: '/cases/fintech-app',
 		},
 	],

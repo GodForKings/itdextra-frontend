@@ -2,11 +2,11 @@ import type { FC } from 'react'
 
 import { useEffect, useRef } from 'react'
 import { useUnit } from 'effector-react'
-import { gsap } from 'gsap'
 import { useNavigate } from 'react-router'
 
 import { cn, Button } from '~/shared'
 import { heroSectionModel } from '../model/heroSection'
+import { animateHero } from '../lib/animations'
 
 export const HeroSection: FC = () => {
 	const hero = useUnit(heroSectionModel.stores.$heroSection)
@@ -20,55 +20,17 @@ export const HeroSection: FC = () => {
 
 	const navigate = useNavigate()
 
-	// Анимации при загрузке
 	useEffect(() => {
-		const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
+		// для работы только на клиенте
+		if (typeof window === 'undefined') return
 
-		// Фоновая сетка (опционально)
-		heroRef.current &&
-			tl.fromTo(heroRef.current, { opacity: 0 }, { opacity: 1, duration: 1.5 })
-
-		// Заголовок
-		titleRef.current &&
-			tl.fromTo(
-				titleRef.current,
-				{ y: -100, opacity: 0 },
-				{ y: 0, opacity: 1, duration: 0.8 },
-				'-=0.5'
-			)
-
-		// Подзаголовок
-		subtitleRef.current &&
-			tl.fromTo(
-				subtitleRef.current,
-				{ x: 100, opacity: 0 },
-				{ x: 0, opacity: 1, duration: 0.8 },
-				'-=0.3'
-			)
-
-		// Кнопки
-		ctaRef.current &&
-			tl.fromTo(
-				ctaRef.current,
-				{ scale: 0.9, opacity: 0, filter: 'blur(1px)' },
-				{ scale: 1, opacity: 1, filter: 'blur(0)', duration: 0.6 },
-				'-=0.2'
-			)
-
-		// нижние индикаторы
-		trustRef.current &&
-			tl.fromTo(
-				trustRef.current,
-				{ opacity: 0 },
-				{ opacity: 1, duration: 1 },
-				'-=0.4'
-			)
-
-		return () => {
-			if (tl) {
-				tl.kill()
-			}
-		}
+		animateHero({
+			heroRef,
+			titleRef,
+			subtitleRef,
+			ctaRef,
+			trustRef,
+		})
 	}, [])
 
 	return (
@@ -96,7 +58,7 @@ export const HeroSection: FC = () => {
 
 				<div
 					ref={ctaRef}
-					className='flex flex-col justify-center gap-4 sm:flex-row'
+					className='flex flex-col justify-center gap-4 md:flex-row'
 				>
 					<Button square={false} onClick={() => navigate('/contacts')}>
 						Обсудить проект
@@ -109,17 +71,20 @@ export const HeroSection: FC = () => {
 
 				<div
 					ref={trustRef}
-					className='flex flex-wrap justify-center items-center gap-6 text-gray-500'
+					className='flex flex-wrap justify-center items-center gap-6 md:gap-12 text-gray-400'
 				>
-					<div>{hero.description[0]}</div>
-
-					<div className='hidden sm:block'>•</div>
-
-					<div>{hero.description[1]}</div>
-
-					<div className='hidden sm:block'>•</div>
-
-					<div>{hero.description[2]}</div>
+					{hero.description.map((desc, index) => (
+						<div
+							key={desc}
+							className={cn(
+								'relative',
+								index !== hero.description.length - 1 &&
+									"after:hidden md:after:block after:absolute after:-right-6 after:top-1/2 after:-translate-y-1/2 after:content-['•']"
+							)}
+						>
+							{desc}
+						</div>
+					))}
 				</div>
 			</div>
 		</section>

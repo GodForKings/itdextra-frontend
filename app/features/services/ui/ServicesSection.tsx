@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router'
 
 import { Button, DASHED_BACKGROUND, ROUTES_DATA, cn } from '~/shared'
 import { servicesList } from '../model/servicesList'
+import { animateSection } from '../lib/animations'
 
 export const ServicesSection = () => {
 	const service = useUnit(servicesList.stores.$services)
@@ -16,63 +17,15 @@ export const ServicesSection = () => {
 
 	const navigate = useNavigate()
 
-	// Инициализация анимаций после монтирования
 	useEffect(() => {
 		if (typeof window === 'undefined') return
 
-		const initAnimations = async () => {
-			const { gsap } = await import('gsap')
-			const { ScrollTrigger } = await import('gsap/ScrollTrigger')
-			gsap.registerPlugin(ScrollTrigger)
-
-			if (
-				!sectionRef.current ||
-				!titleRef.current ||
-				cardsRef.current.length === 0
-			) {
-				return
-			}
-
-			const tl = gsap.timeline({
-				scrollTrigger: {
-					trigger: sectionRef.current,
-					start: 'top 50%',
-					toggleActions: 'play none none none',
-				},
-				defaults: { ease: 'power4.out' },
-			})
-
-			tl.fromTo(
-				titleRef.current,
-				{ opacity: 0, x: -100, filter: 'blur(2px)' },
-				{ opacity: 1, x: 0, filter: 'blur(0)', duration: 0.8 }
-			)
-
-			tl.fromTo(
-				cardsRef.current,
-				{ opacity: 0, y: 80 },
-				{ opacity: 1, y: 0, duration: 0.6, stagger: 0.15 }
-			)
-
-			glowsRef.current.forEach((glow: HTMLDivElement | null) => {
-				if (!glow) return
-				gsap.to(glow, {
-					x: gsap.utils.random(-100, 100),
-					y: gsap.utils.random(-150, 150),
-					duration: 8,
-					repeat: -1,
-					yoyo: true,
-					ease: 'sine.inOut',
-				})
-			})
-
-			return () => {
-				tl.kill()
-				ScrollTrigger.getAll().forEach(st => st.kill())
-			}
-		}
-
-		initAnimations().catch(console.error)
+		animateSection({
+			sectionRef,
+			titleRef,
+			cardsRef,
+			glowsRef,
+		}).catch(console.error)
 	}, [])
 
 	// Обработчик интерактивных эффектов
@@ -83,7 +36,8 @@ export const ServicesSection = () => {
 		gsap.to(card, {
 			scale: isActive ? 1.05 : 1,
 			boxShadow: isActive ? '0 20px 40px rgba(59, 130, 246, 0.2)' : 'none',
-			duration: 0.2,
+			duration: 0.25,
+			ease: 'back.out',
 		})
 	}
 
@@ -103,7 +57,7 @@ export const ServicesSection = () => {
 						if (el) glowsRef.current[i] = el
 					}}
 					className={cn(
-						'absolute rounded-full opacity-80 pointer-events-none blur-xl',
+						'absolute rounded-full opacity-80 pointer-events-none blur-lg',
 						i % 2 === 0
 							? 'bg-gradient-to-br from-sky-600/30 to-transparent w-100 h-100'
 							: 'bg-gradient-to-l from-sky-800/30 to-transparent w-80 h-80',
@@ -117,7 +71,7 @@ export const ServicesSection = () => {
 
 			{/* Заголовок */}
 			<h2 ref={titleRef} className='text-5xl max-w-6xl md:text-7xl text-center'>
-				<span className='text-transparent bg-clip-text bg-gradient-to-br from-neutral-950 to-sky-600 dark:from-sky-600 dark:to-slate-200'>
+				<span className='text-transparent bg-clip-text bg-gradient-to-r from-neutral-950 to-sky-600 dark:from-sky-600 dark:to-slate-200'>
 					{service.title}
 				</span>
 			</h2>
@@ -131,11 +85,11 @@ export const ServicesSection = () => {
 							if (el) cardsRef.current[index] = el
 						}}
 						className={cn(
-							'relative p-8 rounded-lg backdrop-blur-lg flex flex-col items-start justify-center gap-3',
-							'bg-white/5 border border-sky-600 dark:border-white/10',
+							'relative p-8 rounded-lg backdrop-blur-lg flex flex-col items-start justify-center gap-4 font-mono',
+							'bg-white/5 border border-sky-400/80 dark:border-white/10',
 							'transition-all duration-300 opacity-100',
 							'hover:border-cyan-400/30 hover:bg-white/10',
-							'focus:outline-none focus:ring-2 focus:ring-cyan-500/50'
+							'focus:outline-none focus:ring-2 focus:ring-blue-600/50'
 						)}
 						onMouseEnter={() => handleCardInteraction(index, true)}
 						onMouseLeave={() => handleCardInteraction(index, false)}
@@ -144,17 +98,15 @@ export const ServicesSection = () => {
 						tabIndex={0}
 					>
 						{/* Иконка */}
-						<div className='text-6xl mb-6 hover:animate-float'>
-							{service.icon}
-						</div>
+						<div className='text-6xl hover:animate-float'>{service.icon}</div>
 
 						{/* Заголовок */}
-						<h3 className='text-2xl mb-4 text-neutral-950 dark:text-slate-200'>
+						<h3 className='text-3xl text-neutral-950/80 dark:text-white/80'>
 							{service.title}
 						</h3>
 
 						{/* Описание */}
-						<p className='text-sm italic text-sky-500'>{service.description}</p>
+						<p className='text-sm text-sky-500'>{service.description}</p>
 
 						<Button
 							onClick={() => {
