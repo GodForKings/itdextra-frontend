@@ -4,7 +4,7 @@ import { useUnit } from 'effector-react'
 
 import { animateSection } from '../lib/animations'
 import { casesList } from '../model/caseList'
-import { Button, cn } from '~/shared'
+import { Button, cn, ROUTES_DATA } from '~/shared'
 
 export const CaseSection = () => {
 	const cases = useUnit(casesList.stores.$cases)
@@ -121,7 +121,10 @@ export const CaseSection = () => {
 
 			{/* Призыв к действию */}
 			<div ref={buttonRef} className=''>
-				<Button square={true} onClick={() => navigate('/contact')}>
+				<Button
+					square={true}
+					onClick={() => navigate(ROUTES_DATA.contacts.path)}
+				>
 					Хочу такой же проект!
 				</Button>
 			</div>

@@ -129,7 +129,7 @@ export const WhyUsSection = () => {
 				<div className='container mx-auto px-6 max-w-6xl'>
 					<div className='text-center mb-20'>
 						<h2 className='text-4xl md:text-6xl font-light text-neutral-900 dark:text-white mb-6'>
-							<span className='border-b-2 border-emerald-500 pb-2'>
+							<span className='border-t-3 border-emerald-500 pb-2'>
 								Идеальный симбиоз
 							</span>
 						</h2>
