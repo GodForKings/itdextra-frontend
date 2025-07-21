@@ -23,7 +23,7 @@ export const MenuLinks: FC = () => {
 								<span
 									className={cn(
 										'absolute left-0 -bottom-1 h-0.5 bg-gradient-to-r from-sky-400 to-blue-500',
-										'transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)]',
+										'transition-all duration-300 ease-[cubic-bezier(0.65,0,0.35,1)]',
 										isActive
 											? 'w-full opacity-100'
 											: 'w-0 opacity-0 group-hover:w-full group-hover:opacity-60'

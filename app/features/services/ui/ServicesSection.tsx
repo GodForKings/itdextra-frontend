@@ -88,7 +88,7 @@ export const ServicesSection = () => {
 							'relative p-8 rounded-lg backdrop-blur-lg flex flex-col items-start justify-center gap-4 font-mono',
 							'bg-white/5 border border-sky-400/80 dark:border-white/10',
 							'transition-all duration-300 opacity-100',
-							'hover:border-cyan-400/30 hover:bg-white/10',
+							'hover:border-cyan-500/90 hover:bg-white/10',
 							'focus:outline-none focus:ring-2 focus:ring-blue-600/50'
 						)}
 						onMouseEnter={() => handleCardInteraction(index, true)}
@@ -98,15 +98,17 @@ export const ServicesSection = () => {
 						tabIndex={0}
 					>
 						{/* Иконка */}
-						<div className='text-6xl hover:animate-float'>{service.icon}</div>
+						<div className='text-6xl'>{service.icon}</div>
 
 						{/* Заголовок */}
-						<h3 className='text-3xl text-neutral-950/80 dark:text-white/80'>
+						<h3 className='text-3xl text-neutral-950/80 dark:text-sky-400'>
 							{service.title}
 						</h3>
 
 						{/* Описание */}
-						<p className='text-sm text-sky-500'>{service.description}</p>
+						<p className='text-sm tracking-wider text-sky-600 dark:text-white'>
+							{service.description}
+						</p>
 
 						<Button
 							onClick={() => {

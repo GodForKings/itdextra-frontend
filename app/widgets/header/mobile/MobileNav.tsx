@@ -69,11 +69,14 @@ export const MobileNav: FC = () => {
 	/**
 	 * Регистрация рефа для span-элементов
 	 */
-	const registerSpanRef = useCallback((element: HTMLSpanElement | null) => {
-		if (element && !spanRefs.current.includes(element)) {
-			spanRefs.current.push(element)
-		}
-	}, [])
+	const registerSpanRef = useCallback(
+		(element: HTMLSpanElement | null): void => {
+			if (element && !spanRefs.current.includes(element)) {
+				spanRefs.current.push(element)
+			}
+		},
+		[]
+	)
 
 	return (
 		<>

@@ -14,11 +14,11 @@ export const animateSection = async (
 
 	const { sectionRef, titleRef, cardsRef, glowsRef } = refs
 
-	// все элементы присутствуют ?
+	// Все элементы присутствуют ?
 	if (!sectionRef.current || !titleRef.current || cardsRef.current.length === 0)
 		return
 
-	// главный timeline для секции и триггер
+	// Главный timeline для секции и триггер
 	const serviceTl = gsap.timeline({
 		scrollTrigger: {
 			trigger: sectionRef.current,
@@ -58,6 +58,7 @@ export const animateSection = async (
 	})
 
 	return () => {
+		/* Чистим на выходе */
 		serviceTl.kill()
 		ScrollTrigger.getAll().forEach(st => st.kill())
 	}
