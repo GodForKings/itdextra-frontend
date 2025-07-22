@@ -13,7 +13,6 @@ export const ServicesSection = () => {
 	const sectionRef = useRef<HTMLDivElement>(null)
 	const titleRef = useRef<HTMLHeadingElement>(null)
 	const cardsRef = useRef<(HTMLDivElement | null)[]>([])
-	const glowsRef = useRef<(HTMLDivElement | null)[]>([])
 
 	const navigate = useNavigate()
 
@@ -24,7 +23,6 @@ export const ServicesSection = () => {
 			sectionRef,
 			titleRef,
 			cardsRef,
-			glowsRef,
 		}).catch(console.error)
 	}, [])
 
@@ -50,21 +48,18 @@ export const ServicesSection = () => {
 			)}
 		>
 			{/* Блики */}
-			{[...Array(4)].map((_, i) => (
+			{[...Array(4)].map((_, index) => (
 				<div
-					key={i}
-					ref={(el: HTMLDivElement | null) => {
-						if (el) glowsRef.current[i] = el
-					}}
+					key={index}
 					className={cn(
-						'absolute rounded-full opacity-80 pointer-events-none blur-lg',
-						i % 2 === 0
+						'absolute rounded-full opacity-80 pointer-events-none blur-lg animate-pulse',
+						index % 2 === 0
 							? 'bg-gradient-to-br from-sky-600/30 to-transparent w-100 h-100'
-							: 'bg-gradient-to-l from-sky-800/30 to-transparent w-80 h-80',
-						i === 0 && 'top-1/4 left-10',
-						i === 1 && 'bottom-1/4 right-20',
-						i === 2 && 'top-1/3 right-1/4',
-						i === 3 && 'bottom-1/3 left-1/4'
+							: 'bg-gradient-to-l from-sky-500/40 to-transparent w-80 h-80',
+						index === 0 && 'top-1/4 left-10',
+						index === 1 && 'bottom-1/4 right-20',
+						index === 2 && 'top-1/3 right-1/4',
+						index === 3 && 'bottom-1/3 left-1/4'
 					)}
 				/>
 			))}

@@ -31,7 +31,7 @@ export const WhyUsSection: FC = () => {
 	return (
 		<section
 			ref={sectionRef}
-			className='relative rounded-lg m-5 py-18 px-4 sm:px-8 bg-gray-950/[2.5%] after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:inset-ring after:inset-ring-gray-950/5 dark:after:inset-ring-white/10 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/5 dark:[--pattern-fg:var(--color-white)]/10 from-neutral-950 via-gray-900 to-neutral-950 overflow-hidden'
+			className='relative rounded-lg m-5 py-10 px-4 sm:px-8 bg-gray-950/[2.5%] after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:inset-ring after:inset-ring-gray-950/5 dark:after:inset-ring-white/10 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/5 dark:[--pattern-fg:var(--color-white)]/10 from-neutral-950 via-gray-900 to-neutral-950 overflow-hidden'
 		>
 			{/* Декоративные элементы */}
 			<div className='absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-neutral-950 dark:via-sky-600 to-transparent animate-pulse'></div>
@@ -42,7 +42,7 @@ export const WhyUsSection: FC = () => {
 
 			{/* Контент секции */}
 			<div className='container relative z-10 flex flex-col items-center justify-center lg:flex-row gap-5 min-h-[70dvh]'>
-				<div className='text-center flex flex-col items-center justify-center font-mono'>
+				<div className='text-center flex flex-col items-center justify-center font-mono gap-2 lg:gap-10'>
 					<span
 						ref={sloganRef}
 						className='relative text-neutral-950 dark:text-sky-400 text-lg tracking-widest'

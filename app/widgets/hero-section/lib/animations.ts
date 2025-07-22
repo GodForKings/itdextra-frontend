@@ -8,11 +8,11 @@ import type { animateHeroRefs } from './types'
 export const animateHero = async (
 	refs: animateHeroRefs
 ): Promise<() => void> => {
-	const { heroRef, titleRef, subtitleRef, ctaRef, trustRef } = refs
+	const { heroRef, nameRef, titleRef, subtitleRef, ctaRef, trustRef } = refs
 
 	const { gsap } = await import('gsap')
 
-	const heroTl = gsap.timeline({ defaults: { ease: 'power4.out' } })
+	const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
 	// Фоновая сетка
 	heroRef.current &&
@@ -22,10 +22,16 @@ export const animateHero = async (
 	titleRef.current &&
 		heroTl.fromTo(
 			titleRef.current,
-			{ y: -100, opacity: 0 },
-			{ y: 0, opacity: 1, duration: 0.8 },
+			{ opacity: 0, scale: 0.1 },
+			{ opacity: 1, scale: 1, duration: 1 },
 			'-=0.5'
 		)
+
+	//Название фирмы
+	nameRef.current.length &&
+		nameRef.current.forEach(letter => {
+			heroTl.fromTo(letter, { opacity: 0 }, { opacity: 1, duration: 0.1 })
+		})
 
 	// Подзаголовок
 	subtitleRef.current &&
@@ -40,7 +46,7 @@ export const animateHero = async (
 	ctaRef.current &&
 		heroTl.fromTo(
 			ctaRef.current,
-			{ scale: 0.9, opacity: 0, x: -100, filter: 'blur(1px)' },
+			{ scale: 0.9, opacity: 0, x: -50, filter: 'blur(1px)' },
 			{ scale: 1, opacity: 1, x: 0, filter: 'blur(0)', duration: 0.6 },
 			'-=0.2'
 		)

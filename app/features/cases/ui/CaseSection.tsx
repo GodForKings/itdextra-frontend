@@ -101,7 +101,7 @@ export const CaseSection = () => {
 										className={cn(
 											'px-3 py-2 rounded-full text-xs font-mono text-neutral-950 dark:text-slate-200',
 											index % 2
-												? 'bg-sky-700 dark:bg-neutral-950/90'
+												? 'bg-sky-500 dark:bg-neutral-950/90'
 												: 'bg-neutral-900/50 dark:bg-sky-700/80'
 										)}
 									>

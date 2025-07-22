@@ -13,6 +13,7 @@ export const HeroSection: FC = () => {
 
 	// Рефы для анимаций
 	const heroRef = useRef<HTMLDivElement>(null)
+	const nameRef = useRef<(HTMLSpanElement | null)[]>([])
 	const titleRef = useRef<HTMLHeadingElement>(null)
 	const subtitleRef = useRef<HTMLParagraphElement>(null)
 	const ctaRef = useRef<HTMLDivElement>(null)
@@ -26,6 +27,7 @@ export const HeroSection: FC = () => {
 
 		animateHero({
 			heroRef,
+			nameRef,
 			titleRef,
 			subtitleRef,
 			ctaRef,
@@ -42,8 +44,24 @@ export const HeroSection: FC = () => {
 		>
 			<div className='container mx-auto px-4 py-24 md:py-32 lg:py-40 max-w-4xl text-center flex flex-col justify-center items-center gap-12'>
 				{/* Заголовок */}
-				<h1 ref={titleRef} className='text-4xl md:text-6xl mb-6'>
-					<span className='text-transparent bg-clip-text bg-gradient-to-r from-sky-800 to-neutral-950 dark:from-white dark:to-sky-700'>
+				<h1 ref={titleRef} className='text-4xl md:text-6xl'>
+					{hero.name.map((letter, index) => (
+						<span
+							ref={(element: HTMLSpanElement | null) => {
+								if (element) nameRef.current[index] = element
+							}}
+							key={letter + index}
+							className={cn(
+								index < 3
+									? 'text-sky-500'
+									: 'text-neutral-950 dark:text-slate-200'
+							)}
+						>
+							{letter}
+						</span>
+					))}
+
+					<span className='text-transparent bg-clip-text bg-gradient-to-br from-sky-800 to-neutral-950 dark:from-white dark:to-sky-700'>
 						{hero.slogan}
 					</span>
 				</h1>

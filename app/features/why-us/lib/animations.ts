@@ -1,5 +1,10 @@
 import type { SectionAnimationRefs } from './types'
 
+/**
+ * Функция анимации секции
+ * @param refs Объект с рефами элементов
+ * @returns Функция для очистки анимации
+ */
 export const animateSection = async (
 	refs: SectionAnimationRefs
 ): Promise<(() => void) | undefined> => {
@@ -22,7 +27,7 @@ export const animateSection = async (
 	const whyMainTl = gsap.timeline({
 		scrollTrigger: {
 			trigger: sectionRef.current,
-			start: 'top 40%',
+			start: 'top 80%',
 			toggleActions: 'play none none none',
 		},
 		defaults: { ease: 'back.out' },
@@ -48,15 +53,16 @@ export const animateSection = async (
 	)
 
 	// Анимация Плюсов
-	plusesRef.current.forEach((plus, index) => {
+	plusesRef.current.forEach(plus => {
 		if (!plus) return
+
 		whyMainTl.fromTo(
 			plus,
 			{
 				x: 70,
 				opacity: 0,
 			},
-			{ x: 0, opacity: 1, ease: 'sine.out' }
+			{ x: 0, opacity: 1, ease: 'power3.out' }
 		)
 	})
 
