@@ -1,23 +1,8 @@
 @import 'tailwindcss';
 
-html,
-body {
-	background-color: #ffffff; /* bg-white */
-	color: #111827; /* text-gray-900 (примерно) */
-	transition: background-color 0.3s ease, color 0.3s ease;
-}
+@custom-variant dark (&:where(.dark, .dark *)); /* для работы через класс dark */
 
-/* Темная тема через системные настройки */
-@media (prefers-color-scheme: dark) {
-	html,
-	body {
-		background-color: #030712; /* bg-gray-950 */
-		color: #f9fafb; /* text-gray-50 */
-		color-scheme: dark;
-	}
-}
-
-/* Темная тема через класс (если используется JS-переключение) */
+/* Темная тема через класс */
 .dark html,
 .dark body {
 	background-color: #030712; /* bg-gray-950 */

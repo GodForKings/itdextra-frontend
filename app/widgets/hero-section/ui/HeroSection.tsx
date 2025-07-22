@@ -52,6 +52,7 @@ export const HeroSection: FC = () => {
 							}}
 							key={letter + index}
 							className={cn(
+								'',
 								index < 3
 									? 'text-sky-500'
 									: 'text-neutral-950 dark:text-slate-200'

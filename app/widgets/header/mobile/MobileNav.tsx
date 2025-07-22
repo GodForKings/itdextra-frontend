@@ -7,6 +7,7 @@ import { MenuLinks } from '../lib/MenuLinks'
 
 export const MobileNav: FC = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
+
 	const spanRefs = useRef<HTMLSpanElement[]>([])
 	const navigationRef = useRef<HTMLUListElement>(null)
 
