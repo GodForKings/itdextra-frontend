@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react'
 type Theme = 'light' | 'dark'
 
 export function useTheme() {
-	// Инициализируем тему как `null` для SSR, затем обновляем при гидратации
+	/* Инициализируем тему как `null` для SSR, затем обновляем при гидратации */
 	const [theme, setTheme] = useState<Theme | null>(null)
 
 	useEffect(() => {
-		// Этот код выполняется только на клиенте
+		/* Спецом в useEffect для клиента */
 		const savedTheme = (localStorage.getItem('theme') as Theme) || 'dark'
 		setTheme(savedTheme)
 	}, [])

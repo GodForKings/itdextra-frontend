@@ -1,9 +1,10 @@
-// components/ThemeToggle.tsx
+import type { FC } from 'react'
+
 import { useRef, useEffect, useState } from 'react'
 import gsap from 'gsap'
 import { useTheme } from '~/shared'
 
-export const ThemeToggle = () => {
+export const ThemeToggle: FC = () => {
 	const { toggleTheme, theme } = useTheme()
 
 	const [isMounted, setIsMounted] = useState(false)

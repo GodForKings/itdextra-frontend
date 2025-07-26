@@ -2,6 +2,7 @@ import type { FC } from 'react'
 
 import { useState, useRef, useCallback } from 'react'
 import { gsap } from 'gsap'
+
 import { cn } from '~/shared'
 import { MenuLinks } from '../lib/MenuLinks'
 
@@ -18,12 +19,13 @@ export const MobileNav: FC = () => {
 		if (!spanRefs.current.length || !navigationRef.current) return
 
 		const [first, two, three] = spanRefs.current
-		const tl = gsap.timeline({
+
+		const BurgerTl = gsap.timeline({
 			onStart: () => setIsOpen(prev => !prev),
 		})
 
 		if (!isOpen && spanRefs.current.length) {
-			tl.to(first, {
+			BurgerTl.to(first, {
 				position: 'absolute',
 				transform: 'rotate(45deg)',
 				duration: 0.1,
@@ -44,7 +46,7 @@ export const MobileNav: FC = () => {
 					{ x: 0, duration: 0.2, ease: 'power4.out' }
 				)
 		} else {
-			tl.to(first, {
+			BurgerTl.to(first, {
 				position: 'static',
 				transform: 'rotate(0deg)',
 				duration: 0.1,

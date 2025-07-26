@@ -52,7 +52,6 @@ export const HeroSection: FC = () => {
 							}}
 							key={letter + index}
 							className={cn(
-								'',
 								index < 3
 									? 'text-sky-500'
 									: 'text-neutral-950 dark:text-slate-200'
@@ -62,7 +61,7 @@ export const HeroSection: FC = () => {
 						</span>
 					))}
 
-					<span className='text-transparent bg-clip-text bg-gradient-to-br from-sky-800 to-neutral-950 dark:from-white dark:to-sky-700'>
+					<span className='text-transparent bg-clip-text bg-gradient-to-br from-sky-600 to-neutral-950 dark:from-white dark:to-sky-700'>
 						{hero.slogan}
 					</span>
 				</h1>

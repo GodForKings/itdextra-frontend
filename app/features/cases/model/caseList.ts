@@ -22,7 +22,7 @@ const INITIAL_CASES: CaseList<CaseItem> = {
 			description:
 				'Дашборды с real-time аналитикой 20+ метрик. Снизили время принятия решений на 60% и исключили утечки данных.',
 			tags: ['Enterprise SaaS', 'Data Visualization', 'Security'],
-			image: CASE_IMGS.coffee,
+			image: CASE_IMGS.oilCorporation,
 			link: '/cases/oil-portal',
 		},
 		{
@@ -31,7 +31,7 @@ const INITIAL_CASES: CaseList<CaseItem> = {
 			description:
 				'С идеи до полноценной реализации. Интуитивный интерфейс для DeFi-операций с 50K+ активных пользователей в первый месяц.',
 			tags: ['Fintech Innovation', 'Mobile-First', 'Blockchain'],
-			image: CASE_IMGS.luxeCars,
+			image: CASE_IMGS.deFi,
 			link: '/cases/fintech-app',
 		},
 		{
@@ -41,7 +41,7 @@ const INITIAL_CASES: CaseList<CaseItem> = {
 				'Новый UX увеличил частоту заказов на 130%. Внедрили gamification-механики и бесшовные платежи через NFC.',
 			tags: ['Techno', 'React', 'UX Overhaul'],
 			image: CASE_IMGS.coffee,
-			link: '/cases/fintech-app',
+			link: '/cases/coffee',
 		},
 	],
 }

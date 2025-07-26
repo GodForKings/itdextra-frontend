@@ -1,20 +1,21 @@
 import type { FC } from 'react'
+
 import { cn } from '~/shared'
 
-interface LinkProps {
+interface CustomLinkProps {
 	children: React.ReactNode
 	currentLink: string
 	styles?: string
 }
 
-export const Link: FC<LinkProps> = props => {
+export const CustomLink: FC<CustomLinkProps> = props => {
 	const { children, currentLink, styles } = props
 
 	return (
 		<a
 			href={currentLink}
 			className={cn(
-				'group relative px-1.5 text-sm/6 text-sky-800 dark:text-sky-300',
+				'group relative px-1.5 text-sm/6 text-sky-800 dark:text-sky-300 text-center',
 				styles
 			)}
 		>

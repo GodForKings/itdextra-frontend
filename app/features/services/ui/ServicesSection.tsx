@@ -32,8 +32,7 @@ export const ServicesSection = () => {
 		if (!card) return
 
 		gsap.to(card, {
-			scale: isActive ? 1.05 : 1,
-			boxShadow: isActive ? '0 20px 40px rgba(59, 130, 246, 0.2)' : 'none',
+			boxShadow: isActive ? '0 20px 40px rgba(65, 130, 246, 0.2)' : 'none',
 			duration: 0.25,
 			ease: 'back.out',
 		})
@@ -43,7 +42,7 @@ export const ServicesSection = () => {
 		<section
 			ref={sectionRef}
 			className={cn(
-				'relative m-5 py-18 px-4 sm:px-8 overflow-hidden rounded-lg min-h-[80dvh] flex flex-col justify-evenly items-center gap-12',
+				'relative m-5 py-18 px-4 sm:px-8 overflow-hidden rounded-lg min-h-[80dvh] flex flex-col justify-evenly items-center gap-12 border',
 				DASHED_BACKGROUND
 			)}
 		>
@@ -55,7 +54,7 @@ export const ServicesSection = () => {
 						'absolute rounded-full opacity-80 pointer-events-none blur-lg animate-pulse',
 						index % 2 === 0
 							? 'bg-gradient-to-br from-sky-600/30 to-transparent w-100 h-100'
-							: 'bg-gradient-to-l from-sky-500/40 to-transparent w-80 h-80',
+							: 'bg-gradient-to-l from-sky-500/20 to-transparent w-80 h-80',
 						index === 0 && 'top-1/4 left-10',
 						index === 1 && 'bottom-1/4 right-20',
 						index === 2 && 'top-1/3 right-1/4',
@@ -73,7 +72,7 @@ export const ServicesSection = () => {
 
 			{/* Карточки */}
 			<div className='container mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-12'>
-				{service.services.map((service, index) => (
+				{service.services.map((service, index: number) => (
 					<div
 						key={service.id}
 						ref={(el: HTMLDivElement | null) => {
@@ -81,9 +80,9 @@ export const ServicesSection = () => {
 						}}
 						className={cn(
 							'relative p-8 rounded-lg backdrop-blur-lg flex flex-col items-start justify-center gap-4 font-mono',
-							'bg-white/5 border border-sky-400/80 dark:border-white/10',
+							'bg-slate-100/30 dark:bg-neutral-900/30 border border-sky-400/80 dark:border-neutral-950',
 							'transition-all duration-300 opacity-100',
-							'hover:border-cyan-500/90 hover:bg-white/10',
+							'hover:border-black/90 hover:bg-white/10 active:border-cyan-500/90 active:bg-transparent dark:active:bg-white/10',
 							'focus:outline-none focus:ring-2 focus:ring-blue-600/50'
 						)}
 						onMouseEnter={() => handleCardInteraction(index, true)}
@@ -93,7 +92,7 @@ export const ServicesSection = () => {
 						tabIndex={0}
 					>
 						{/* Иконка */}
-						<div className='text-6xl'>{service.icon}</div>
+						{service.icon}
 
 						{/* Заголовок */}
 						<h3 className='text-3xl text-neutral-950/80 dark:text-sky-400'>
@@ -114,11 +113,6 @@ export const ServicesSection = () => {
 						>
 							Подробнее
 						</Button>
-
-						{/* Скрытый эффект */}
-						<div className='absolute inset-0 -z-10 opacity-0 hover:opacity-100 transition-opacity'>
-							<div className='absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,0,0,0)_0%,_rgba(165,243,252,0.1)_100%)]' />
-						</div>
 					</div>
 				))}
 			</div>
