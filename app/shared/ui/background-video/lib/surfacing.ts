@@ -1,0 +1,36 @@
+/**
+ * Анимация для верхнего дива у секции
+ * @param overlayRef принимает div для анимации
+ * @returns
+ */
+export const surfacingVideo = async (
+	overlayRef: React.RefObject<HTMLDivElement | null>
+): Promise<(() => gsap.core.Timeline) | undefined> => {
+	const { gsap } = await import('gsap')
+
+	const overlay = overlayRef.current
+	if (!overlay) return
+
+	const videoTl = gsap.timeline({ defaults: { ease: 'power3' } })
+
+	videoTl.fromTo(
+		overlay,
+		{ opacity: 1 },
+		{
+			backdropFilter: 'blur(0px)',
+			opacity: 0,
+			duration: 1.5,
+		}
+	)
+
+	videoTl.to(
+		overlay,
+		{
+			clipPath: 'polygon(0% 0%, 50% 0%, 50% 50%, 0% 50%)',
+			duration: 0.8,
+		},
+		0.2
+	) // Начинаем через 0.3s от старта
+
+	return () => videoTl.kill()
+}

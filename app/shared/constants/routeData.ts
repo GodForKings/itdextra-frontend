@@ -4,19 +4,19 @@ export const ROUTES_DATA = {
 		name: 'Главная',
 	},
 	services: {
-		path: 'services',
+		path: '/services',
 		name: 'Услуги',
 	},
 	cases: {
-		path: 'cases',
+		path: '/cases',
 		name: 'Кейсы',
 	},
 	about: {
-		path: 'about',
+		path: '/about',
 		name: 'О нас',
 	},
 	contacts: {
-		path: 'contacts',
+		path: '/contacts',
 		name: 'Контакты',
 	},
 } as const

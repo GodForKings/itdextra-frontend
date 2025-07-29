@@ -21,6 +21,7 @@ export const MobileNav: FC = () => {
 		const [first, two, three] = spanRefs.current
 
 		const BurgerTl = gsap.timeline({
+			defaults: { ease: 'power4' },
 			onStart: () => setIsOpen(prev => !prev),
 		})
 
@@ -29,35 +30,27 @@ export const MobileNav: FC = () => {
 				position: 'absolute',
 				transform: 'rotate(45deg)',
 				duration: 0.1,
-				ease: 'power4',
 				top: '39%',
 			})
-				.to(two, { scale: 0, duration: 0.1, ease: 'power4' })
+				.to(two, { scale: 0, duration: 0.1 })
 				.to(three, {
 					position: 'absolute',
 					transform: 'rotate(-45deg)',
 					top: '39%',
 					duration: 0.1,
-					ease: 'power4',
 				})
-				.fromTo(
-					navigationRef.current,
-					{ x: '-100vw' },
-					{ x: 0, duration: 0.2, ease: 'power4.out' }
-				)
+				.fromTo(navigationRef.current, { x: '-100vw' }, { x: 0, duration: 0.2 })
 		} else {
 			BurgerTl.to(first, {
 				position: 'static',
 				transform: 'rotate(0deg)',
 				duration: 0.1,
-				ease: 'power4',
 			})
-				.to(two, { scale: 1, duration: 0.1, ease: 'power4' })
+				.to(two, { scale: 1, duration: 0.1 })
 				.to(three, {
 					position: 'static',
 					transform: 'rotate(0deg)',
 					duration: 0.1,
-					ease: 'power4',
 				})
 		}
 	}, [isOpen])
@@ -100,7 +93,7 @@ export const MobileNav: FC = () => {
 				ref={navigationRef}
 				className={cn(
 					'absolute top-14 flex flex-col items-center justify-evenly gap-2',
-					'min-h-fit h-[60dvh] w-[80dvw] rounded-b-lg backdrop-blur-lg',
+					'min-h-fit h-[60dvh] w-[80dvw] rounded-b-lg backdrop-blur-3xl',
 					'min-md:hidden transition-opacity duration-300',
 					!isOpen && 'opacity-0 pointer-events-none'
 				)}

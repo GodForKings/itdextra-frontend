@@ -9,22 +9,54 @@ interface ImportMeta {
 	readonly env: ImportMetaEnv
 }
 
-//Для работы css.module in TS
+/* Для работы css.module in TS */
 declare module '*.module.css' {
-	const classes: { [key: string]: string }
+	const classes: { readonly [key: string]: string }
 	export default classes
 }
-//Для изображений
-declare module '*.jpg'
-declare module '*.jpeg'
-declare module '*.png'
-declare module '*.gif'
-declare module '*.svg'
-//Для Джейсонов
+
+/* Для изображений */
+declare module '*.jpg' {
+	const src: string
+	export default src
+}
+declare module '*.jpeg' {
+	const src: string
+	export default src
+}
+declare module '*.png' {
+	const src: string
+	export default src
+}
+declare module '*.gif' {
+	const src: string
+	export default src
+}
+declare module '*.svg' {
+	const src: string
+	export default src
+}
+
+/* JSON (типизировать напрямую) */
 declare module '*.json' {
-	const value: any
+	const value: Record<string, unknown> | unknown[]
 	export default value
 }
-//для видео
-declare module '*.mp4'
-declare module '*.webm'
+
+/* Для видео и аудио */
+declare module '*.mp4' {
+	const src: string
+	export default src
+}
+declare module '*.webm' {
+	const src: string
+	export default src
+}
+declare module '*.mov' {
+	const src: string
+	export default src
+}
+declare module '*.avi' {
+	const src: string
+	export default src
+}

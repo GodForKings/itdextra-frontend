@@ -1,11 +1,11 @@
 import type { FC } from 'react'
 
+import { BackgroundVideo } from '~/shared'
+
 export const CasesPage: FC = () => {
 	return (
-		<div>
-			Наши кейсы Истории успеха наших клиентов, демонстрирующие эффективность
-			наших решений и подходов. Портфолио Наши успешные проекты Изучите наши
-			кейсы и вдохновитесь идеями
+		<div className='relative z-1'>
+			<BackgroundVideo />
 		</div>
 	)
 }

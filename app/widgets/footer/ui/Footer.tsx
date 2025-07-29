@@ -7,7 +7,7 @@ import { ICONS, ROUTES_DATA, cn, socialIcons } from '~/shared'
 
 export const Footer: FC = () => {
 	return (
-		<footer className='bg-white dark:bg-gray-950 border-t border-black/5 dark:border-white/20'>
+		<footer className='relative z-10 bg-white dark:bg-gray-950 border-t border-black/10 dark:border-white/20'>
 			<div
 				className={cn(
 					'relative mx-[5vw] border-x border-black/5 dark:border-white/20 font-mono'
@@ -15,14 +15,14 @@ export const Footer: FC = () => {
 			>
 				{/* Верхняя часть: лого, ссылки, контакты */}
 				<div className={cn('relative grid grid-cols-1 lg:grid-cols-4')}>
-					<div className='absolute inset-0 z-1 bg-[repeating-linear-gradient(45deg,transparent_6px,transparent_12px,currentColor_12px,currentColor_13px)] opacity-20 dark:opacity-[0.05] dark:bg-[repeating-linear-gradient(45deg,transparent_6px,transparent_12px,currentColor_12px,currentColor_13px)]' />
+					<div className='absolute inset-0 -z-1 bg-[repeating-linear-gradient(45deg,transparent_6px,transparent_12px,currentColor_12px,currentColor_13px)] opacity-20 dark:opacity-[0.05] dark:bg-[repeating-linear-gradient(45deg,transparent_6px,transparent_12px,currentColor_12px,currentColor_13px)]' />
 
 					{/* Блок с лого и описанием */}
 					<Link
 						to={ROUTES_DATA.index.path}
 						className={cn(
 							'flex justify-center items-center p-10',
-							'max-lg:border-b border-black/5 dark:border-white/20'
+							'max-lg:border-b border-black/10 dark:border-white/20'
 						)}
 					>
 						<img
@@ -42,7 +42,7 @@ export const Footer: FC = () => {
 				{/* Соцсети */}
 				<div
 					className={cn(
-						'relative flex justify-center items-center gap-15 border-y border-black/5 dark:border-white/20 py-10'
+						'relative flex justify-center items-center gap-15 border-y border-black/10 dark:border-white/20 py-10'
 					)}
 				>
 					<SocialLink labelName='VK' socialLink='#'>
@@ -59,7 +59,11 @@ export const Footer: FC = () => {
 				</div>
 
 				{/* Копирайт */}
-				<div className='relative flex justify-center items-center flex-col gap-4 font-sans font-semibold text-transparent bg-clip-text bg-gradient-to-t from-sky-600 to-neutral-950 dark:from-slate-200 dark:to-sky-500'>
+				<div
+					className={cn(
+						'relative flex justify-center items-center flex-col gap-4 font-sans font-semibold text-transparent bg-clip-text bg-gradient-to-bl from-sky-600 to-neutral-950 dark:from-slate-50 dark:to-sky-400'
+					)}
+				>
 					<Link to={ROUTES_DATA.index.path}>Политика конфиденциальности</Link>
 					Copyright © 2020 - {new Date().getFullYear()} ITDextra.
 				</div>

@@ -2,9 +2,9 @@ import type { Route } from './+types/Services'
 
 import { ServicesPage } from '~/pages'
 
-export async function clientLoader({ params }: Route.ClientLoaderArgs) {}
+// export async function clientLoader({ params }: Route.ClientLoaderArgs) {}
 
-export async function action() {}
+// export async function action() {}
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -12,7 +12,7 @@ export function meta({}: Route.MetaArgs) {
 		{
 			name: 'description',
 			content:
-				'Разработка корпоративных сайтов, интернет-магазинов, форумов, лендингов и различных веб-приложений. Используем React, Node.js и современные технологии.',
+				'Разработка корпоративных сайтов, интернет-магазинов, форумов, лендингов и других веб-приложений. Используем React, Node.js, Go и современные технологии.',
 		},
 		// Open Graph
 		{ property: 'og:title', content: 'Профессиональные услуги веб-разработки' },

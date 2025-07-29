@@ -9,8 +9,8 @@ export const Navigation: FC = () => {
 		/* Нижняя навигация */
 		<div
 			className={cn(
-				'lg:border-x border-black/5 dark:border-white/20 z-5 flex flex-col justify-center py-4 px-15 gap-4',
-				'max-lg:border-b border-black/5 dark:border-white/20'
+				'lg:border-x border-black/10 dark:border-white/20 z-5 flex flex-col justify-center py-4 px-15 gap-4',
+				'max-lg:border-b border-black/10 dark:border-white/20'
 			)}
 		>
 			<h3 className={cn('text-xl text-sky-500 underline underline-offset-4')}>

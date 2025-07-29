@@ -1,5 +1,7 @@
 import type { FC } from 'react'
+
 import { NavLink } from 'react-router'
+
 import { ROUTES_DATA, cn } from '~/shared'
 
 export const MenuLinks: FC = () => {
@@ -11,7 +13,7 @@ export const MenuLinks: FC = () => {
 						to={route.path}
 						className={({ isActive }) =>
 							cn(
-								'relative text-sm/8 text-gray-950 dark:text-white',
+								'relative text-sm/8 text-gray-950 dark:text-white select-none',
 								'hover:text-sky-500 transition-colors duration-300',
 								isActive && 'text-sky-500 dark:text-sky-500 opacity-90'
 							)

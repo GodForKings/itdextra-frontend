@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 
-import { cn, DASHED_BACKGROUND } from '~/shared'
+import { cn, MASSIVE_DASHED } from '~/shared'
 
 interface DashedBackgroundProps {
 	styles?: string
@@ -9,5 +9,5 @@ interface DashedBackgroundProps {
 export const DashedBackground: FC<DashedBackgroundProps> = props => {
 	const { styles } = props
 
-	return <div className={cn(DASHED_BACKGROUND, styles)}></div>
+	return <div className={cn(MASSIVE_DASHED, styles)}></div>
 }

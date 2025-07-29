@@ -1,8 +1,15 @@
 import type { FC } from 'react'
 
+import { GRID_LINES, cn } from '~/shared'
+
 export const AboutPage: FC = () => {
 	return (
-		<div>
+		<div
+			className={cn(
+				'pt-16 px-[2dvw] min-h-[100dvh] bg-white dark:bg-gray-950',
+				GRID_LINES
+			)}
+		>
 			Наша команда — ваш надежный партнер в мире ITрешений. ITDextra это команда
 			высококвалифицированных специалистов с более чем 10 летним опытом в
 			разработке enterprise решений. Мы работаем с лидерами рынка и
