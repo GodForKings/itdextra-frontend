@@ -13,15 +13,18 @@ export const MenuLinks: FC = () => {
 						to={route.path}
 						className={({ isActive }) =>
 							cn(
-								'relative text-sm/8 text-gray-950 dark:text-white select-none',
-								'hover:text-sky-500 transition-colors duration-300',
-								isActive && 'text-sky-500 dark:text-sky-500 opacity-90'
+								'relative select-none text-sm/8 text-neutral-950 dark:text-white',
+								'hover:text-sky-500 active:text-sky-500',
+								'transition-colors duration-200',
+								'max-md:text-sky-500',
+								isActive && 'text-sky-500 dark:text-sky-500'
 							)
 						}
 					>
 						{({ isActive }) => (
 							<>
 								{route.name}
+
 								<span
 									className={cn(
 										'absolute left-0 -bottom-1 h-0.5 bg-gradient-to-r from-sky-400 to-blue-500',

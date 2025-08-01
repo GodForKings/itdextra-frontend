@@ -1,7 +1,8 @@
 import { createStore } from 'effector'
 
-import { CASE_IMGS } from '../assets'
 import type { CaseItem, CaseList } from './types'
+
+import { CASE_IMGS } from '../assets'
 
 const INITIAL_CASES: CaseList<CaseItem> = {
 	title: 'Наши кейсы',
@@ -14,7 +15,7 @@ const INITIAL_CASES: CaseList<CaseItem> = {
 				'Роскошный digital-опыт для клиентов, который увеличил конверсию бронирований на 200% и средний чек на 45%. Персонализированный подбор авто с AI-рекомендациями.',
 			tags: ['E-commerce', 'React', 'Luxury Branding'],
 			image: CASE_IMGS.luxeCars,
-			link: 'https://luxe-drive-demo-version.netlify.app',
+			link: '/cases/oil-portal',
 		},
 		{
 			id: '2',

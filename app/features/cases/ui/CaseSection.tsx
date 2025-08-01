@@ -1,3 +1,5 @@
+import type { FC } from 'react'
+
 import { useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { useUnit } from 'effector-react'
@@ -6,7 +8,7 @@ import { animateSection } from '../lib/animations'
 import { casesList } from '../model/caseList'
 import { Button, cn, ROUTES_DATA } from '~/shared'
 
-export const CaseSection = () => {
+export const CaseSection: FC = () => {
 	const cases = useUnit(casesList.stores.$cases)
 
 	const sectionRef = useRef<HTMLDivElement>(null)
@@ -32,11 +34,12 @@ export const CaseSection = () => {
 	return (
 		<section
 			ref={sectionRef}
+			aria-labelledby='section-main-cases'
 			className='relative m-5 rounded-lg border border-(--pattern-fg) py-18 px-4 sm:px-8 overflow-hidden bg-gradient-to-t from-white to-slate-100 dark:from-gray-950/[7.5%] dark:to-gray-700/10 flex flex-col items-center justify-center gap-10'
 		>
 			{/* Декоративные элементы */}
 			<div className='absolute inset-0 overflow-hidden pointer-events-none'>
-				<div className='absolute top-10 left-10 w-40 h-40 rounded-full bg-blue-400/40 blur-2xl' />
+				<div className='absolute top-20 left-20 w-40 h-40 rounded-full bg-blue-400/40 blur-2xl' />
 
 				<div className='absolute bottom-20 right-20 w-60 h-60 rounded-full bg-blue-400 blur-3xl' />
 			</div>
@@ -78,7 +81,10 @@ export const CaseSection = () => {
 							<img
 								src={caseItem.image}
 								alt={caseItem.title}
-								className='w-full h-full object-cover transition-transform duration-400 group-hover:scale-110'
+								className={cn(
+									'w-full h-full object-cover object-center transition-transform duration-300',
+									'group-hover:scale-120 group-active:scale-120'
+								)}
 							/>
 
 							<div className='absolute inset-0 bg-gradient-to-t from-neutral-950/60 to-transparent' />
@@ -112,15 +118,20 @@ export const CaseSection = () => {
 						</div>
 
 						{/* Эффект при наведении */}
-						<div className='absolute inset-0 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-							<div className='absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(56,182,255,0.1)_0%,_transparent_70%)]' />
+						<div
+							className={cn(
+								'absolute inset-0 -z-10 opacity-0 transition-opacity duration-300',
+								'group-hover:opacity-100 group-active:opacity-100'
+							)}
+						>
+							<div className='absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(56,182,255,0.3)_0%,_transparent_70%)]' />
 						</div>
 					</div>
 				))}
 			</div>
 
 			{/* Призыв к действию */}
-			<div ref={buttonRef} className=''>
+			<div ref={buttonRef} className='relative'>
 				<Button
 					square={true}
 					onClick={() => navigate(ROUTES_DATA.contacts.path)}

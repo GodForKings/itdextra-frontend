@@ -30,7 +30,7 @@ export const animateSection = async (
 		{ opacity: 1, y: 0, duration: 0.8 }
 	)
 
-	// Анимация подзаголовка
+	// Подзаголовок
 	masterTL.fromTo(
 		subtitleRef.current,
 		{ opacity: 0, y: 30 },
@@ -38,7 +38,7 @@ export const animateSection = async (
 		'-=0.4'
 	)
 
-	// Анимация кнопки
+	// Кнопка(и)
 	masterTL.fromTo(
 		buttonRef.current,
 		{ opacity: 0, y: 20 },
@@ -66,9 +66,9 @@ export const animateSection = async (
 		)
 	})
 
-	// Функция для очистки (вернётся в компонент)
+	// Очистка анимаций
 	return () => {
 		masterTL.kill()
-		ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+		ScrollTrigger.getAll().forEach((trigger: ScrollTrigger) => trigger.kill())
 	}
 }

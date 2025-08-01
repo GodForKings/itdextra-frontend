@@ -3,7 +3,7 @@ import { createStore } from 'effector'
 import type { WhyUS, Pluses } from './types'
 
 const INITIAL_WHY_US: WhyUS<string, Pluses> = {
-	slogan: '// Почему клиенты выбирают ITDextra?',
+	slogan: 'root@itdextra:~# ./Почему клиенты выбирают нас?',
 	thesis: [
 		'Мы не просто разрабатываем IT-решения — мы создаем конкурентные преимущества',
 		'_',
@@ -12,7 +12,7 @@ const INITIAL_WHY_US: WhyUS<string, Pluses> = {
 		{
 			title: 'Опыт, который считают',
 			description:
-				'5+ лет на рынке, 15+ успешных проектов — от стартапов до корпораций. Знаем, как сделать технологию прибыльной',
+				'5+ лет на рынке, 15+ успешных проектов — от стартапов до корпораций. Знаем, как сделать технологию прибыльной.',
 			tech: ['AI Solutions', 'Data Science', 'Predictive Analytics'],
 		},
 		{
@@ -24,14 +24,14 @@ const INITIAL_WHY_US: WhyUS<string, Pluses> = {
 		{
 			title: 'Безопасность как культура',
 			description:
-				'Zero Trust-архитектура, регулярный аудит отказоустойчивости. Ваши секреты останутся вашими',
+				'Zero Trust-архитектура, регулярный аудит отказоустойчивости. Ваши секреты останутся вашими.',
 			tech: ['Cyber Shield', 'Code Audit', 'Optimization'],
 		},
 		{
 			title: 'Результат — быстро и без боли',
 			description:
-				'Четкие сроки в договоре. Внедряем решения на 30-50% быстрее рынка за счет собственных разработок',
-			tech: ['Rapid Launch', '99.9% Uptime', 'Seamless Migration'],
+				'Четкие сроки в договоре. Внедряем решения на 30-50% быстрее рынка за счет собственных разработок.',
+			tech: ['24/7 Tech Support', '99.9% Uptime', 'Seamless Migration'],
 		},
 	],
 }

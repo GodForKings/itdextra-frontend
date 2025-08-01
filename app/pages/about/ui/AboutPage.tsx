@@ -4,7 +4,7 @@ import { GRID_LINES, cn } from '~/shared'
 
 export const AboutPage: FC = () => {
 	return (
-		<div
+		<main
 			className={cn(
 				'pt-16 px-[2dvw] min-h-[100dvh] bg-white dark:bg-gray-950',
 				GRID_LINES
@@ -16,6 +16,6 @@ export const AboutPage: FC = () => {
 			предоставляем комплексные IT-решения, которые способствуют геометрическому
 			росту вашего бизнеса. Наши инновационные подходы и технологии помогут вам
 			достичь новых высот.
-		</div>
+		</main>
 	)
 }

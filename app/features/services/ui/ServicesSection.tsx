@@ -1,3 +1,5 @@
+import type { FC } from 'react'
+
 import { useRef, useEffect } from 'react'
 import { useUnit } from 'effector-react'
 import { gsap } from 'gsap'
@@ -7,7 +9,7 @@ import { Button, DASHED_BACKGROUND, ROUTES_DATA, cn } from '~/shared'
 import { servicesList } from '../model/servicesList'
 import { animateSection } from '../lib/animations'
 
-export const ServicesSection = () => {
+export const ServicesSection: FC = () => {
 	const service = useUnit(servicesList.stores.$services)
 
 	const sectionRef = useRef<HTMLDivElement>(null)
@@ -40,6 +42,7 @@ export const ServicesSection = () => {
 
 	return (
 		<section
+			aria-labelledby='section-main-services'
 			ref={sectionRef}
 			className={cn(
 				'relative m-5 py-18 px-4 sm:px-8 overflow-hidden rounded-lg min-h-[80dvh] flex flex-col justify-evenly items-center gap-12 border',
@@ -53,8 +56,8 @@ export const ServicesSection = () => {
 					className={cn(
 						'absolute rounded-full opacity-80 pointer-events-none blur-lg animate-pulse',
 						index % 2 === 0
-							? 'bg-gradient-to-br from-sky-600/30 to-transparent w-100 h-100'
-							: 'bg-gradient-to-l from-sky-500/20 to-transparent w-80 h-80',
+							? 'bg-gradient-to-br from-blue-600 dark:from-purple-950 to-transparent w-100 h-100'
+							: 'bg-gradient-to-l from-blue-700 dark:from-indigo-950 to-transparent w-80 h-80',
 						index === 0 && 'top-1/4 left-10',
 						index === 1 && 'bottom-1/4 right-20',
 						index === 2 && 'top-1/3 right-1/4',
@@ -71,7 +74,7 @@ export const ServicesSection = () => {
 			</h2>
 
 			{/* Карточки */}
-			<div className='container mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-12'>
+			<div className='container max-w-7xl grid grid-cols-1 lg:grid-cols-3 gap-12'>
 				{service.services.map((service, index: number) => (
 					<div
 						key={service.id}
@@ -79,11 +82,10 @@ export const ServicesSection = () => {
 							if (el) cardsRef.current[index] = el
 						}}
 						className={cn(
-							'relative p-8 rounded-lg backdrop-blur-lg flex flex-col items-start justify-center gap-4 font-mono',
-							'bg-slate-100/30 dark:bg-neutral-900/30 border border-sky-400/80 dark:border-neutral-950',
-							'transition-all duration-300 opacity-100',
-							'hover:border-black/90 hover:bg-white/10 active:border-cyan-500/90 active:bg-transparent dark:active:bg-white/10',
-							'focus:outline-none focus:ring-2 focus:ring-blue-600/50'
+							'relative p-8 rounded-lg backdrop-blur-lg flex flex-col items-start justify-center gap-5 font-mono',
+							'bg-slate-100/30 dark:bg-neutral-900/10 border border-dashed border-transparent transition-all duration-200',
+							'active:bg-transparent hover:bg-transparent',
+							'active:border-sky-500 hover:border-sky-500'
 						)}
 						onMouseEnter={() => handleCardInteraction(index, true)}
 						onMouseLeave={() => handleCardInteraction(index, false)}

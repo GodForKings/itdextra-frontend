@@ -1,5 +1,6 @@
-import { useRef, type FC, useEffect } from 'react'
+import type { FC } from 'react'
 
+import { useRef, useEffect } from 'react'
 import { useLocation } from 'react-router'
 
 import { ROUTES_DATA } from '~/shared'
@@ -11,6 +12,7 @@ export const BackgroundVideo: FC = () => {
 		[ROUTES_DATA.services.path]: VIDEO_SOURCE.neonTunnel,
 		[ROUTES_DATA.cases.path]: VIDEO_SOURCE.abstractCubes,
 	}
+
 	const { pathname } = useLocation()
 
 	const overlayRef = useRef<HTMLDivElement>(null)

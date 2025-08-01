@@ -7,58 +7,98 @@ import type { animateHeroRefs } from './types'
  */
 export const animateHero = async (
 	refs: animateHeroRefs
-): Promise<() => void> => {
+): Promise<(() => void) | undefined> => {
 	const { heroRef, nameRef, titleRef, subtitleRef, ctaRef, trustRef } = refs
+
+	if (
+		!heroRef.current ||
+		!nameRef.current ||
+		!titleRef.current ||
+		!subtitleRef.current ||
+		!ctaRef.current ||
+		!trustRef.current
+	)
+		return undefined
 
 	const { gsap } = await import('gsap')
 
 	const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
 	// Фоновая сетка
-	heroRef.current &&
-		heroTl.fromTo(heroRef.current, { opacity: 0 }, { opacity: 1, duration: 1 })
+	heroTl.fromTo(heroRef.current, { opacity: 0 }, { opacity: 1, duration: 0.7 })
 
 	// Заголовок
-	titleRef.current &&
-		heroTl.fromTo(
-			titleRef.current,
-			{ opacity: 0, scale: 0.1 },
-			{ opacity: 1, scale: 1, duration: 1 },
-			'-=0.5'
-		)
+	heroTl.fromTo(
+		titleRef.current,
+		{ opacity: 0, scale: 0.7 },
+		{ opacity: 1, scale: 1, duration: 0.7 },
+		'-=0.5'
+	)
 
-	//Название фирмы
-	nameRef.current.length &&
-		nameRef.current.forEach(letter => {
-			heroTl.fromTo(letter, { opacity: 0 }, { opacity: 1, duration: 0.1 })
-		})
+	// Эффект цифрового появления
+	nameRef.current.forEach((letter: HTMLSpanElement | null, index: number) => {
+		heroTl.fromTo(
+			letter,
+			{
+				filter: 'blur(8px)',
+				scale: 0.7 / (index + 1),
+				y: index % 2 ? index * 44 : -index * 14,
+			},
+			{
+				duration: 0.3,
+				filter: 'blur(0px)',
+				scale: 1,
+				y: 0,
+				x: 0,
+				delay: index * 0.03,
+				onStart: () => {
+					// Эффект при появлении
+					gsap.to(letter, {
+						duration: 0.1,
+						x: '+=15',
+						repeat: 3,
+						yoyo: true,
+						ease: 'sine.inOut',
+					})
+				},
+			},
+			'<0.2'
+		)
+	})
+
+	// Финальные эффекты для всего названия
+	heroTl.to(nameRef.current, {
+		duration: 1,
+		scale: 0.5,
+		yoyo: true,
+		repeat: 1,
+		ease: 'sine.inOut',
+		stagger: 0.1,
+	})
 
 	// Подзаголовок
-	subtitleRef.current &&
-		heroTl.fromTo(
-			subtitleRef.current,
-			{ x: 100, opacity: 0 },
-			{ x: 0, opacity: 1, duration: 0.8 },
-			'-=0.3'
-		)
+	heroTl.fromTo(
+		subtitleRef.current,
+		{ x: 30, opacity: 0 },
+		{ x: 0, opacity: 1, duration: 0.8 },
+		'-=2.5'
+	)
 
 	// Кнопки
-	ctaRef.current &&
-		heroTl.fromTo(
-			ctaRef.current,
-			{ scale: 0.9, opacity: 0, x: -50, filter: 'blur(1px)' },
-			{ scale: 1, opacity: 1, x: 0, filter: 'blur(0)', duration: 0.6 },
-			'-=0.2'
-		)
+	heroTl.fromTo(
+		ctaRef.current,
+		{ scale: 0.9, opacity: 0, x: -30 },
+		{ scale: 1, opacity: 1, x: 0, duration: 1 },
+		'-=1'
+	)
 
 	// Нижние индикаторы
-	trustRef.current &&
-		heroTl.fromTo(
-			trustRef.current,
-			{ opacity: 0 },
-			{ opacity: 1, duration: 1 },
-			'-=0.4'
-		)
+	heroTl.fromTo(
+		trustRef.current,
+		{ opacity: 0 },
+		{ opacity: 1, duration: 1 },
+		'-=1.4'
+	)
 
 	return () => {
 		heroTl.kill()

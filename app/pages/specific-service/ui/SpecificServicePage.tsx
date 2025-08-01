@@ -6,5 +6,5 @@ interface SpecificServiceProps {
 export const SpecificServicePage: FC<SpecificServiceProps> = props => {
 	const { serviceName } = props
 
-	return <div>Specific Service Page {serviceName}</div>
+	return <main>Specific Service Page {serviceName}</main>
 }

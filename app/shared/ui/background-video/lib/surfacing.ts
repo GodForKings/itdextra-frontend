@@ -17,7 +17,6 @@ export const surfacingVideo = async (
 		overlay,
 		{ opacity: 1 },
 		{
-			backdropFilter: 'blur(0px)',
 			opacity: 0,
 			duration: 1.5,
 		}
@@ -30,7 +29,7 @@ export const surfacingVideo = async (
 			duration: 0.8,
 		},
 		0.2
-	) // Начинаем через 0.3s от старта
+	)
 
 	return () => videoTl.kill()
 }

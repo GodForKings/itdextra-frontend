@@ -22,7 +22,7 @@ export const animateSection = async (
 	const serviceTl = gsap.timeline({
 		scrollTrigger: {
 			trigger: sectionRef.current,
-			start: 'top 70%',
+			start: 'top 30%',
 			toggleActions: 'play none none none',
 		},
 		defaults: { ease: 'power4.out' },
