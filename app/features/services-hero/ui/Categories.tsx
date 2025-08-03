@@ -42,8 +42,8 @@ export const Categories: FC = () => {
 					ref={animateRefs.title}
 					className={cn(
 						'text-4xl md:text-6xl font-thin',
-						'text-transparent bg-clip-text bg-gradient-to-l from-sky-600 to-teal-500',
-						'backdrop-blur-xl p-5 rounded-lg'
+						'text-transparent bg-clip-text bg-gradient-to-tr from-white to-teal-400',
+						'backdrop-blur-xl py-6 px-16 rounded-lg'
 					)}
 				>
 					Ключевые направления
@@ -61,10 +61,12 @@ export const Categories: FC = () => {
 							className={cn(
 								'group relative p-6 md:p-8 rounded-lg transition-all',
 								'border border-transparent',
-								'bg-gradient-to-br from-neutral-950/70 to-neutral-950/30 backdrop-blur-md',
-								'hover:backdrop-blur-md hover:border-teal-500/40',
-								'active:backdrop-blur-md active:border-teal-500/40',
-								index === 0 ? 'md:col-span-7' : 'md:col-span-5',
+								'bg-gradient-to-r from-gray-900/50 to-gray-800/60 backdrop-blur-xl',
+								'hover:backdrop-blur-md hover:border-teal-400/60',
+								'active:backdrop-blur-md active:border-teal-400/60',
+								index === 0 || index === categories.length - 1
+									? 'md:col-span-7'
+									: 'md:col-span-5',
 								'flex flex-col items-end gap-4',
 								'min-h-[200px] md:min-h-[290px]'
 							)}
@@ -75,14 +77,14 @@ export const Categories: FC = () => {
 										strokeWidth={1}
 										size={65}
 										className={cn(
-											'text-sky-600 transition-colors duration-200 p-2',
-											'group-hover:text-teal-600'
+											'text-sky-500 transition-colors duration-200 p-2',
+											'group-hover:text-teal-400'
 										)}
 									/>
 
 									<div
 										className={cn(
-											'absolute inset-0 rounded-lg bg-sky-400/10 transition-all -z-10',
+											'absolute inset-0 rounded-lg bg-sky-400/5 transition-all -z-10',
 											'group-hover:bg-sky-400/20 group-active:bg-sky-400/20'
 										)}
 									></div>
@@ -92,7 +94,7 @@ export const Categories: FC = () => {
 									<h3
 										className={cn(
 											'text-xl md:text-4xl font-thin',
-											'text-transparent bg-clip-text bg-gradient-to-l from-sky-600 to-teal-500'
+											'text-transparent bg-clip-text bg-gradient-to-tr from-white to-teal-400'
 										)}
 									>
 										{category.title}

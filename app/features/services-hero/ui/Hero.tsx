@@ -93,7 +93,7 @@ export const Hero: FC = () => {
 				styles='z-2 font-transparent text-white border-white'
 				onClick={handleCTAClick}
 			>
-				Обсудим концепцию ?
+				Получить консультацию
 			</Button>
 
 			<div

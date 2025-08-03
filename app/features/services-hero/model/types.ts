@@ -1,10 +1,19 @@
+interface CaseStudies {
+	title: string
+	result: string
+}
+
 export interface Service<T> {
 	id: string
 	title: string
 	shortDescription: string
 	fullDescription: string
-	category: 'Веб-приложения' | 'E-commerce' | 'Дизайн'
-	icon?: T
+	category: string
+	priceRange: string
+	deliveryTime: string
+	tags: string[]
+	caseStudies: CaseStudies[]
+	icon: T
 }
 
 export interface Category<T> {

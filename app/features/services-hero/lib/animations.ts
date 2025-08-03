@@ -65,7 +65,7 @@ export const animateCategory = async (
 				scrollTrigger: {
 					trigger: section,
 					start: 'top 50%',
-					toggleActions: 'play none none reset',
+					toggleActions: 'play none none none',
 				},
 			})
 			.fromTo(
