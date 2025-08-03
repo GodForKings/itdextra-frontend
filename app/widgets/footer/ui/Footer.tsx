@@ -10,12 +10,12 @@ export const Footer: FC = () => {
 		<footer className='relative z-10 bg-white dark:bg-gray-950 border-t border-black/10 dark:border-white/20'>
 			<div
 				className={cn(
-					'relative mx-[5vw] border-x border-black/5 dark:border-white/20 font-mono'
+					'relative mx-[4vw] border-x border-black/5 dark:border-white/20 font-mono'
 				)}
 			>
 				{/* Верхняя часть: лого, ссылки, контакты */}
 				<div className={cn('relative grid grid-cols-1 lg:grid-cols-4')}>
-					<div className='absolute inset-0 -z-1 bg-[repeating-linear-gradient(45deg,transparent_6px,transparent_12px,currentColor_12px,currentColor_13px)] opacity-20 dark:opacity-[0.05] dark:bg-[repeating-linear-gradient(45deg,transparent_6px,transparent_12px,currentColor_12px,currentColor_13px)]' />
+					<div className='absolute inset-0 -z-10 bg-[repeating-linear-gradient(90deg,transparent_0,currentColor_0px,currentColor_1px,transparent_1px,transparent_6px)] [mask-image:linear-gradient(to_right,transparent_0%,black_20%,black_80%,transparent_100%)] opacity-5' />
 
 					{/* Блок с лого и описанием */}
 					<Link

@@ -5,6 +5,7 @@ import { useUnit } from 'effector-react'
 import { useNavigate } from 'react-router'
 
 import type { Pluses } from '../model/types'
+
 import { DASHED_BACKGROUND, ROUTES_DATA, cn } from '~/shared'
 import { whyUsList } from '../model/whyUsList'
 import { animateSection } from '../lib/animations'

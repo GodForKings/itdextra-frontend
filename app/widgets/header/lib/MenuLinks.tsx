@@ -13,11 +13,10 @@ export const MenuLinks: FC = () => {
 						to={route.path}
 						className={({ isActive }) =>
 							cn(
-								'relative select-none text-sm/8 text-neutral-950 dark:text-white',
-								'hover:text-sky-500 active:text-sky-500',
-								'transition-colors duration-200',
-								'max-md:text-sky-500',
-								isActive && 'text-sky-500 dark:text-sky-500'
+								'relative select-none text-lg md:text-sm/8 text-inherit',
+								'transition-all duration-1000',
+								isActive &&
+									'bg-gradient-to-t from-sky-500 to-teal-500 bg-clip-text text-transparent'
 							)
 						}
 					>
@@ -25,15 +24,23 @@ export const MenuLinks: FC = () => {
 							<>
 								{route.name}
 
-								<span
-									className={cn(
-										'absolute left-0 -bottom-1 h-0.5 bg-gradient-to-r from-sky-400 to-blue-500',
-										'transition-all duration-300 ease-[cubic-bezier(0.65,0,0.35,1)]',
-										isActive
-											? 'w-full opacity-100'
-											: 'w-0 opacity-0 group-hover:w-full group-hover:opacity-60'
-									)}
-								/>
+								{[...Array(2)].map((_, index: number) => (
+									<span
+										key={index}
+										className={cn(
+											'absolute h-px bg-gradient-to-t from-indigo-800 to-teal-500',
+											'transition-all duration-500 ease-in',
+											index ? 'left-0 -bottom-1' : 'right-0 -top-px',
+											isActive
+												? 'w-full opacity-100'
+												: [
+														'w-0 opacity-0',
+														'group-hover:w-full group-hover:opacity-60',
+														'group-active:w-full group-active:opacity-60',
+												  ]
+										)}
+									/>
+								))}
 							</>
 						)}
 					</NavLink>

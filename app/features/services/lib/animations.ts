@@ -12,16 +12,19 @@ export const animateSection = async (
 	const { ScrollTrigger } = await import('gsap/ScrollTrigger')
 	gsap.registerPlugin(ScrollTrigger)
 
-	const { sectionRef, titleRef, cardsRef } = refs
+	const [sectionRef, titleRef, cardsRef] = [
+		refs?.sectionRef?.current,
+		refs?.titleRef?.current,
+		refs?.cardsRef?.current,
+	]
 
 	// Все элементы присутствуют ?
-	if (!sectionRef.current || !titleRef.current || cardsRef.current.length === 0)
-		return
+	if (!sectionRef || !titleRef || cardsRef.length === 0) return
 
 	// Главный timeline для секции и триггер
 	const serviceTl = gsap.timeline({
 		scrollTrigger: {
-			trigger: sectionRef.current,
+			trigger: sectionRef,
 			start: 'top 30%',
 			toggleActions: 'play none none none',
 		},
@@ -30,14 +33,14 @@ export const animateSection = async (
 
 	// Заголовка
 	serviceTl.fromTo(
-		titleRef.current,
-		{ opacity: 0, x: -100, filter: 'blur(4px)' },
-		{ opacity: 1, x: 0, filter: 'blur(0)', duration: 1 }
+		titleRef,
+		{ opacity: 0, scale: 0.5, filter: 'blur(4px)' },
+		{ opacity: 1, scale: 1, filter: 'blur(0)', duration: 1 }
 	)
 
 	// Карточек
 	serviceTl.fromTo(
-		cardsRef.current,
+		cardsRef && cardsRef,
 		{ opacity: 0, y: 50 },
 		{ opacity: 1, y: 0, duration: 0.6, stagger: 0.15 },
 		'-=0.3'

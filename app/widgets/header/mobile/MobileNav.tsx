@@ -21,37 +21,33 @@ export const MobileNav: FC = () => {
 		const [first, two, three] = spanRefs.current
 
 		const BurgerTl = gsap.timeline({
-			defaults: { ease: 'power4' },
+			defaults: { ease: 'power4', duration: 0.1 },
 			onStart: () => setIsOpen(prev => !prev),
 		})
 
-		if (!isOpen && spanRefs.current.length) {
-			BurgerTl.to(first, {
-				position: 'absolute',
-				transform: 'rotate(45deg)',
-				duration: 0.1,
-				top: '39%',
-			})
-				.to(two, { scale: 0, duration: 0.1 })
-				.to(three, {
-					position: 'absolute',
-					transform: 'rotate(-45deg)',
-					top: '39%',
-					duration: 0.1,
-				})
-				.fromTo(navigationRef.current, { x: '-100vw' }, { x: 0, duration: 0.2 })
-		} else {
+		if (isOpen) {
 			BurgerTl.to(first, {
 				position: 'static',
 				transform: 'rotate(0deg)',
-				duration: 0.1,
 			})
-				.to(two, { scale: 1, duration: 0.1 })
+				.to(two, { opacity: 1 })
 				.to(three, {
 					position: 'static',
 					transform: 'rotate(0deg)',
-					duration: 0.1,
 				})
+		} else {
+			BurgerTl.to(first, {
+				position: 'absolute',
+				transform: 'rotate(45deg)',
+				top: '50%',
+			})
+				.to(two, { opacity: 0 })
+				.to(three, {
+					position: 'absolute',
+					transform: 'rotate(-45deg)',
+					top: '50%',
+				})
+				.fromTo(navigationRef.current, { x: '-100vw' }, { x: 0, duration: 0.5 })
 		}
 	}, [isOpen])
 
@@ -78,7 +74,7 @@ export const MobileNav: FC = () => {
 		<>
 			<button
 				onClick={handleBurgerClick}
-				className='relative w-8 h-6 flex flex-col items-center justify-between min-md:hidden'
+				className='relative w-8 h-5 flex flex-col items-center justify-between min-md:hidden'
 			>
 				{[...Array(3)].map((_, index) => (
 					<span
@@ -92,9 +88,10 @@ export const MobileNav: FC = () => {
 			<ul
 				ref={navigationRef}
 				className={cn(
-					'absolute top-14 flex flex-col items-center justify-evenly gap-2',
-					'min-h-fit h-[60dvh] w-[80dvw] rounded-b-lg backdrop-blur-3xl',
+					'absolute top-11 left-0 flex flex-col items-center justify-evenly gap-2',
+					'min-h-fit h-[100dvh] w-[100dvw] rounded-b-lg',
 					'min-md:hidden transition-opacity duration-300',
+					'bg-gradient-to-t from-blue-200 to-slate-200 dark:from-gray-600 dark:to-gray-950',
 					!isOpen && 'opacity-0 pointer-events-none'
 				)}
 				onClick={handleMenuClick}

@@ -50,7 +50,7 @@ export const ServicesSection: FC = () => {
 			)}
 		>
 			{/* Блики */}
-			{[...Array(4)].map((_, index) => (
+			{[...Array(4)].map((_, index: number) => (
 				<div
 					key={index}
 					className={cn(

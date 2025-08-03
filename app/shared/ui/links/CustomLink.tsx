@@ -17,14 +17,14 @@ export const CustomLink: FC<CustomLinkProps> = props => {
 		<a
 			href={currentLink}
 			className={cn(
-				'group relative px-1.5 text-sm/6 text-sky-800 dark:text-sky-300 text-center',
-				'hover:text-neutral-900 dark:hover:text-sky-400 flex justify-center items-center',
+				'group relative px-1.5 text-sm/6 text-sky-400 text-center',
+				'hover:text-sky-500 flex justify-center items-center',
 				styles
 			)}
 		>
 			<span
 				className={cn(
-					'absolute inset-0 border border-dashed border-sky-300/60 bg-sky-500/15 dark:border-sky-300/30',
+					'absolute inset-0 border border-dashed border-sky-300/60 bg-sky-500/20 dark:border-sky-300/30',
 					'group-hover:bg-sky-400/10 group-active:bg-sky-400/10 transition-all duration-150'
 				)}
 			></span>
@@ -35,7 +35,7 @@ export const CustomLink: FC<CustomLinkProps> = props => {
 				width='5'
 				height='5'
 				viewBox='0 0 5 5'
-				className='absolute top-[-2px] left-[-2px] fill-sky-600 dark:fill-sky-300/50'
+				className='absolute top-[-2px] left-[-2px] fill-sky-600 dark:fill-teal-400'
 			>
 				<path d='M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z'></path>
 			</svg>
@@ -44,7 +44,7 @@ export const CustomLink: FC<CustomLinkProps> = props => {
 				width='5'
 				height='5'
 				viewBox='0 0 5 5'
-				className='absolute top-[-2px] right-[-2px] fill-sky-600 dark:fill-sky-300/50'
+				className='absolute top-[-2px] right-[-2px] fill-sky-600 dark:fill-teal-400'
 			>
 				<path d='M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z'></path>
 			</svg>
@@ -53,7 +53,7 @@ export const CustomLink: FC<CustomLinkProps> = props => {
 				width='5'
 				height='5'
 				viewBox='0 0 5 5'
-				className='absolute bottom-[-2px] left-[-2px] fill-sky-600 dark:fill-sky-300/50'
+				className='absolute bottom-[-2px] left-[-2px] fill-sky-600 dark:fill-teal-400'
 			>
 				<path d='M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z'></path>
 			</svg>
@@ -62,7 +62,7 @@ export const CustomLink: FC<CustomLinkProps> = props => {
 				width='5'
 				height='5'
 				viewBox='0 0 5 5'
-				className='absolute right-[-2px] bottom-[-2px] fill-sky-600 dark:fill-sky-300/50'
+				className='absolute right-[-2px] bottom-[-2px] fill-sky-600 dark:fill-teal-400'
 			>
 				<path d='M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z'></path>
 			</svg>
@@ -76,8 +76,8 @@ export const InsideSideLink: FC<CustomLinkProps> = props => {
 	return (
 		<Link
 			className={cn(
-				'group relative px-1.5 text-sm/6 text-sky-800 dark:text-sky-300 text-center',
-				'hover:text-neutral-900 dark:hover:text-sky-400 flex justify-center items-center',
+				'group relative px-1.5 text-sm/6 text-sky-400 text-center',
+				'hover:text-neutral-900 dark:hover:text-blue-500 flex justify-center items-center',
 				styles
 			)}
 			to={currentLink}
@@ -95,7 +95,7 @@ export const InsideSideLink: FC<CustomLinkProps> = props => {
 				width='5'
 				height='5'
 				viewBox='0 0 5 5'
-				className='absolute top-[-2px] left-[-2px] fill-sky-600 dark:fill-sky-300/50'
+				className='absolute top-[-2px] left-[-2px] fill-sky-600 dark:fill-teal-400'
 			>
 				<path d='M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z'></path>
 			</svg>
@@ -104,7 +104,7 @@ export const InsideSideLink: FC<CustomLinkProps> = props => {
 				width='5'
 				height='5'
 				viewBox='0 0 5 5'
-				className='absolute top-[-2px] right-[-2px] fill-sky-600 dark:fill-sky-300/50'
+				className='absolute top-[-2px] right-[-2px] fill-sky-600 dark:fill-teal-400'
 			>
 				<path d='M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z'></path>
 			</svg>
@@ -113,7 +113,7 @@ export const InsideSideLink: FC<CustomLinkProps> = props => {
 				width='5'
 				height='5'
 				viewBox='0 0 5 5'
-				className='absolute bottom-[-2px] left-[-2px] fill-sky-600 dark:fill-sky-300/50'
+				className='absolute bottom-[-2px] left-[-2px] fill-sky-600 dark:fill-teal-400'
 			>
 				<path d='M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z'></path>
 			</svg>
@@ -122,7 +122,7 @@ export const InsideSideLink: FC<CustomLinkProps> = props => {
 				width='5'
 				height='5'
 				viewBox='0 0 5 5'
-				className='absolute right-[-2px] bottom-[-2px] fill-sky-600 dark:fill-sky-300/50'
+				className='absolute right-[-2px] bottom-[-2px] fill-sky-600 dark:fill-teal-400'
 			>
 				<path d='M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z'></path>
 			</svg>

@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-@custom-variant dark (&:where(.dark, .dark *)); /* для работы через класс dark */
+@custom-variant dark (&:where(.dark, .dark *)); /* Для работы через класс dark */
 
 /* Темная тема через класс */
 .dark html,
@@ -10,7 +10,7 @@
 	color-scheme: dark;
 }
 
-/* Опционально: базовые стили для всего документа */
+/* Базовые стили для всего документа */
 html {
 	height: 100%;
 	line-height: 1.5;

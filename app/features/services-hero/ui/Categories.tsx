@@ -33,7 +33,7 @@ export const Categories: FC = () => {
 	return (
 		<section
 			ref={animateRefs.section}
-			className='relative py-24 container'
+			className='relative py-18 container overflow-hidden'
 			aria-labelledby='section-categories-services'
 		>
 			<div className='flex flex-col items-end justify-center gap-10'>

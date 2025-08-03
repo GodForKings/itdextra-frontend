@@ -27,14 +27,6 @@ export const animateHero = async (
 	// Фоновая сетка
 	heroTl.fromTo(heroRef.current, { opacity: 0 }, { opacity: 1, duration: 0.7 })
 
-	// Заголовок
-	heroTl.fromTo(
-		titleRef.current,
-		{ opacity: 0, scale: 0.7 },
-		{ opacity: 1, scale: 1, duration: 0.7 },
-		'-=0.5'
-	)
-
 	// Эффект цифрового появления
 	nameRef.current.forEach((letter: HTMLSpanElement | null, index: number) => {
 		heroTl.fromTo(
@@ -66,39 +58,48 @@ export const animateHero = async (
 		)
 	})
 
-	// Финальные эффекты для всего названия
-	heroTl.to(nameRef.current, {
-		duration: 1,
-		scale: 0.5,
-		yoyo: true,
-		repeat: 1,
-		ease: 'sine.inOut',
-		stagger: 0.1,
-	})
+	// Заголовок
+	heroTl
+		.fromTo(
+			titleRef.current,
+			{ opacity: 0, scale: 0.7 },
+			{ opacity: 1, scale: 1, duration: 0.7 },
+			'-=0.5'
+		)
 
-	// Подзаголовок
-	heroTl.fromTo(
-		subtitleRef.current,
-		{ x: 30, opacity: 0 },
-		{ x: 0, opacity: 1, duration: 0.8 },
-		'-=2.5'
-	)
+		// Финальные эффекты для всего названия
+		.to(nameRef.current, {
+			duration: 1,
+			scale: 0.5,
+			yoyo: true,
+			repeat: 1,
+			ease: 'sine.inOut',
+			stagger: 0.1,
+		})
 
-	// Кнопки
-	heroTl.fromTo(
-		ctaRef.current,
-		{ scale: 0.9, opacity: 0, x: -30 },
-		{ scale: 1, opacity: 1, x: 0, duration: 1 },
-		'-=1'
-	)
+		// Подзаголовок
+		.fromTo(
+			subtitleRef.current,
+			{ x: 30, opacity: 0 },
+			{ x: 0, opacity: 1, duration: 0.8 },
+			'-=2.5'
+		)
 
-	// Нижние индикаторы
-	heroTl.fromTo(
-		trustRef.current,
-		{ opacity: 0 },
-		{ opacity: 1, duration: 1 },
-		'-=1.4'
-	)
+		// Кнопки
+		.fromTo(
+			ctaRef.current,
+			{ scale: 0.9, opacity: 0, x: -30 },
+			{ scale: 1, opacity: 1, x: 0, duration: 1 },
+			'-=1'
+		)
+
+		// Нижние индикаторы
+		.fromTo(
+			trustRef.current,
+			{ opacity: 0 },
+			{ opacity: 1, duration: 1 },
+			'-=1.4'
+		)
 
 	return () => {
 		heroTl.kill()

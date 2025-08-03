@@ -6,8 +6,12 @@ import { CaseSection, ServicesSection, WhyUsSection } from '~/features'
 
 export const MainPage: FC = () => {
 	return (
-		<main className='mt-16 mx-[2dvw] my-[2dvh] rounded-xl bg-white text-sm/7 text-gray-700 dark:bg-gray-950 dark:text-gray-300'>
+		<main className='mx-[2dvw] my-[2dvh] rounded-xl bg-white text-sm/7 text-gray-700 dark:bg-gray-950 dark:text-gray-300'>
 			<HeroSection />
+
+			<Divider />
+
+			<WhyUsSection />
 
 			<Divider />
 
@@ -16,10 +20,6 @@ export const MainPage: FC = () => {
 			<Divider />
 
 			<CaseSection />
-
-			<Divider />
-
-			<WhyUsSection />
 		</main>
 	)
 }

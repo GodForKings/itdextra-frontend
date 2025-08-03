@@ -16,7 +16,7 @@ import type { Category, Service } from './types'
 const ServiceGeneralGate = createGate()
 
 /* дефолтные сервисы */
-const mockServices: Service[] = [
+const mockServices: Service<LucideIcon>[] = [
 	{
 		id: 'business-card',
 		title: 'Сайт-визитка',
@@ -141,7 +141,7 @@ const fetchCategoriesFx = createEffect(async () => {
 })
 
 /* Хранилище для услуг */
-const $services = createStore<Service[] | null>(null).on(
+const $services = createStore<Service<LucideIcon>[] | null>(null).on(
 	fetchServicesFx.doneData,
 	(_, services) => services
 )

@@ -1,10 +1,10 @@
-export interface Service {
+export interface Service<T> {
 	id: string
 	title: string
 	shortDescription: string
 	fullDescription: string
 	category: 'Веб-приложения' | 'E-commerce' | 'Дизайн'
-	icon?: string
+	icon?: T
 }
 
 export interface Category<T> {

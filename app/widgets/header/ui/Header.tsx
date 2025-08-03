@@ -1,15 +1,35 @@
-import type { FC } from 'react'
+import { useCallback, type FC } from 'react'
+
+import { useLocation } from 'react-router'
 
 import { MobileNav } from '../mobile/MobileNav'
 import { DesktopNav } from '../desktop/DesktopNav'
-import { Logo, ThemeToggle, CustomLink, CONTACTS } from '~/shared'
+import {
+	Logo,
+	ThemeToggle,
+	CustomLink,
+	CONTACTS,
+	ROUTES_DATA,
+	cn,
+} from '~/shared'
 
 export const Header: FC = () => {
 	const { Phone, NumberPhoneLink } = CONTACTS
 
+	const { pathname } = useLocation()
+
+	const bgVideo =
+		pathname === ROUTES_DATA.services.path ||
+		pathname === ROUTES_DATA.cases.path
+
 	return (
-		<nav className='fixed inset-x-0 top-0 z-30 border-b border-black/10 dark:border-white/10 bg-white dark:bg-gray-950 flex h-14 items-center justify-between gap-8 px-4 sm:px-6'>
-			<div className='flex items-center justify-between relative w-28'>
+		<nav
+			className={cn(
+				'fixed inset-0 z-30 flex h-11 md:h-14 items-center justify-between gap-4 px-4 sm:px-6 backdrop-blur-lg tracking-wider',
+				!bgVideo && 'border-b border-black/10 dark:border-white/10'
+			)}
+		>
+			<div className='relative flex items-center justify-between w-28'>
 				<Logo />
 
 				<ThemeToggle />

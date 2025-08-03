@@ -64,7 +64,7 @@ export const animateCategory = async (
 				defaults: { ease: 'power3.out' },
 				scrollTrigger: {
 					trigger: section,
-					start: 'top 30%',
+					start: 'top 50%',
 					toggleActions: 'play none none reset',
 				},
 			})
@@ -74,8 +74,8 @@ export const animateCategory = async (
 				{ opacity: 1, x: 0, duration: 0.6 }
 			)
 
-		cards.forEach((card, index) => {
-			if (card)
+		cards.forEach((card, index: number) => {
+			card &&
 				categoryTl.fromTo(
 					card,
 					{
@@ -83,12 +83,12 @@ export const animateCategory = async (
 						y: index % 2 ? '-50' : '50',
 						opacity: 0,
 					},
-					{ x: 0, y: 1, opacity: 1, duration: 0.4, stagger: 0.1 }
+					{ x: 0, y: 0, opacity: 1, duration: 0.4, stagger: 0.15 }
 				)
-		})
+		}, '-=0.6')
 
-		paragraphs.forEach((paragraph, index) => {
-			if (paragraph)
+		paragraphs.forEach(paragraph => {
+			paragraph &&
 				categoryTl.fromTo(
 					paragraph,
 					{ opacity: 0, y: -20 },
@@ -97,6 +97,7 @@ export const animateCategory = async (
 		})
 		return () => {
 			categoryTl.kill()
+			ScrollTrigger.getAll().forEach(el => el.kill())
 		}
 	}
 }

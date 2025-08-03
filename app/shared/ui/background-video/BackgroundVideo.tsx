@@ -41,7 +41,7 @@ export const BackgroundVideo: FC = () => {
 				muted
 				playsInline
 				preload='auto'
-				className='w-full h-full object-cover brightness-60'
+				className='w-full h-full object-cover brightness-50'
 				poster={videoData.poster}
 				src={videoData.mp4}
 			>

@@ -19,6 +19,12 @@ export const ServicesGeneral: FC = () => {
 
 			{/* Секция категорий */}
 			<Categories />
+
+			{/* Секция всех услуг */}
+			<AllServices />
+
+			{/* Призыв к действию */}
+			<CTA />
 		</>
 	)
 }
