@@ -183,6 +183,7 @@ export const CTA: FC = () => {
 						>
 							Ваш проект — наша страсть
 						</h3>
+
 						<button
 							onClick={handleModalClose}
 							className='absolute top-4 right-4 text-teal-400 hover:text-teal-300'
