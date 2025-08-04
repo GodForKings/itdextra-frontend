@@ -35,14 +35,14 @@ export const WhyUsSection: FC = () => {
 		<section
 			aria-labelledby='section-main-whyUs'
 			ref={sectionRef}
-			className='relative rounded-lg m-5 py-10 px-4 sm:px-8 bg-gray-950/[2.5%] after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:inset-ring after:inset-ring-gray-950/5 dark:after:inset-ring-white/10 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/10 dark:[--pattern-fg:var(--color-white)]/15 from-neutral-950 to-neutral-950 overflow-hidden'
+			className='relative rounded-lg m-5 py-10 px-4 sm:px-8 bg-gray-950/[2.5%] after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:inset-ring after:inset-ring-gray-950/5 dark:after:inset-ring-white/10 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/10 dark:[--pattern-fg:var(--color-white)]/15 overflow-hidden'
 		>
 			{/* Декоративные элементы */}
-			<div className='absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-neutral-950 dark:via-sky-600 to-transparent animate-pulse'></div>
+			<div className='absolute inset-0 w-full h-1 bg-gradient-to-r from-transparent via-neutral-950 dark:via-sky-600 to-transparent animate-pulse'></div>
 
 			<div className='absolute bottom-0 right-0 h-full w-1 bg-gradient-to-t from-transparent via-neutral-950 dark:via-sky-600 to-transparent animate-pulse'></div>
 
-			<div className='absolute top-1/5 left-40 w-48 h-48 rounded-full bg-sky-600/90 blur-3xl animate-pulse'></div>
+			<div className='absolute top-1/10 left-1/10 w-48 h-48 rounded-full bg-sky-600/90 blur-3xl animate-pulse'></div>
 
 			{/* Контент секции */}
 			<div className='container relative z-10 flex flex-col items-center justify-center lg:flex-row gap-5 min-h-[70dvh]'>

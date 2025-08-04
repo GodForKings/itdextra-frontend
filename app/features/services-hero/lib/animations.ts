@@ -1,7 +1,11 @@
-import type { AnimateHeroRefs, AnimateCategoryRefs } from './types'
+import type {
+	AnimateHeroRefs,
+	AnimateCategoryRefs,
+	AnimateServicesRefs,
+} from './types'
 
 /**
- * Анимация первой секции на странице услуг
+ * Анимация Приветственной секции на странице услуг
  * @param refs объект с рефами элементов
  */
 export const animateHeroServices = async (
@@ -41,7 +45,7 @@ export const animateHeroServices = async (
 }
 
 /**
- * Анимация секции категорий на странице услуг
+ * Анимация секции Категорий на странице услуг
  * @param refs объект с рефами элементов
  */
 export const animateCategory = async (
@@ -58,7 +62,7 @@ export const animateCategory = async (
 		refs?.paragraphs?.current,
 	]
 
-	if (title && cards.length && paragraphs.length) {
+	if (section && title && cards.length && paragraphs.length) {
 		const categoryTl = gsap
 			.timeline({
 				defaults: { ease: 'power3.out' },
@@ -97,6 +101,88 @@ export const animateCategory = async (
 		})
 		return () => {
 			categoryTl.kill()
+			ScrollTrigger.getAll().forEach(el => el.kill())
+		}
+	}
+}
+/**
+ * Анимация секции Сервисов на странице услуг
+ * @param refs объект с рефами элементов
+ * @returns
+ */
+export const animateServices = async (
+	refs: AnimateServicesRefs
+): Promise<(() => void) | undefined> => {
+	const { gsap } = await import('gsap')
+	const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+	gsap.registerPlugin(ScrollTrigger)
+
+	const [section, title, tagBlock, tags, cards] = [
+		refs?.section?.current,
+		refs?.title?.current,
+		refs?.tagBlock?.current,
+		refs?.tags?.current,
+		refs?.cards.current,
+	]
+
+	if (section && title && tagBlock && tags.length && cards.length) {
+		const servicesTl = gsap
+			.timeline({
+				defaults: { ease: 'back.in' },
+				scrollTrigger: {
+					trigger: section,
+					start: 'top 50%',
+					toggleActions: 'play none none none',
+				},
+			})
+			.fromTo(
+				title,
+				{ opacity: 0, x: '50px' },
+				{ opacity: 1, x: 0, duration: 0.8 }
+			)
+			.fromTo(
+				tagBlock,
+				{ opacity: 0, y: '-60px' },
+				{ opacity: 1, y: 1, duration: 0.4 }
+			)
+		tags.forEach(tag => {
+			if (tag)
+				servicesTl.fromTo(
+					tag,
+					{ opacity: 0 },
+					{ opacity: 1, duration: 0.15, stagger: 0.1 }
+				)
+		})
+		cards.forEach((card, index: number) => {
+			if (card) {
+				const cardTl = gsap
+					.timeline({
+						scrollTrigger: {
+							trigger: card,
+							start: 'top 75%',
+							toggleActions: 'play none none none',
+						},
+						defaults: { ease: 'elastic.in' },
+					})
+					.fromTo(
+						card,
+						{
+							x: index % 2 ? '-30' : '30',
+							y: index % 2 ? '-20' : '20',
+							opacity: 0,
+						},
+						{ x: 0, y: 0, opacity: 1, duration: 0.25, stagger: 0.05 }
+					)
+
+				return () => {
+					cardTl.kill()
+					ScrollTrigger.getAll().forEach(el => el.kill())
+				}
+			}
+		})
+
+		return () => {
+			servicesTl.kill()
 			ScrollTrigger.getAll().forEach(el => el.kill())
 		}
 	}

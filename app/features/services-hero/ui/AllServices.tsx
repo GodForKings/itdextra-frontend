@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useUnit } from 'effector-react'
 import { useNavigate } from 'react-router'
 
@@ -8,6 +8,7 @@ import { cn, MAIN_TAGS, ROUTES_DATA } from '~/shared'
 import { ServicesListModel } from '../model/index'
 
 import { ServiceCard } from './ServiceCard'
+import { animateServices } from '../lib/animations'
 
 export const AllServices: FC = () => {
 	const services = useUnit(ServicesListModel.stores.$services)
@@ -33,10 +34,17 @@ export const AllServices: FC = () => {
 		cards: useRef<(HTMLElement | null)[]>([]),
 	}
 
+	useEffect(() => {
+		/* Для работы только на клиенте */
+		if (typeof window === 'undefined') return
+
+		animateServices(animateRefs).catch(console.error)
+	}, [])
+
 	return (
 		<section
 			ref={animateRefs.section}
-			className='relative py-18 px-6 container overflow-hidden flex flex-col gap-10 items-center justify-center'
+			className='relative py-18 lg:px-4 container overflow-hidden flex flex-col gap-10 items-center justify-center'
 			aria-labelledby='services-heading'
 		>
 			{/* Заголовок */}
@@ -64,7 +72,7 @@ export const AllServices: FC = () => {
 			>
 				<button
 					className={cn(
-						'text-sm font-mono text-teal-300 bg-teal-900/30 px-4 py-2 rounded-full',
+						'text-sm text-teal-300 bg-teal-900/30 px-4 py-2 rounded-full',
 						!selectedTag && 'bg-teal-500 text-gray-900'
 					)}
 					onClick={() => setSelectedTag(null)}
@@ -79,7 +87,7 @@ export const AllServices: FC = () => {
 						}}
 						key={tag}
 						className={cn(
-							'text-sm font-mono text-teal-300 bg-teal-900/30 px-4 py-2 rounded-full',
+							'text-sm text-teal-300 bg-teal-900/25 px-4 py-2 rounded-full',
 							selectedTag === tag && 'bg-teal-500 text-gray-900',
 							'transition-all duration-300 ease-in-out',
 							'hover:bg-teal-500 hover:text-gray-900',
@@ -94,7 +102,7 @@ export const AllServices: FC = () => {
 
 			{/* Список услуг */}
 			{filteredServices?.length ? (
-				<div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center'>
 					{filteredServices.map((service, index) => (
 						<ServiceCard
 							cardRefs={animateRefs.cards}

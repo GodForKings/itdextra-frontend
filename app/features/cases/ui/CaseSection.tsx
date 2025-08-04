@@ -47,7 +47,7 @@ export const CaseSection: FC = () => {
 			{/* Заголовок секции */}
 			<div className='container mx-auto max-w-6xl text-center flex flex-col items-center justify-center gap-5'>
 				<h2 ref={titleRef} className='text-4xl md:text-6xl'>
-					<span className='text-transparent bg-clip-text bg-gradient-to-r from-neutral-950 to-sky-700 dark:from-sky-600 dark:to-white'>
+					<span className='text-transparent bg-clip-text bg-gradient-to-l from-neutral-950 to-sky-700 dark:from-sky-400 dark:to-slate-200'>
 						{cases.title}
 					</span>
 				</h2>

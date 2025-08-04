@@ -25,6 +25,7 @@ export const ServiceCard: FC<ServiceCardProps> = memo(props => {
 		deliveryTime,
 		tags,
 		caseStudies,
+		icon: Icon,
 	} = service
 
 	return (
@@ -33,10 +34,10 @@ export const ServiceCard: FC<ServiceCardProps> = memo(props => {
 				if (el) cardRefs.current[index] = el
 			}}
 			className={cn(
-				'p-8 bg-gradient-to-br from-gray-900 to-gray-800 backdrop-blur-2xl rounded-lg border-x-4 border-teal-400',
+				'p-8 bg-gradient-to-b from-gray-900 to-gray-800 backdrop-blur-2xl rounded-lg border-x-2 border-teal-400',
 				'shadow-xl shadow-teal-400/20 transition-all duration-300',
-				'hover:-translate-y-3 hover:shadow-teal-400/40 active:-translate-x-3',
-				'flex flex-col justify-between gap-3',
+				'hover:shadow-teal-400/40 active:shadow-teal-400/40',
+				'flex flex-col justify-between gap-5',
 				(index === 0 || index === 3 || index === 7) && 'lg:col-span-2'
 			)}
 			role='region'
@@ -44,50 +45,48 @@ export const ServiceCard: FC<ServiceCardProps> = memo(props => {
 		>
 			<div className='flex items-center justify-between text-sky-400/90'>
 				{/* Категория */}
-				<span className='text-sm font-mono uppercase tracking-widest bg-neutral-950/60 p-3 rounded-lg'>
+				<span className='text-sm lowercase tracking-widest bg-neutral-950/60 p-3 rounded-lg'>
 					{category}
 				</span>
 
 				{/* Иконка */}
-				<service.icon
+				<Icon
 					strokeWidth={1}
 					size={60}
-					className={cn('bg-neutral-950/60 p-1.5 rounded-xl')}
+					className={cn('bg-neutral-950/60 text-teal-400 p-1.5 rounded-xl')}
 				/>
 			</div>
 
 			{/* Заголовок */}
-			<h3 className='text-2xl font-mono font-bold text-teal-300 tracking-tight'>
-				{title}
-			</h3>
+			<h3 className='text-3xl text-teal-300 tracking-tight'>{title}</h3>
 
 			{/* Краткое описание */}
-			<p className='text-lg/normal font-mono text-sky-500'>
-				{shortDescription}
-			</p>
+			<p className='text-lg/normal text-sky-500'>{shortDescription}</p>
 
 			{/* Полное описание */}
-			<p className='text-base/snug font-mono text-teal-300'>
+			<p className='text-base/snug bg-neutral-950/60 p-4 rounded-2xl text-teal-400'>
 				{fullDescription}
 			</p>
 
 			{/* Цена и сроки */}
-			<div className='text-base font-mono text-sky-500'>
-				<p>
-					<span className='font-bold'>Цена:</span> {priceRange}
+			<div className='text-base text-sky-500 flex justify-between items-center'>
+				<p className='font-thin'>
+					Цена:
+					<span className='font-bold italic'> {priceRange}</span>
 				</p>
 
-				<p>
-					<span className='font-bold'>Сроки:</span> {deliveryTime}
+				<p className='font-thin'>
+					Сроки:
+					<span className='font-bold italic'> {deliveryTime}</span>
 				</p>
 			</div>
 
 			{/* Теги */}
-			<div className='flex flex-wrap gap-2'>
+			<div className='flex flex-wrap items-center gap-3'>
 				{tags.map((tag: string) => (
 					<span
 						key={tag}
-						className='text-xs font-mono text-teal-400 bg-teal-900/20 px-3 py-1 rounded-full hover:bg-teal-900/50 transition-colors duration-200'
+						className='text-xs tracking-wide text-teal-400 bg-teal-900/20 px-3 py-1 rounded-full transition-colors duration-200'
 					>
 						{tag}
 					</span>
@@ -97,12 +96,12 @@ export const ServiceCard: FC<ServiceCardProps> = memo(props => {
 			{/* Кейсы */}
 			{caseStudies.length > 0 && (
 				<div className='flex flex-col gap-1'>
-					<h4 className='text-sm font-bold text-sky-500'>Кейсы:</h4>
+					<h4 className='text-sm font-thin text-sky-500'>Кейсы:</h4>
 
 					<ul className='text-sm text-teal-400/80'>
 						{caseStudies.map(caseStudy => (
 							<li key={caseStudy.title}>
-								<span className='font-bold'>{caseStudy.title}:</span>{' '}
+								<span className='font-bold'>{caseStudy.title}: </span>
 								{caseStudy.result}
 							</li>
 						))}
@@ -112,7 +111,12 @@ export const ServiceCard: FC<ServiceCardProps> = memo(props => {
 
 			{/* CTA-кнопка */}
 			<button
-				className='w-full py-3 px-6 bg-teal-500 text-gray-900 font-mono font-bold rounded-lg hover:bg-teal-400 transition-colors duration-200'
+				className={cn(
+					'w-full py-3 px-6 bg-sky-500 text-gray-900 font-mono font-bold rounded-lg',
+					'transition-all duration-250 ease-in',
+					'hover:bg-sky-500/40 hover:translate-y-1',
+					'active:bg-sky-500/40 active:translate-y-1'
+				)}
 				aria-label={`Заказать услугу ${title}`}
 				onClick={handleCTAClick}
 			>

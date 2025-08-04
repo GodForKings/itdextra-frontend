@@ -5,13 +5,14 @@ import {
 	Outlet,
 	Scripts,
 	ScrollRestoration,
+	useNavigate,
 } from 'react-router'
 import type { Route } from './+types/root'
 
 import './app.css'
 
 import { Footer, Header } from '~/widgets'
-import { MainLayout } from '~/shared'
+import { MainLayout, cn } from '~/shared'
 
 export const links: Route.LinksFunction = () => [
 	{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -65,8 +66,13 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+	const navigate = useNavigate()
+	const handleToMain = () => {
+		navigate('/')
+	}
+
 	let message = 'Упс! Произошла ошибка'
-	let details = 'An unexpected error occurred.'
+	let details = 'Произошла непредвиденная ошибка.'
 	let stack: string | undefined
 
 	if (isRouteErrorResponse(error)) {
@@ -83,16 +89,33 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 			<Header />
 
 			<MainLayout>
-				<div className='rounded-xl bg-white p-5 dark:bg-gray-950 text-neutral-950 dark:text-slate-200 flex flex-col items-center justify-center text-4xl md:text-2xl font-bold'>
-					<h1>{message}</h1>
+				<div
+					className='relative min-h-[80dvh] mx-[2vw] mb-[4vh] rounded-lg bg-gradient-to-tr from-slate-200 to-sky-400/15 dark:from-gray-900 dark:to-sky-800/40 p-8 flex flex-col items-center justify-center gap-8 border border-gray-950/15 overflow-hidden'
+					role='alert'
+					aria-label='Страница ошибки'
+				>
+					<h1 className='text-transparent bg-clip-text bg-gradient-to-tr from-neutral-950/70 to-sky-500 dark:from-slate-200 dark:to-sky-500 text-3xl md:text-5xl'>
+						{message}
+					</h1>
 
-					<p className='text-xl md:text-2xl'>{details}</p>
+					<p className='text-xl md:text-4xl'>{details}</p>
 
-					{stack && (
-						<pre className='w-full p-4 overflow-x-auto'>
+					{stack && import.meta.env.DEV && (
+						<pre className='w-full p-4 overflow-x-auto text-base text-mono'>
 							<code>{stack}</code>
 						</pre>
 					)}
+
+					<button
+						onClick={handleToMain}
+						className={cn(
+							'py-3 px-6 bg-sky-500/70 text-gray-950 rounded-full transition-all duration-200 shadow-lg hover:shadow-sky-400/60 active:shadow-sky-400/60',
+							'hover:translate-y-1 active:translate-y-1'
+						)}
+						aria-label='Вернуться на главную'
+					>
+						На главную
+					</button>
 				</div>
 			</MainLayout>
 

@@ -67,7 +67,7 @@ export const ServicesSection: FC = () => {
 			))}
 
 			{/* Заголовок */}
-			<h2 ref={titleRef} className='text-5xl max-w-6xl md:text-7xl text-center'>
+			<h2 ref={titleRef} className='text-4xl max-w-6xl md:text-7xl text-center'>
 				<span className='text-transparent bg-clip-text bg-gradient-to-r from-neutral-950 to-sky-600 dark:from-sky-600 dark:to-slate-200'>
 					{service.title}
 				</span>
