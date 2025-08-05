@@ -7,68 +7,80 @@ import type { SectionAnimationRefs } from './types'
  */
 export const animateSection = async (
 	refs: SectionAnimationRefs
-): Promise<() => void> => {
-	const { sectionRef, titleRef, subtitleRef, casesRef, buttonRef } = refs
-
+): Promise<(() => void) | undefined> => {
 	const { gsap } = await import('gsap')
 	const { ScrollTrigger } = await import('gsap/ScrollTrigger')
 	gsap.registerPlugin(ScrollTrigger)
 
-	const masterTL = gsap.timeline({
-		scrollTrigger: {
-			trigger: sectionRef.current,
-			start: 'top 60%',
-			toggleActions: 'play none none none',
-		},
-		defaults: { ease: 'power4.out' },
-	})
+	const [section, title, subtitle, cases, button] = [
+		refs.sectionRef?.current,
+		refs.titleRef?.current,
+		refs.subtitleRef?.current,
+		refs.casesRef?.current,
+		refs.buttonRef?.current,
+	]
 
-	// Анимация заголовка
-	masterTL.fromTo(
-		titleRef.current,
-		{ opacity: 0, y: -150 },
-		{ opacity: 1, y: 0, duration: 0.8 }
-	)
+	if (section && title && subtitle && cases.length && button) {
+		const masterTL = gsap
+			.timeline({
+				scrollTrigger: {
+					trigger: section,
+					start: 'top 60%',
+					toggleActions: 'play none none none',
+				},
+				defaults: { ease: 'power4.out' },
+			})
+			// Анимация заголовка
+			.fromTo(
+				title,
+				{ opacity: 0, y: -150 },
+				{ opacity: 1, y: 0, duration: 0.8 }
+			)
+			// Подзаголовок
+			.fromTo(
+				subtitle,
+				{ opacity: 0, y: 30 },
+				{ opacity: 1, y: 0, duration: 0.6 },
+				'-=0.4'
+			)
+			// Кнопка(и)
+			.fromTo(
+				button,
+				{ opacity: 0, y: 20 },
+				{ opacity: 1, y: 0, duration: 0.6 },
+				'+=1.5'
+			)
 
-	// Подзаголовок
-	masterTL.fromTo(
-		subtitleRef.current,
-		{ opacity: 0, y: 30 },
-		{ opacity: 1, y: 0, duration: 0.6 },
-		'-=0.4'
-	)
+		// Анимация кейсов
+		cases.forEach((caseEl, index) => {
+			if (!caseEl) return
 
-	// Кнопка(и)
-	masterTL.fromTo(
-		buttonRef.current,
-		{ opacity: 0, y: 20 },
-		{ opacity: 1, y: 0, duration: 0.6 },
-		'+=1.5'
-	)
+			const caseTL = gsap
+				.timeline({
+					scrollTrigger: {
+						trigger: caseEl,
+						start: 'top 70%',
+						toggleActions: 'play none none none',
+					},
+					defaults: { ease: 'back.out' },
+				})
 
-	// Анимация кейсов
-	casesRef.current?.forEach((caseEl, index) => {
-		if (!caseEl) return
+				.fromTo(
+					caseEl,
+					{ opacity: 0, x: index % 2 ? 50 : -50, filter: 'blur(5px)' },
+					{ opacity: 1, x: 0, filter: 'blur(0)', duration: 0.5 }
+				)
 
-		const caseTL = gsap.timeline({
-			scrollTrigger: {
-				trigger: caseEl,
-				start: 'top 70%',
-				toggleActions: 'play none none none',
-			},
-			defaults: { ease: 'power1.out' },
+			return () => {
+				caseTL.kill()
+				ScrollTrigger.getAll().forEach(el => el.kill())
+			}
 		})
 
-		caseTL.fromTo(
-			caseEl,
-			{ opacity: 0, x: index % 2 ? 50 : -50, filter: 'blur(5px)' },
-			{ opacity: 1, x: 0, filter: 'blur(0)', duration: 0.5 }
-		)
-	})
-
-	// Очистка анимаций
-	return () => {
-		masterTL.kill()
-		ScrollTrigger.getAll().forEach((trigger: ScrollTrigger) => trigger.kill())
-	}
+		// Очистка анимаций
+		return () => {
+			masterTL.kill()
+			ScrollTrigger.getAll().forEach((trigger: ScrollTrigger) => trigger.kill())
+		}
+	} else return
 }

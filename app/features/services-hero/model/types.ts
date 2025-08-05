@@ -20,6 +20,7 @@ export interface Category<T> {
 	title: string
 	description: string
 	icon: T
+	benefits: string[]
 }
 
 export interface HeroData {

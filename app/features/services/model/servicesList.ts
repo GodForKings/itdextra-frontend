@@ -5,28 +5,28 @@ import type { ServicesList, Services } from './types'
 import { icons } from '../ui/Icons'
 
 const INITIAL_SERVICES: ServicesList<Services> = {
-	title: 'Экспертные направления в веб-разработке',
+	title: 'Технологии, которые увеличивают прибыль бизнеса',
 	services: [
 		{
-			id: 'e-commerce',
-			title: 'E-commerce',
+			id: 'e-commerce-ai',
+			title: 'SEO для E-commerce',
 			description:
-				'Масштабируемые торговые платформы. Решения для 200% роста онлайн продаж.',
+				'Автоматизированная SEO-оптимизация интернет-магазинов: от семантического ядра до динамического контента. Рост органического трафика на 65% за 4 месяца.',
 			icon: icons.ecommerce,
 		},
 		{
-			id: 'websites',
-			title: 'Web-приложения',
+			id: 'web-apps',
+			title: 'Высоконагруженные Web-приложения',
 			description:
-				'Комплексные бизнес системы. Создание уникальных решений для вашего бренда.',
+				'Системы, которые выдерживают 1M+ пользователей. Оптимизированная архитектура под ваш трафик.',
 			icon: icons.web,
 		},
 		{
-			id: 'design',
-			title: 'Design',
+			id: 'ai-integrations',
+			title: 'AI & Automation',
 			description:
-				'UX и UI, который увеличивает конверсию и удовлетворенность.',
-			icon: icons.design,
+				'Внедрение ИИ в бизнес-процессы: анализ данных, автоматизация рутины, предиктивная аналитика.',
+			icon: icons.ai,
 		},
 	],
 }

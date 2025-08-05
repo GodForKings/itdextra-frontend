@@ -14,7 +14,7 @@ const mockHeroData: HeroData = {
 	thesis: 'DIGITAL EXPERIENCE',
 	slogan: [
 		'Эксклюзивные',
-		' веб-решения для лидеров рынка. ',
+		' IT-решения для лидеров рынка. ',
 		'Никаких шаблонов — только ',
 		'индивидуальная разработка и безупречное качество.',
 	],
@@ -46,7 +46,7 @@ export const Hero: FC = () => {
 			ref={animateRefs.sectionRef}
 			aria-labelledby='section-heading-services'
 			className={cn(
-				'relative min-h-[80dvh] overflow-hidden flex flex-col items-center justify-center gap-12 backdrop-blur-xl rounded-lg select-none my-5 py-5 container font-light'
+				'relative min-h-[80dvh] overflow-hidden flex flex-col items-center justify-center gap-12 backdrop-blur-xl rounded-lg select-none my-10 py-5 container font-light'
 			)}
 		>
 			{/* Фоновые линии */}

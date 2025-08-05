@@ -16,7 +16,7 @@ export const Button: FC<ButtonProps> = props => {
 		<button
 			onClick={onClick}
 			className={cn(
-				'font-mono transition-all duration-300 px-6 py-3 max-w-3xl flex items-center justify-center tracking-wider',
+				'font-mono transition-all duration-300 px-6 py-3 max-w-3xl flex items-center justify-center tracking-wider select-none',
 				'active:translate-y-0.5 hover:translate-y-0.5',
 				square
 					? [

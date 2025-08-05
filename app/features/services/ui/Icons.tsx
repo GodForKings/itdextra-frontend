@@ -1,4 +1,4 @@
-import { Code, Paintbrush, ShoppingCart } from 'lucide-react'
+import { Code, BrainCircuit, ShoppingCart } from 'lucide-react'
 import { cn } from '~/shared'
 
 const iconStyle: string = cn(
@@ -13,21 +13,21 @@ const bgIconStyle: string = cn(
 export const icons = {
 	ecommerce: (
 		<div className='group relative'>
-			<ShoppingCart className={iconStyle} strokeWidth={1.5} />
+			<ShoppingCart className={iconStyle} strokeWidth={1.25} />
 			{/* Анимированное свечение */}
 			<div className={bgIconStyle} />
 		</div>
 	),
 	web: (
 		<div className='group relative'>
-			<Code className={iconStyle} strokeWidth={1.5} />
+			<Code className={iconStyle} strokeWidth={1.25} />
 			{/* Анимированное свечение */}
 			<div className={bgIconStyle} />
 		</div>
 	),
-	design: (
+	ai: (
 		<div className='group relative'>
-			<Paintbrush className={iconStyle} strokeWidth={1.5} />
+			<BrainCircuit className={iconStyle} strokeWidth={1.25} />
 			{/* Анимированное свечение */}
 			<div className={bgIconStyle} />
 		</div>
