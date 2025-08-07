@@ -2,6 +2,7 @@ import type {
 	AnimateHeroRefs,
 	AnimateCategoryRefs,
 	AnimateServicesRefs,
+	AnimateCTARefs,
 } from './types'
 
 /**
@@ -153,36 +154,58 @@ export const animateServices = async (
 					{ opacity: 1, duration: 0.15, stagger: 0.1 }
 				)
 		})
-		cards.forEach((card, index: number) => {
-			if (card) {
-				const cardTl = gsap
-					.timeline({
-						scrollTrigger: {
-							trigger: card,
-							start: 'top 75%',
-							toggleActions: 'play none none none',
-						},
-						defaults: { ease: 'elastic.in' },
-					})
-					.fromTo(
-						card,
-						{
-							x: index % 2 ? '-30' : '30',
-							y: index % 2 ? '-20' : '20',
-							opacity: 0,
-						},
-						{ x: 0, y: 0, opacity: 1, duration: 0.25, stagger: 0.05 }
-					)
-
-				return () => {
-					cardTl.kill()
-					ScrollTrigger.getAll().forEach(el => el.kill())
-				}
-			}
-		})
+		servicesTl.fromTo(
+			cards,
+			{
+				scale: 0.95,
+				y: '40',
+				opacity: 0,
+			},
+			{ scale: 1, y: 0, opacity: 1, duration: 0.4, stagger: 0.25 }
+		)
 
 		return () => {
 			servicesTl.kill()
+			ScrollTrigger.getAll().forEach(el => el.kill())
+		}
+	}
+}
+
+/**
+ * Анимация секции CTA на странице услуг
+ * @param refs объект с рефами элементов
+ * @returns
+ */
+export const animateCTA = async (
+	refs: AnimateCTARefs
+): Promise<(() => void) | undefined> => {
+	const { gsap } = await import('gsap')
+	const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+	gsap.registerPlugin(ScrollTrigger)
+
+	const [section, content, title, text] = [
+		refs.section?.current,
+		refs.contentRef?.current,
+		refs.titleRef?.current,
+		refs.textRef?.current,
+	]
+
+	if (section && title && text) {
+		const CTATl = gsap
+			.timeline({
+				defaults: { ease: 'back.in' },
+				scrollTrigger: {
+					trigger: section,
+					start: 'top 60%',
+					toggleActions: 'play none none none',
+				},
+			})
+			.fromTo(content, { opacity: 0, y: 40 }, { opacity: 1, y: 0 })
+			.fromTo(title, { opacity: 0, y: 40 }, { opacity: 1, y: 0 })
+			.fromTo(text, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1 })
+
+		return () => {
+			CTATl.kill()
 			ScrollTrigger.getAll().forEach(el => el.kill())
 		}
 	}

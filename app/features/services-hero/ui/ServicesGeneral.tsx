@@ -6,7 +6,6 @@ import { Hero } from './Hero'
 import { Categories } from './Categories'
 import { AllServices } from './AllServices'
 import { CTA } from './CTA'
-
 import { ServicesListModel } from '../model'
 
 export const ServicesGeneral: FC = () => {

@@ -3,6 +3,7 @@ import type { FC } from 'react'
 import { useEffect, useRef } from 'react'
 import { useUnit } from 'effector-react'
 import { useNavigate } from 'react-router'
+import { ArrowRightToLine } from 'lucide-react'
 
 import { cn, Button } from '~/shared'
 import { heroSectionModel } from '../model/heroSection'
@@ -65,10 +66,14 @@ export const HeroSection: FC = () => {
 						))}
 					</h1>
 
-					<h2 ref={titleRef} className='text-4xl md:text-6xl'>
-						<span className='text-transparent bg-clip-text bg-gradient-to-l from-sky-500 to-neutral-950 dark:from-sky-500 dark:to-sky-50'>
-							{hero.slogan}
-						</span>
+					<h2
+						ref={titleRef}
+						className={cn(
+							'text-4xl md:text-6xl',
+							'text-transparent bg-clip-text bg-gradient-to-l from-sky-500 to-neutral-950 dark:from-sky-500 dark:to-sky-50'
+						)}
+					>
+						{hero.slogan}
 					</h2>
 				</article>
 
@@ -85,8 +90,13 @@ export const HeroSection: FC = () => {
 						Обсудить проект
 					</Button>
 
-					<Button square={true} onClick={() => navigate('/cases')}>
+					<Button
+						square={true}
+						onClick={() => navigate('/cases')}
+						styles='gap-2'
+					>
 						Посмотреть кейсы
+						<ArrowRightToLine strokeWidth={1} size={20} />
 					</Button>
 				</div>
 

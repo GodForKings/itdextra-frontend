@@ -13,6 +13,7 @@ import './app.css'
 
 import { Footer, Header } from '~/widgets'
 import { MainLayout, cn } from '~/shared'
+import { Modal } from './widgets/modal'
 
 export const links: Route.LinksFunction = () => [
 	{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -61,6 +62,7 @@ export default function App() {
 			</MainLayout>
 
 			<Footer />
+			<Modal />
 		</>
 	)
 }

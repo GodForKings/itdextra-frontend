@@ -17,7 +17,6 @@ export const CaseCard: FC<CaseCardProps> = props => {
 	return (
 		<article
 			aria-labelledby='card-cases'
-			key={id}
 			ref={(el: HTMLDivElement | null) => {
 				if (el) casesRef.current[index] = el
 			}}

@@ -3,6 +3,7 @@ import type { FC } from 'react'
 import type { Services } from '../model/types'
 
 import { gsap } from 'gsap'
+import { SquareArrowOutUpRight } from 'lucide-react'
 import { Button, cn } from '~/shared'
 
 interface ServiceCardProps {
@@ -18,17 +19,17 @@ export const ServiceCard: FC<ServiceCardProps> = props => {
 
 	/**
 	 * Обработчик интерактивных эффектов
-	 * @param index
+	 * @param index индекс элемента
 	 * @param isActive
 	 * @returns
 	 */
-	const handleCardInteraction = (index: number, isActive: boolean) => {
+	const handleCardInteraction = (index: number, isActive: boolean): void => {
 		const card = cardsRef.current[index]
 		if (card) {
 			gsap.to(card, {
-				boxShadow: isActive ? '0 20px 40px rgba(65, 130, 246, 0.2)' : 'none',
+				boxShadow: isActive ? '0 16px 44px #001eff' : 'none',
 				duration: 0.25,
-				scale: isActive ? 1.05 : 1,
+				scale: isActive ? 1.04 : 1,
 				ease: 'power4.inOut',
 			})
 		}
@@ -53,10 +54,10 @@ export const ServiceCard: FC<ServiceCardProps> = props => {
 			tabIndex={0}
 		>
 			{/* Иконка */}
-			{service.icon}
+			{Icon}
 
 			{/* Заголовок */}
-			<h3 className='text-3xl text-neutral-950/80 dark:text-sky-400'>
+			<h3 className='text-xl lg:text-2xl text-neutral-950/80 dark:text-sky-400'>
 				{title}
 			</h3>
 
@@ -68,9 +69,10 @@ export const ServiceCard: FC<ServiceCardProps> = props => {
 			<Button
 				onClick={() => handleServiceClick(id)}
 				square={false}
-				styles='mt-5'
+				styles='mt-5 gap-2'
 			>
 				Подробнее
+				<SquareArrowOutUpRight size={20} strokeWidth={1.5} />
 			</Button>
 		</article>
 	)

@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 
-export const Symbiosis = () => {
+export const Symbiosis: FC = () => {
 	return (
 		<section className='relative py-32 bg-white dark:bg-neutral-950 overflow-hidden'>
 			{/* Subtle texture */}

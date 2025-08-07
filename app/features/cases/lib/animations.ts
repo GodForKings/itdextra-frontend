@@ -48,7 +48,7 @@ export const animateSection = async (
 				button,
 				{ opacity: 0, y: 20 },
 				{ opacity: 1, y: 0, duration: 0.6 },
-				'+=1.5'
+				'+=1'
 			)
 
 		// Анимация кейсов

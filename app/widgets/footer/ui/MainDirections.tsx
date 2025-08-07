@@ -16,19 +16,19 @@ export const MainDirections: FC = () => {
 
 			<ul className='grid grid-cols-2 justify-between overflow-hidden gap-1'>
 				<InsideSideLink currentLink={ROUTES_DATA.services.path}>
-					Сайт-визитка
+					Внедрение ИИ
 				</InsideSideLink>
 
 				<InsideSideLink currentLink={ROUTES_DATA.services.path}>
-					Сайт-портфолио
+					Web-приложения
 				</InsideSideLink>
 
 				<InsideSideLink currentLink={ROUTES_DATA.services.path}>
-					Лендинг
+					E-commerce
 				</InsideSideLink>
 
 				<InsideSideLink currentLink={ROUTES_DATA.services.path}>
-					Корпоративный сайт
+					Corp-приложение
 				</InsideSideLink>
 
 				<InsideSideLink currentLink={ROUTES_DATA.services.path}>
@@ -36,7 +36,7 @@ export const MainDirections: FC = () => {
 				</InsideSideLink>
 
 				<InsideSideLink currentLink={ROUTES_DATA.services.path}>
-					Форум
+					CMS/CRM/ERP
 				</InsideSideLink>
 			</ul>
 		</div>

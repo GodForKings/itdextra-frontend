@@ -20,3 +20,10 @@ export interface AnimateServicesRefs {
 	tags: React.RefObject<(HTMLButtonElement | null)[]>
 	cards: React.RefObject<(HTMLElement | null)[]>
 }
+/* Интерфейс для анимаций у секции CTA */
+export interface AnimateCTARefs {
+	section: React.RefObject<HTMLDivElement | null>
+	contentRef: React.RefObject<HTMLDivElement | null>
+	titleRef: React.RefObject<HTMLHeadingElement | null>
+	textRef: React.RefObject<HTMLParagraphElement | null>
+}

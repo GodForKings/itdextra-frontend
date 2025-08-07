@@ -31,11 +31,11 @@ export const Footer: FC = () => {
 							className='h-24 z-5'
 						/>
 					</Link>
-
+					{/* Навигация */}
 					<Navigation />
-
+					{/* Основные направления */}
 					<MainDirections />
-
+					{/* Контакты */}
 					<Contacts />
 				</div>
 

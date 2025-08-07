@@ -43,3 +43,21 @@ video {
 	margin: 0;
 	padding: 0;
 }
+
+@layer utilities {
+	@keyframes float {
+		0%,
+		100% {
+			transform: translateY(0) rotate(0deg);
+		}
+		50% {
+			transform: translateY(-20px) rotate(5deg);
+		}
+	}
+
+	@keyframes dash {
+		to {
+			stroke-dashoffset: -1000;
+		}
+	}
+}

@@ -80,11 +80,9 @@ export const CaseSection: FC = () => {
 
 			{/* Призыв к действию */}
 			<div ref={buttonRef} className='relative'>
-				<Button square={true} onClick={handleCTAClick}>
-					<div className='flex gap-2 items-center justify-center'>
-						Обсудить проект
-						<CircleArrowOutUpRight size={22} strokeWidth={2} />
-					</div>
+				<Button square={true} onClick={handleCTAClick} styles='gap-2'>
+					Обсудить проект
+					<CircleArrowOutUpRight size={22} strokeWidth={2} />
 				</Button>
 			</div>
 		</section>

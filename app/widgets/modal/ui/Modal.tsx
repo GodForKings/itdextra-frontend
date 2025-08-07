@@ -1,7 +1,10 @@
-import { type FC, useEffect, useRef } from 'react'
+import type { FC } from 'react'
+
+import { useEffect, useRef } from 'react'
 import { useUnit } from 'effector-react'
 import { gsap } from 'gsap'
-import { X } from 'lucide-react'
+import { CircleX } from 'lucide-react'
+
 import { cn } from '~/shared'
 import { $isModalOpen, $modalContent, closeModal } from '../model/modal'
 
@@ -13,30 +16,22 @@ export const Modal: FC = () => {
 	const modalContentRef = useRef<HTMLDivElement | null>(null)
 	const firstFocusableRef = useRef<HTMLElement | null>(null)
 
-	// GSAP-анимации
 	useEffect(() => {
 		if (!isOpen || !modalRef.current || !modalContentRef.current) return
 
-		const ctx = gsap.context(() => {
-			gsap.fromTo(
-				modalRef.current,
-				{ opacity: 0 },
-				{ opacity: 1, duration: 0.3, ease: 'power2.out' }
-			)
-
-			gsap.fromTo(
+		const modalTl = gsap
+			.timeline({
+				defaults: { ease: 'power4.out', duration: 0.2, opacity: 0 },
+			})
+			.fromTo(modalRef.current, {}, { opacity: 1 })
+			.fromTo(
 				modalContentRef.current,
-				{ opacity: 0, scale: 0.95, boxShadow: '0 0 0px rgba(45, 212, 191, 0)' },
+				{ scale: 0.95 },
 				{
 					opacity: 1,
 					scale: 1,
-					boxShadow: '0 0 20px rgba(45, 212, 191, 0.5)',
-					duration: 0.4,
-					ease: 'power3.out',
-					delay: 0.1,
 				}
 			)
-		})
 
 		// Находим первый фокусируемый элемент
 		const focusable = modalContentRef.current.querySelectorAll(
@@ -47,33 +42,44 @@ export const Modal: FC = () => {
 			focusable.focus()
 		}
 
-		return () => ctx.revert()
+		return () => {
+			modalTl.kill()
+		}
 	}, [isOpen])
 
-	if (!isOpen) return null
-
 	return (
-		<div
-			ref={modalRef}
-			className='fixed inset-0 bg-gray-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4'
-			aria-modal='true'
-			role='dialog'
-			aria-labelledby='modal-title'
-		>
-			<div
-				ref={modalContentRef}
-				className='w-full max-w-md bg-gray-950/90 backdrop-blur-xl p-8 rounded-xl shadow-2xl shadow-teal-400/30 border border-teal-400/50'
-			>
-				<button
-					onClick={() => closeModal()}
-					className='absolute top-4 right-4 text-teal-400 hover:text-teal-300'
-					aria-label='Закрыть модальное окно'
-					tabIndex={0}
+		<>
+			{isOpen && (
+				<div
+					ref={modalRef}
+					className='fixed inset-0 bg-gray-950/90 backdrop-blur-3xl z-50 flex items-center justify-center p-4'
+					aria-modal='true'
+					role='dialog'
+					aria-labelledby='modal-title'
 				>
-					<X size={24} />
-				</button>
-				{content}
-			</div>
-		</div>
+					<div
+						ref={modalContentRef}
+						className={cn(
+							'w-full container bg-gray-950/90 backdrop-blur-2xl p-8 rounded-lg',
+							''
+						)}
+					>
+						<button
+							onClick={() => closeModal()}
+							className={cn(
+								'absolute top-4 right-4 text-white',
+								'hover:text-blue-400/90 active:text-blue-400/90'
+							)}
+							aria-label='Закрыть модальное окно'
+							tabIndex={0}
+						>
+							<CircleX size={44} strokeWidth={0.8} />
+						</button>
+
+						{content}
+					</div>
+				</div>
+			)}
+		</>
 	)
 }
