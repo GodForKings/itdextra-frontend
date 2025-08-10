@@ -5,7 +5,7 @@ import { useUnit } from 'effector-react'
 import { useNavigate } from 'react-router'
 import { ArrowRightToLine } from 'lucide-react'
 
-import { cn, Button } from '~/shared'
+import { cn, Button, useCTAModal } from '~/shared'
 import { heroSectionModel } from '../model/heroSection'
 import { animateHero } from '../lib/animations'
 
@@ -19,6 +19,8 @@ export const HeroSection: FC = () => {
 	const subtitleRef = useRef<HTMLParagraphElement>(null)
 	const ctaRef = useRef<HTMLDivElement>(null)
 	const trustRef = useRef<HTMLDivElement>(null)
+
+	const handleCTAClick = useCTAModal()
 
 	const navigate = useNavigate()
 
@@ -42,7 +44,7 @@ export const HeroSection: FC = () => {
 			aria-labelledby='main-hero-heading'
 			ref={heroRef}
 			className={cn(
-				'relative min-h-[80dvh] m-5 p-4 sm:p-8 overflow-hidden rounded-lg bg-gray-950/[2.5%] after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:inset-ring after:inset-ring-gray-950/5 dark:after:inset-ring-white/10 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/5 dark:[--pattern-fg:var(--color-white)]/10'
+				'relative min-h-[80dvh] m-5 p-4 md:p-8 overflow-hidden rounded-lg bg-gray-950/[2.5%] after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:inset-ring after:inset-ring-gray-950/5 dark:after:inset-ring-white/10 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/5 dark:[--pattern-fg:var(--color-white)]/10'
 			)}
 		>
 			<div className='container mx-auto px-4 py-20 md:py-28 max-w-4xl text-center flex flex-col justify-center items-center gap-6 lg:gap-12'>
@@ -80,13 +82,13 @@ export const HeroSection: FC = () => {
 				{/* Подзаголовок */}
 				<p
 					ref={subtitleRef}
-					className='text-xl md:text-2xl text-neutral-950 dark:text-slate-50 max-w-3xl'
+					className='text-xl md:text-2xl text-neutral-950 dark:text-white max-w-4xl font-thin'
 				>
 					{hero.thesis}
 				</p>
 
 				<div ref={ctaRef} className='flex justify-center gap-4 max-md:flex-col'>
-					<Button square={false} onClick={() => navigate('/contacts')}>
+					<Button square={false} onClick={handleCTAClick}>
 						Обсудить проект
 					</Button>
 

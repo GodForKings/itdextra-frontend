@@ -44,7 +44,9 @@ export const AllServices: FC = () => {
 	return (
 		<section
 			ref={animateRefs.section}
-			className='relative py-18 lg:px-4 container overflow-hidden flex flex-col gap-10 items-center justify-center'
+			className={cn(
+				'relative py-14 container overflow-hidden flex flex-col gap-10 items-center justify-center'
+			)}
 			aria-labelledby='services-heading'
 		>
 			{/* Заголовок */}
@@ -54,7 +56,7 @@ export const AllServices: FC = () => {
 				className={cn(
 					'text-5xl md:text-7xl text-center font-light text-teal-300',
 					'bg-gradient-to-r from-gray-900/40 to-gray-800/50 backdrop-blur-xl',
-					'rounded-lg shadow-2xl shadow-teal-500/20 border-y-2 border-teal-400',
+					'rounded-lg border-y-2 border-teal-400',
 					'w-full p-6'
 				)}
 			>
@@ -102,7 +104,12 @@ export const AllServices: FC = () => {
 
 			{/* Список услуг */}
 			{filteredServices?.length ? (
-				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center'>
+				<div
+					className={cn(
+						'relative max-h-[90dvh] py-10 pr-5 rounded-lg overflow-y-auto',
+						'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center modal-scrollbar'
+					)}
+				>
 					{filteredServices.map((service, index) => (
 						<ServiceCard
 							cardRefs={animateRefs.cards}

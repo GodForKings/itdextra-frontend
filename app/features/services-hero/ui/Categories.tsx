@@ -1,20 +1,22 @@
-import { useRef, type FC, useEffect } from 'react'
-
+import { useRef, useEffect } from 'react'
 import { useUnit } from 'effector-react'
-import { useNavigate } from 'react-router'
 
+import type { FC } from 'react'
 import type { AnimateCategoryRefs } from '../lib/types'
+import type { Category } from '../model/types'
+import type { LucideIcon } from 'lucide-react'
 
-import { ServicesListModel } from '../model/index'
-import { ROUTES_DATA, cn } from '~/shared'
 import { animateCategory } from '../lib/animations'
+import { CategoryModalContent } from './CategoryModalContent'
+import { ServicesListModel } from '../model/index'
+import { openModal } from '~/widgets/modal'
+import { cn } from '~/shared'
 
 export const Categories: FC = () => {
 	const categories = useUnit(ServicesListModel.stores.$categories)
-	const navigate = useNavigate()
 
-	const handleCTAClick = () => {
-		navigate(ROUTES_DATA.contacts.path)
+	const handleCTAClick = (category: Category<LucideIcon>) => {
+		openModal({ content: <CategoryModalContent category={category} /> })
 	}
 
 	const animateRefs: AnimateCategoryRefs = {
@@ -57,7 +59,7 @@ export const Categories: FC = () => {
 								if (el) animateRefs.card.current[index] = el
 							}}
 							key={category.title}
-							onClick={handleCTAClick}
+							onClick={() => handleCTAClick(category)}
 							className={cn(
 								'group relative p-6 md:p-8 rounded-lg transition-all',
 								'border border-transparent',
@@ -104,7 +106,7 @@ export const Categories: FC = () => {
 										ref={(el: HTMLParagraphElement | null) => {
 											if (el) animateRefs.paragraphs.current[index] = el
 										}}
-										className='text-gray-300/70 text-sm md:text-lg leading-relaxed'
+										className='text-white/80 text-sm md:text-lg leading-relaxed'
 									>
 										{category.description}
 									</p>

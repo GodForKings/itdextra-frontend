@@ -34,9 +34,10 @@ export const ServiceCard: FC<ServiceCardProps> = memo(props => {
 				if (el) cardRefs.current[index] = el
 			}}
 			className={cn(
-				'p-8 bg-gradient-to-b from-gray-900 to-gray-800 backdrop-blur-2xl rounded-lg border-x-2 border-teal-400',
-				'shadow-xl shadow-teal-400/20 transition-all duration-300',
-				'hover:shadow-teal-400/40 active:shadow-teal-400/40',
+				'p-8 bg-gradient-to-b from-gray-900 to-gray-800 backdrop-blur-2xl rounded-lg',
+				'border-x-2 border-teal-400',
+				'active:border-sky-500 hover:border-sky-500',
+				'transition-all duration-300',
 				'flex flex-col justify-between gap-5',
 				(index === 0 || index === 3 || index === 7) && 'lg:col-span-2'
 			)}

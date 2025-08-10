@@ -1,16 +1,13 @@
 import type { FC } from 'react'
 
 import { useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router'
 import { Terminal } from 'lucide-react'
 
 import { Button, cn } from '~/shared'
-import { openModal, closeModal } from '~/widgets/modal'
+import { openModal, DefaultCallToAction } from '~/widgets'
 import { animateCTA } from '../lib/animations'
 
 export const CTA: FC = () => {
-	const navigate = useNavigate()
-
 	const animateRefs = {
 		section: useRef<HTMLDivElement | null>(null),
 		contentRef: useRef<HTMLDivElement | null>(null),
@@ -27,86 +24,7 @@ export const CTA: FC = () => {
 
 	const handleCTAClick = () => {
 		openModal({
-			content: (
-				<div className='flex flex-col gap-6'>
-					<h3 className='text-3xl text- text-sky-400'>
-						Обсудим проект под ваши задачи
-					</h3>
-
-					<p className='text-base text-gray-200'>
-						Расскажите нам о вашем видении, и мы создадим кастомное решение,
-						которое выведет ваш бизнес в лидеры цифровой эры.
-					</p>
-
-					<form
-						onSubmit={e => {
-							e.preventDefault()
-							closeModal()
-							navigate('/')
-						}}
-						className='flex flex-col gap-4'
-					>
-						<div>
-							<label
-								htmlFor='name'
-								className='text-sm font-sans text-gray-200/60 '
-							>
-								Пожалуйста, представьтесь
-							</label>
-
-							<input
-								id='name'
-								type='text'
-								required
-								className='w-full mt-1 p-3 bg-gray-900 text-gray-200 rounded-lg border border-sky-500/50 focus:outline-none focus:ring-2 focus:ring-sky-400'
-								placeholder='Как к вам можно обращаться?'
-							/>
-						</div>
-
-						<div>
-							<label
-								htmlFor='email'
-								className='text-sm font-sans text-gray-200/60'
-							>
-								Email
-							</label>
-
-							<input
-								id='email'
-								type='email'
-								required
-								className='w-full mt-1 p-3 bg-gray-900 text-gray-200 rounded-lg border border-sky-400/50 focus:outline-none focus:ring-2 focus:ring-sky-400'
-								placeholder='Электронная почта'
-							/>
-						</div>
-
-						<div>
-							<label
-								htmlFor='message'
-								className='text-sm font-sans text-gray-200/60'
-							>
-								О вашем проекте
-							</label>
-
-							<textarea
-								id='message'
-								required
-								className='w-full mt-1 p-3 bg-gray-900 text-gray-200 rounded-lg border border-sky-400/50 focus:outline-none focus:ring-2 focus:ring-sky-400'
-								placeholder='Расскажите, что вы хотите создать'
-								rows={4}
-							/>
-						</div>
-
-						<button
-							type='submit'
-							className='w-full py-3 px-6 bg-sky-400 text-gray-950 font-sans font-bold rounded-lg hover:bg-sky-400 transition-all duration-300 shadow-lg hover:shadow-sky-400/50'
-							aria-label='Отправить заявку'
-						>
-							Отправить
-						</button>
-					</form>
-				</div>
-			),
+			content: <DefaultCallToAction />,
 		})
 	}
 

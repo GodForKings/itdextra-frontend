@@ -3,6 +3,7 @@ import type {
 	AnimateCategoryRefs,
 	AnimateServicesRefs,
 	AnimateCTARefs,
+	AnimateModalRefs,
 } from './types'
 
 /**
@@ -196,7 +197,7 @@ export const animateCTA = async (
 				defaults: { ease: 'back.in' },
 				scrollTrigger: {
 					trigger: section,
-					start: 'top 60%',
+					start: 'top 70%',
 					toggleActions: 'play none none none',
 				},
 			})
@@ -207,6 +208,87 @@ export const animateCTA = async (
 		return () => {
 			CTATl.kill()
 			ScrollTrigger.getAll().forEach(el => el.kill())
+		}
+	}
+}
+
+/**
+ * Анимация модального окна на услугах
+ * @param refs объект с рефами элементов
+ * @returns
+ */
+export const animateModal = async (
+	refs: AnimateModalRefs
+): Promise<(() => void) | undefined> => {
+	const { gsap } = await import('gsap')
+
+	const [modal, title, icon, description, benefits, form] = [
+		refs.modal?.current,
+		refs.title?.current,
+		refs.icon?.current,
+		refs.description?.current,
+		refs.benefits?.current,
+		refs.form?.current,
+	]
+
+	if (modal && title && icon && description && benefits.length && form) {
+		const modalTl = gsap
+			.timeline({ defaults: { ease: 'back.inOut', duration: 0.8 } })
+			.fromTo(
+				modal,
+				{ opacity: 0, scale: 0.95 },
+				{
+					opacity: 1,
+					scale: 1,
+				}
+			)
+			.fromTo(
+				title,
+				{ opacity: 0, y: 30, textShadow: '0 0 0px rgba(229, 231, 235, 0)' },
+				{
+					opacity: 1,
+					y: 0,
+					textShadow: '0 0 15px rgba(229, 231, 235, 0.5)',
+				}
+			)
+			.fromTo(
+				icon,
+				{ opacity: 0, scale: 0.8 },
+				{
+					opacity: 1,
+					scale: 1,
+				}
+			)
+			.fromTo(
+				description,
+				{ opacity: 0, y: 20 },
+				{
+					opacity: 1,
+					y: 0,
+				}
+			)
+			.fromTo(
+				benefits,
+				{ opacity: 0, y: 20 },
+				{
+					opacity: 1,
+					y: 0,
+					stagger: 0.15,
+				}
+			)
+			.fromTo(
+				form,
+				{ opacity: 0, y: 20 },
+				{
+					opacity: 1,
+					y: 0,
+					duration: 0.7,
+				},
+				'-=1'
+			)
+
+		return () => {
+			modalTl.kill()
 		}
 	}
 }

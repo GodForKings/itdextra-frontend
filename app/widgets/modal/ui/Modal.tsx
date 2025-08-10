@@ -52,7 +52,11 @@ export const Modal: FC = () => {
 			{isOpen && (
 				<div
 					ref={modalRef}
-					className='fixed inset-0 bg-gray-950/90 backdrop-blur-3xl z-50 flex items-center justify-center p-4'
+					className={cn(
+						'fixed inset-0 z-50',
+						'flex items-center justify-center',
+						'bg-gradient-to-b from-black/95 via-gray-900/90 to-black/95 backdrop-blur-2xl'
+					)}
 					aria-modal='true'
 					role='dialog'
 					aria-labelledby='modal-title'
@@ -60,20 +64,27 @@ export const Modal: FC = () => {
 					<div
 						ref={modalContentRef}
 						className={cn(
-							'w-full container bg-gray-950/90 backdrop-blur-2xl p-8 rounded-lg',
-							''
+							'w-full container p-4 lg:p-8 rounded-lg max-h-[100dvh] overflow-auto',
+							'bg-gradient-to-tr from-black/90 to-gray-950/90 backdrop-blur-2xl',
+							'modal-scrollbar'
 						)}
 					>
 						<button
 							onClick={() => closeModal()}
 							className={cn(
-								'absolute top-4 right-4 text-white',
-								'hover:text-blue-400/90 active:text-blue-400/90'
+								'absolute top-1 right-4 z-5 backdrop-blur-3xl rounded-lg'
 							)}
 							aria-label='Закрыть модальное окно'
 							tabIndex={0}
 						>
-							<CircleX size={44} strokeWidth={0.8} />
+							<CircleX
+								size={44}
+								strokeWidth={0.8}
+								className={cn(
+									'hover:text-white/40 active:text-white/40',
+									'text-white p-1'
+								)}
+							/>
 						</button>
 
 						{content}

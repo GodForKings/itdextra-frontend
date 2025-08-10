@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 
-import type { CaseItem } from '../model/types'
+import type { CaseItem } from '~/shared'
 
 import { cn } from '~/shared'
 

@@ -27,3 +27,12 @@ export interface AnimateCTARefs {
 	titleRef: React.RefObject<HTMLHeadingElement | null>
 	textRef: React.RefObject<HTMLParagraphElement | null>
 }
+/* Интерфейс для анимаций у Модального окна */
+export interface AnimateModalRefs {
+	modal: React.RefObject<HTMLDivElement | null>
+	title: React.RefObject<HTMLHeadingElement | null>
+	icon: React.RefObject<SVGSVGElement | null>
+	description: React.RefObject<HTMLParagraphElement | null>
+	benefits: React.RefObject<(HTMLLIElement | null)[]>
+	form: React.RefObject<HTMLFormElement | null>
+}

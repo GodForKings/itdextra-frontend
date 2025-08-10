@@ -39,7 +39,7 @@ export const Header: FC = () => {
 
 			<DesktopNav />
 
-			<CustomLink currentLink={NumberPhoneLink}>{Phone}</CustomLink>
+			<CustomLink currentLink={NumberPhoneLink}>Связаться</CustomLink>
 		</nav>
 	)
 }

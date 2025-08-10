@@ -45,19 +45,35 @@ video {
 }
 
 @layer utilities {
-	@keyframes float {
-		0%,
-		100% {
-			transform: translateY(0) rotate(0deg);
-		}
-		50% {
-			transform: translateY(-20px) rotate(5deg);
-		}
-	}
+}
 
-	@keyframes dash {
-		to {
-			stroke-dashoffset: -1000;
-		}
-	}
+.modal-scrollbar::-webkit-scrollbar {
+	width: 3px; /* Толщина скроллбара */
+}
+
+.modal-scrollbar::-webkit-scrollbar-track {
+	background: transparent; /* Прозрачный трек */
+}
+
+.modal-scrollbar::-webkit-scrollbar-thumb {
+	background: linear-gradient(
+		to bottom,
+		#ffffff,
+		#000000
+	); /* Градиентный ползунок */
+	border-radius: 3px; /* Закругленные углы */
+}
+
+.modal-scrollbar::-webkit-scrollbar-thumb:hover {
+	background: linear-gradient(
+		to bottom,
+		#f0f0f0,
+		#333333
+	); /* Эффект при наведении */
+}
+
+/* Для Firefox */
+.modal-scrollbar {
+	scrollbar-width: thin;
+	scrollbar-color: #f9fafb transparent;
 }

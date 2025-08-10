@@ -1,13 +1,12 @@
 import type { FC } from 'react'
 
 import { useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router'
 import { useUnit } from 'effector-react'
 import { CircleArrowOutUpRight } from 'lucide-react'
 
 import { animateSection } from '../lib/animations'
 import { casesList } from '../model/caseList'
-import { Button, cn, ROUTES_DATA } from '~/shared'
+import { Button, cn, useCTAModal } from '~/shared'
 import { CaseCard } from './CaseCard'
 
 export const CaseSection: FC = () => {
@@ -19,11 +18,7 @@ export const CaseSection: FC = () => {
 	const casesRef = useRef<(HTMLDivElement | null)[]>([])
 	const buttonRef = useRef<HTMLDivElement>(null)
 
-	const navigate = useNavigate()
-
-	const handleCTAClick = (): void => {
-		navigate(ROUTES_DATA.contacts.path)
-	}
+	const handleCTAClick = useCTAModal()
 
 	useEffect(() => {
 		if (typeof window === 'undefined') return

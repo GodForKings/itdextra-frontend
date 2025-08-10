@@ -1,13 +1,13 @@
 import type { FC } from 'react'
 
-import { useNavigate } from 'react-router'
 import { useEffect, useRef } from 'react'
 
 import type { HeroData } from '../model/types'
 import type { AnimateHeroRefs } from '../lib/types'
 
-import { Button, ROUTES_DATA, cn } from '~/shared'
+import { Button, cn } from '~/shared'
 import { animateHeroServices } from '../lib/animations'
+import { DefaultCallToAction, openModal } from '~/widgets'
 
 const mockHeroData: HeroData = {
 	name: 'ITDextra',
@@ -22,10 +22,8 @@ const mockHeroData: HeroData = {
 }
 
 export const Hero: FC = () => {
-	const navigate = useNavigate()
-
 	const handleCTAClick = () => {
-		navigate(ROUTES_DATA.contacts.path)
+		openModal({ content: <DefaultCallToAction /> })
 	}
 
 	const animateRefs: AnimateHeroRefs = {
