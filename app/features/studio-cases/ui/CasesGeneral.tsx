@@ -76,6 +76,7 @@ export const CaseStudies: FC = () => {
 				>
 					Все
 				</button>
+
 				{allTags.map((tag, index) => (
 					<button
 						ref={el => {

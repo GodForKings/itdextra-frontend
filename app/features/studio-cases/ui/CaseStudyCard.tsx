@@ -1,4 +1,4 @@
-import type { FC, RefObject } from 'react'
+import type { FC } from 'react'
 import { memo } from 'react'
 import { useNavigate } from 'react-router'
 import { cn } from '~/shared'

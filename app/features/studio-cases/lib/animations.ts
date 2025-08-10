@@ -1,8 +1,3 @@
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
-
 interface AnimateRefs {
 	section: React.RefObject<HTMLElement | null>
 	title: React.RefObject<HTMLHeadingElement | null>
@@ -19,6 +14,10 @@ export const animateCaseStudies = async ({
 	cards,
 }: AnimateRefs) => {
 	if (!section.current) return
+
+	const { gsap } = await import('gsap')
+	const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+	gsap.registerPlugin(ScrollTrigger)
 
 	const ctx = gsap.context(() => {
 		// Анимация заголовка
