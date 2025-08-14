@@ -5,8 +5,8 @@ import type { Category } from '../model/types'
 import { useEffect, useRef } from 'react'
 
 import { cn } from '~/shared'
-import { animateModal } from '../lib/animations'
 import { ContactForm } from '~/widgets'
+import { animateModal } from '../lib/animations'
 
 interface CategoryModalContentProps {
 	category: Category<LucideIcon>
@@ -40,6 +40,7 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = ({
 				'border border-gray-100/10 shadow-2xl shadow-gray-50/10'
 			)}
 		>
+			{/* Верхняя часть иконка + заголовок */}
 			<div className='flex items-center gap-2 lg:gap-4'>
 				<Icon
 					ref={animateRefs.icon}
@@ -54,11 +55,11 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = ({
 					{title}
 				</h3>
 			</div>
-
+			{/* Описание категории */}
 			<p
 				ref={animateRefs.description}
 				className={cn(
-					'text-xl text-sky-400 p-4',
+					'text-xl text-sky-400 p-4 transition-all duration-200',
 					'shadow-2xl shadow-blue-500/15',
 					'rounded-lg border border-gray-100/10',
 					'hover:shadow-blue-500/30 active:shadow-blue-500/30'

@@ -10,7 +10,7 @@ interface ServiceCardProps {
 	service: Service<LucideIcon>
 	index: number
 	cardRefs: React.RefObject<(HTMLElement | null)[]>
-	handleCTAClick: () => void
+	handleCTAClick: (service: Service<LucideIcon>) => void
 }
 
 export const ServiceCard: FC<ServiceCardProps> = memo(props => {
@@ -118,8 +118,8 @@ export const ServiceCard: FC<ServiceCardProps> = memo(props => {
 					'hover:bg-sky-500/40 hover:translate-y-1',
 					'active:bg-sky-500/40 active:translate-y-1'
 				)}
+				onClick={() => handleCTAClick(service)}
 				aria-label={`Заказать услугу ${title}`}
-				onClick={handleCTAClick}
 			>
 				Выбрать
 			</button>

@@ -4,11 +4,15 @@ import { useEffect, useRef, useState } from 'react'
 import { useUnit } from 'effector-react'
 import { useNavigate } from 'react-router'
 
-import { cn, MAIN_TAGS, ROUTES_DATA } from '~/shared'
+import { cn, MAIN_TAGS } from '~/shared'
 import { ServicesListModel } from '../model/index'
 
 import { ServiceCard } from './ServiceCard'
+import { ServiceModalContent } from './ServiceModalContent'
 import { animateServices } from '../lib/animations'
+import { openModal } from '~/widgets'
+import type { Service } from '../model/types'
+import type { LucideIcon } from 'lucide-react'
 
 export const AllServices: FC = () => {
 	const services = useUnit(ServicesListModel.stores.$services)
@@ -21,9 +25,12 @@ export const AllServices: FC = () => {
 		? services?.filter(service => service.tags.includes(selectedTag))
 		: services
 
-	/* Выход на контакты */
-	const handleCTAClick = (): void => {
-		navigate(ROUTES_DATA.contacts.path)
+	/**
+	 * Вызов модального окна для отдельной услуги
+	 * @param service передаем сервис
+	 */
+	const handleCTAClick = (service: Service<LucideIcon>): void => {
+		openModal({ content: <ServiceModalContent service={service} /> })
 	}
 
 	const animateRefs = {
@@ -78,6 +85,7 @@ export const AllServices: FC = () => {
 						!selectedTag && 'bg-teal-500 text-gray-900'
 					)}
 					onClick={() => setSelectedTag(null)}
+					aria-label='показать все услуги'
 				>
 					Все
 				</button>
@@ -96,6 +104,7 @@ export const AllServices: FC = () => {
 							'active:bg-teal-500 active:text-gray-900'
 						)}
 						onClick={() => setSelectedTag(tag)}
+						aria-label={`Показать услуги типа ${tag} подробнее`}
 					>
 						{tag}
 					</button>
@@ -106,7 +115,7 @@ export const AllServices: FC = () => {
 			{filteredServices?.length ? (
 				<div
 					className={cn(
-						'relative max-h-[90dvh] py-10 pr-5 rounded-lg overflow-y-auto',
+						'relative max-h-[100dvh] py-10 pr-5 rounded-lg overflow-y-auto',
 						'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center modal-scrollbar'
 					)}
 				>

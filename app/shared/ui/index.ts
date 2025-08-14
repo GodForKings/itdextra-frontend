@@ -1,5 +1,6 @@
 export { Logo } from './components/Logo'
 export { ThemeToggle } from './components/ThemeToggle'
+export { DescBlock } from './components/DescBlock'
 export { MainLayout } from './layout/MainLayout'
 export { Button } from './button/Button'
 export { Divider } from './dividers/Divider'

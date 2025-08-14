@@ -72,7 +72,8 @@ export const Modal: FC = () => {
 						<button
 							onClick={() => closeModal()}
 							className={cn(
-								'absolute top-1 right-4 z-5 backdrop-blur-3xl rounded-lg'
+								'absolute top-1 right-4 z-5 backdrop-blur-3xl rounded-lg',
+								'bg-gradient-to-tr from-black/90 to-gray-950/90'
 							)}
 							aria-label='Закрыть модальное окно'
 							tabIndex={0}

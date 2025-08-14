@@ -1,21 +1,22 @@
 import type { FC } from 'react'
 
-import type { Services } from '../model/types'
+import type { Service } from '../model/types'
 
 import { gsap } from 'gsap'
 import { SquareArrowOutUpRight } from 'lucide-react'
 import { Button, cn } from '~/shared'
+import { openModal } from '~/widgets'
+import { ServiceModal } from './ServiceModal'
 
 interface ServiceCardProps {
-	service: Services
+	service: Service
 	index: number
 	cardsRef: React.RefObject<(HTMLDivElement | null)[]>
-	handleServiceClick: (id: string) => void
 }
 
 export const ServiceCard: FC<ServiceCardProps> = props => {
-	const { service, index, cardsRef, handleServiceClick } = props
-	const { id, title, description, icon: Icon } = service
+	const { service, index, cardsRef } = props
+	const { id, title, shortDescription, icon: Icon } = service
 
 	/**
 	 * Обработчик интерактивных эффектов
@@ -35,9 +36,13 @@ export const ServiceCard: FC<ServiceCardProps> = props => {
 		}
 	}
 
+	const handleModalOpen = (): void => {
+		openModal({ content: <ServiceModal service={service} /> })
+	}
+
 	return (
 		<article
-			aria-labelledby='service-card'
+			aria-labelledby={`service-card ${title}`}
 			ref={(el: HTMLDivElement | null) => {
 				if (el) cardsRef.current[index] = el
 			}}
@@ -63,14 +68,10 @@ export const ServiceCard: FC<ServiceCardProps> = props => {
 
 			{/* Описание */}
 			<p className='text-sm tracking-wider text-sky-600 dark:text-white'>
-				{description}
+				{shortDescription}
 			</p>
 
-			<Button
-				onClick={() => handleServiceClick(id)}
-				square={false}
-				styles='mt-5 gap-2'
-			>
+			<Button onClick={handleModalOpen} square={false} styles='mt-5 gap-2'>
 				Подробнее
 				<SquareArrowOutUpRight size={20} strokeWidth={1.5} />
 			</Button>

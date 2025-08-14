@@ -2,9 +2,8 @@ import type { FC } from 'react'
 
 import { useRef, useEffect } from 'react'
 import { useUnit } from 'effector-react'
-import { useNavigate } from 'react-router'
 
-import { DASHED_BACKGROUND, ROUTES_DATA, cn } from '~/shared'
+import { DASHED_BACKGROUND, cn } from '~/shared'
 import { servicesList } from '../model/servicesList'
 import { animateSection } from '../lib/animations'
 import { ServiceCard } from './ServiceCard'
@@ -15,12 +14,6 @@ export const ServicesSection: FC = () => {
 	const sectionRef = useRef<HTMLDivElement>(null)
 	const titleRef = useRef<HTMLHeadingElement>(null)
 	const cardsRef = useRef<(HTMLDivElement | null)[]>([])
-
-	const navigate = useNavigate()
-
-	const handleServiceClick = (id: string) => {
-		navigate(`${ROUTES_DATA.services.path}/${id}`)
-	}
 
 	useEffect(() => {
 		if (typeof window === 'undefined') return
@@ -57,7 +50,6 @@ export const ServicesSection: FC = () => {
 					)}
 				/>
 			))}
-
 			{/* Заголовок */}
 			<h2
 				ref={titleRef}
@@ -68,7 +60,6 @@ export const ServicesSection: FC = () => {
 			>
 				{service.title}
 			</h2>
-
 			{/* Карточки */}
 			<div className='container max-w-7xl grid grid-cols-1 lg:grid-cols-3 gap-12'>
 				{service.services.map((service, index: number) => (
@@ -77,7 +68,6 @@ export const ServicesSection: FC = () => {
 						service={service}
 						index={index}
 						cardsRef={cardsRef}
-						handleServiceClick={handleServiceClick}
 					/>
 				))}
 			</div>

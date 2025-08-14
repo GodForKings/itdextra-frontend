@@ -59,6 +59,7 @@ export const Categories: FC = () => {
 								if (el) animateRefs.card.current[index] = el
 							}}
 							key={category.title}
+							aria-label={`Показать подробнее ${category}`}
 							onClick={() => handleCTAClick(category)}
 							className={cn(
 								'group relative p-6 md:p-8 rounded-lg transition-all',
@@ -87,7 +88,7 @@ export const Categories: FC = () => {
 									<div
 										className={cn(
 											'absolute inset-0 rounded-lg bg-sky-400/5 transition-all -z-10',
-											'group-hover:bg-sky-400/20 group-active:bg-sky-400/20'
+											'group-hover:bg-sky-400/10 group-active:bg-sky-400/10'
 										)}
 									></div>
 								</div>

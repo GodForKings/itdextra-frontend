@@ -36,3 +36,16 @@ export interface AnimateModalRefs {
 	benefits: React.RefObject<(HTMLLIElement | null)[]>
 	form: React.RefObject<HTMLFormElement | null>
 }
+
+export interface AnimateServiceModalRef {
+	modal: React.RefObject<HTMLDivElement | null>
+	title: React.RefObject<HTMLHeadingElement | null>
+	icon: React.RefObject<SVGSVGElement | null>
+	description: React.RefObject<HTMLParagraphElement | null>
+	category: React.RefObject<HTMLParagraphElement | null>
+	priceRange: React.RefObject<HTMLParagraphElement | null>
+	deliveryTime: React.RefObject<HTMLParagraphElement | null>
+	tags: React.RefObject<(HTMLSpanElement | null)[]>
+	caseStudies: React.RefObject<(HTMLLIElement | null)[]>
+	form: React.RefObject<HTMLFormElement | null>
+}

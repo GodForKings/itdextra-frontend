@@ -1,4 +1,4 @@
-import { useCallback, type FC } from 'react'
+import type { FC } from 'react'
 
 import { useLocation } from 'react-router'
 
@@ -14,7 +14,7 @@ import {
 } from '~/shared'
 
 export const Header: FC = () => {
-	const { Phone, NumberPhoneLink } = CONTACTS
+	const { NumberPhoneLink } = CONTACTS
 
 	const { pathname } = useLocation()
 

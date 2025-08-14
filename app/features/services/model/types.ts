@@ -1,7 +1,18 @@
-export interface Services {
+interface Result {
+	title: string
+	result: string
+}
+
+export interface Service {
 	id: string
 	title: string
-	description: string
+	shortDescription: string
+	fullDescription: string
+	category: string
+	priceRange: string
+	deliveryTime: string
+	tags: string[]
+	caseStudies: Result[]
 	icon: React.JSX.Element
 }
 

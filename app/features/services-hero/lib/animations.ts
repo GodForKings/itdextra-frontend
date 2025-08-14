@@ -4,6 +4,7 @@ import type {
 	AnimateServicesRefs,
 	AnimateCTARefs,
 	AnimateModalRefs,
+	AnimateServiceModalRef,
 } from './types'
 
 /**
@@ -233,7 +234,7 @@ export const animateModal = async (
 
 	if (modal && title && icon && description && benefits.length && form) {
 		const modalTl = gsap
-			.timeline({ defaults: { ease: 'back.inOut', duration: 0.8 } })
+			.timeline({ defaults: { ease: 'back.inOut', duration: 0.6 } })
 			.fromTo(
 				modal,
 				{ opacity: 0, scale: 0.95 },
@@ -244,11 +245,10 @@ export const animateModal = async (
 			)
 			.fromTo(
 				title,
-				{ opacity: 0, y: 30, textShadow: '0 0 0px rgba(229, 231, 235, 0)' },
+				{ opacity: 0, y: 30 },
 				{
 					opacity: 1,
 					y: 0,
-					textShadow: '0 0 15px rgba(229, 231, 235, 0.5)',
 				}
 			)
 			.fromTo(
@@ -289,6 +289,110 @@ export const animateModal = async (
 
 		return () => {
 			modalTl.kill()
+		}
+	}
+}
+
+export const animateServiceModalContent = async (
+	refs: AnimateServiceModalRef
+) => {
+	const { gsap } = await import('gsap')
+
+	const [
+		modal,
+		title,
+		icon,
+		description,
+		category,
+		priceRange,
+		deliveryTime,
+		tags,
+		caseStudies,
+		form,
+	] = [
+		refs.modal?.current,
+		refs.title?.current,
+		refs.icon?.current,
+		refs.description?.current,
+		refs.category?.current,
+		refs.priceRange?.current,
+		refs.deliveryTime?.current,
+		refs.tags?.current,
+		refs.caseStudies?.current,
+		refs.form?.current,
+	]
+
+	if (
+		modal &&
+		title &&
+		icon &&
+		description &&
+		category &&
+		priceRange &&
+		deliveryTime &&
+		tags.length &&
+		caseStudies.length &&
+		form
+	) {
+		const modalServiceTl = gsap
+			.timeline({ defaults: { ease: 'back.in', duration: 0.6 } })
+			.fromTo(modal, { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1 })
+			.fromTo(
+				title,
+				{ opacity: 0, y: 30 },
+				{
+					opacity: 1,
+					y: 0,
+				}
+			)
+			.fromTo(
+				icon,
+				{ opacity: 0, scale: 0.8 },
+				{
+					opacity: 1,
+					scale: 1,
+				}
+			)
+			.fromTo(description, { opacity: 0, y: 20 }, { opacity: 1, y: 0 })
+			.fromTo(category, { opacity: 0, y: 20 }, { opacity: 1, y: 0 })
+			.fromTo(priceRange, { opacity: 0, y: 20 }, { opacity: 1, y: 0 })
+			.fromTo(
+				deliveryTime,
+				{ opacity: 0, y: 20 },
+				{ opacity: 1, y: 0 },
+				'-=0.6'
+			)
+			.fromTo(
+				tags.filter((el): el is HTMLSpanElement => el !== null),
+				{ opacity: 0, y: 20 },
+				{
+					opacity: 1,
+					y: 0,
+					stagger: 0.1,
+				},
+				'-=1'
+			)
+			.fromTo(
+				caseStudies.filter((el): el is HTMLLIElement => el !== null),
+				{ opacity: 0, y: 20 },
+				{
+					opacity: 1,
+					y: 0,
+					stagger: 0.15,
+				}
+			)
+			.fromTo(
+				form,
+				{ opacity: 0, y: 20 },
+				{
+					opacity: 1,
+					y: 0,
+				},
+				'-=1'
+			)
+
+		return () => {
+			modalServiceTl.kill()
 		}
 	}
 }
