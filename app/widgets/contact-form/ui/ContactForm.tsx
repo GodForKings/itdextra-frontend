@@ -107,7 +107,7 @@ export const ContactForm: FC<ContactFormProps> = props => {
 				/>
 			</div>
 
-			<div className='flex justify-between gap-4 max-md:flex-col tracking-wider text-sm font-thin'>
+			<div className='flex justify-between gap-4 max-md:flex-col tracking-wider text-sm lg:font-thin'>
 				<div className='flex justify-center items-center gap-4'>
 					<a
 						aria-label='Перейти в чат telegram'

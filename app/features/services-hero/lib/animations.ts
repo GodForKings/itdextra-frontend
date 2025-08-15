@@ -121,11 +121,11 @@ export const animateServices = async (
 	gsap.registerPlugin(ScrollTrigger)
 
 	const [section, title, tagBlock, tags, cards] = [
-		refs?.section?.current,
-		refs?.title?.current,
-		refs?.tagBlock?.current,
-		refs?.tags?.current,
-		refs?.cards.current,
+		refs.section?.current,
+		refs.title?.current,
+		refs.tagBlock?.current,
+		refs.tags?.current,
+		refs.cards?.current,
 	]
 
 	if (section && title && tagBlock && tags.length && cards.length) {
@@ -138,14 +138,10 @@ export const animateServices = async (
 					toggleActions: 'play none none none',
 				},
 			})
-			.fromTo(
-				title,
-				{ opacity: 0, x: '50px' },
-				{ opacity: 1, x: 0, duration: 0.8 }
-			)
+			.fromTo(title, { opacity: 0, x: 50 }, { opacity: 1, x: 0, duration: 0.8 })
 			.fromTo(
 				tagBlock,
-				{ opacity: 0, y: '-60px' },
+				{ opacity: 0, y: -60 },
 				{ opacity: 1, y: 1, duration: 0.4 }
 			)
 		tags.forEach(tag => {
@@ -160,7 +156,7 @@ export const animateServices = async (
 			cards,
 			{
 				scale: 0.95,
-				y: '40',
+				y: 40,
 				opacity: 0,
 			},
 			{ scale: 1, y: 0, opacity: 1, duration: 0.4, stagger: 0.25 }

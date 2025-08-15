@@ -1,5 +1,7 @@
 import type { FC } from 'react'
 
+import type { animateHeroRefs } from '../lib/types'
+
 import { useEffect, useRef } from 'react'
 import { useUnit } from 'effector-react'
 import { useNavigate } from 'react-router'
@@ -12,13 +14,15 @@ import { animateHero } from '../lib/animations'
 export const HeroSection: FC = () => {
 	const hero = useUnit(heroSectionModel.stores.$heroSection)
 
-	/* Рефы для анимаций */
-	const heroRef = useRef<HTMLDivElement>(null)
-	const nameRef = useRef<(HTMLSpanElement | null)[]>([])
-	const titleRef = useRef<HTMLHeadingElement>(null)
-	const subtitleRef = useRef<HTMLParagraphElement>(null)
-	const ctaRef = useRef<HTMLDivElement>(null)
-	const trustRef = useRef<HTMLDivElement>(null)
+	/* объект с рефами элементов */
+	const animateRefs: animateHeroRefs = {
+		heroRef: useRef<HTMLDivElement>(null),
+		nameRef: useRef<(HTMLSpanElement | null)[]>([]),
+		titleRef: useRef<HTMLHeadingElement>(null),
+		subtitleRef: useRef<HTMLParagraphElement>(null),
+		ctaRef: useRef<HTMLDivElement>(null),
+		trustRef: useRef<HTMLDivElement>(null),
+	}
 
 	const handleCTAClick = useCTAModal()
 
@@ -28,21 +32,14 @@ export const HeroSection: FC = () => {
 		/* Для работы только на клиенте */
 		if (typeof window === 'undefined') return
 
-		animateHero({
-			heroRef,
-			nameRef,
-			titleRef,
-			subtitleRef,
-			ctaRef,
-			trustRef,
-		})
+		animateHero(animateRefs).catch(console.error)
 	}, [])
 
 	return (
 		<section
 			role='banner'
 			aria-labelledby='main-hero-heading'
-			ref={heroRef}
+			ref={animateRefs.heroRef}
 			className={cn(
 				'relative min-h-[80dvh] m-5 p-4 md:p-8 overflow-hidden rounded-lg bg-gray-950/[2.5%] after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:inset-ring after:inset-ring-gray-950/5 dark:after:inset-ring-white/10 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/5 dark:[--pattern-fg:var(--color-white)]/10'
 			)}
@@ -54,7 +51,7 @@ export const HeroSection: FC = () => {
 						{hero.name.map((letter, index) => (
 							<span
 								ref={(element: HTMLSpanElement | null) => {
-									if (element) nameRef.current[index] = element
+									if (element) animateRefs.nameRef.current[index] = element
 								}}
 								key={letter + index}
 								className={cn(
@@ -69,7 +66,7 @@ export const HeroSection: FC = () => {
 					</h1>
 
 					<h2
-						ref={titleRef}
+						ref={animateRefs.titleRef}
 						className={cn(
 							'text-4xl md:text-6xl',
 							'text-transparent bg-clip-text bg-gradient-to-l from-sky-500 to-neutral-950 dark:from-sky-500 dark:to-sky-50'
@@ -81,13 +78,16 @@ export const HeroSection: FC = () => {
 
 				{/* Подзаголовок */}
 				<p
-					ref={subtitleRef}
+					ref={animateRefs.subtitleRef}
 					className='text-xl md:text-2xl text-neutral-950 dark:text-white max-w-4xl font-thin'
 				>
 					{hero.thesis}
 				</p>
 
-				<div ref={ctaRef} className='flex justify-center gap-4 max-md:flex-col'>
+				<div
+					ref={animateRefs.ctaRef}
+					className='flex justify-center gap-4 max-md:flex-col'
+				>
 					<Button square={false} onClick={handleCTAClick}>
 						Обсудить проект
 					</Button>
@@ -104,7 +104,7 @@ export const HeroSection: FC = () => {
 
 				{/* Факты */}
 				<div
-					ref={trustRef}
+					ref={animateRefs.trustRef}
 					className='flex flex-wrap justify-center items-center gap-6 md:gap-12 text-gray-400'
 				>
 					{hero.description.map((desc, index) => (

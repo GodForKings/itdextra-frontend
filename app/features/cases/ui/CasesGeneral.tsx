@@ -5,10 +5,12 @@ import { useUnit } from 'effector-react'
 
 import { CaseStudyCard } from './CaseStudyCard'
 import { animateCaseStudies } from '../lib/animations'
-import { defaultCases, cn } from '~/shared'
+import { casesList } from '../model/caseList'
+import { cn } from '~/shared'
+import { TagBlock } from './TagBlock'
 
 export const CaseStudies: FC = () => {
-	const caseStudiesData = defaultCases
+	const caseStudiesData = useUnit(casesList.stores.$cases).items
 
 	const [selectedTag, setSelectedTag] = useState<string | null>(null)
 
@@ -36,7 +38,7 @@ export const CaseStudies: FC = () => {
 		animateCaseStudies(animateRefs).catch(console.error)
 	}, [filteredCaseStudies])
 
-	// Уникальные теги для фильтров
+	/* Уникальные теги для фильтрации */
 	const allTags = Array.from(
 		new Set(caseStudiesData.flatMap(caseStudy => caseStudy.tags))
 	)
@@ -44,14 +46,14 @@ export const CaseStudies: FC = () => {
 	return (
 		<section
 			ref={animateRefs.section}
-			className='relative py-20 px-4 lg:px-8 flex flex-col gap-12 items-center min-h-0 h-auto'
+			className='relative container flex flex-col gap-12 items-center justify-center min-h-[90dvh] py-5'
 			aria-labelledby='case-studies-heading'
 		>
 			<h2
 				ref={animateRefs.title}
 				id='case-studies-heading'
 				className={cn(
-					'relative z-10 text-4xl md:text-6xl text-center font-sans font-light text-white',
+					'relative z-10 text-4xl md:text-6xl text-center font-light text-white',
 					'bg-gray-900/50 backdrop-blur-xl rounded-xl shadow-2xl shadow-gray-50/10',
 					'border border-gray-200/20 w-full max-w-4xl p-8 tracking-wider'
 				)}
@@ -59,44 +61,16 @@ export const CaseStudies: FC = () => {
 				Наши кейсы
 			</h2>
 
-			<div
-				ref={animateRefs.tagBlock}
-				className={cn(
-					'relative z-10 flex justify-center items-center flex-wrap gap-3 p-6 w-full max-w-4xl',
-					'bg-gray-900/50 backdrop-blur-xl rounded-xl border border-gray-200/20'
-				)}
-			>
-				<button
-					className={cn(
-						'text-sm font-sans font-medium text-gray-200 bg-gray-900/40 px-4 py-2 rounded-full',
-						!selectedTag && 'bg-gray-50 text-black shadow-gray-50/20',
-						'hover:bg-gray-50 hover:text-black transition-all duration-300 ease-out'
-					)}
-					onClick={() => setSelectedTag(null)}
-				>
-					Все
-				</button>
-
-				{allTags.map((tag, index) => (
-					<button
-						ref={el => {
-							animateRefs.tags.current[index] = el
-						}}
-						key={tag}
-						className={cn(
-							'text-sm font-sans font-medium text-gray-200 bg-gray-900/40 px-4 py-2 rounded-full',
-							selectedTag === tag && 'bg-gray-50 text-black shadow-gray-50/20',
-							'hover:bg-gray-50 hover:text-black transition-all duration-300 ease-out'
-						)}
-						onClick={() => setSelectedTag(tag)}
-					>
-						{tag}
-					</button>
-				))}
-			</div>
+			<TagBlock
+				tagBlockRef={animateRefs.tagBlock}
+				tagsRef={animateRefs.tags}
+				selectedTag={selectedTag}
+				setSelectedTag={setSelectedTag}
+				allTags={allTags}
+			/>
 
 			{filteredCaseStudies.length ? (
-				<div className='relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start min-h-0 w-full max-w-7xl'>
+				<div className='relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start min-h-0 w-full'>
 					{filteredCaseStudies.map((caseStudy, index) => (
 						<CaseStudyCard
 							key={caseStudy.id}
@@ -107,8 +81,8 @@ export const CaseStudies: FC = () => {
 					))}
 				</div>
 			) : (
-				<p className='relative z-10 text-center text-gray-200 bg-gray-900/50 backdrop-blur-xl p-10 font-sans text-xl rounded-xl'>
-					Кейсы временно недоступны
+				<p className='text-center text-gray-200 bg-gray-900/50 backdrop-blur-xl p-10 text-2xl rounded-lg'>
+					Кейсы временно недоступны. Просим подождать.
 				</p>
 			)}
 		</section>
