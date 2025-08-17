@@ -36,7 +36,7 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = ({
 		<div
 			ref={animateRefs.modal}
 			className={cn(
-				'flex flex-col gap-8 w-full p-4 lg:p-8 backdrop-blur-2xl rounded-lg',
+				'flex flex-col gap-8 w-full p-4 lg:p-8 backdrop-blur-2xl rounded-lg overflow-hidden',
 				'border border-gray-100/10 shadow-2xl shadow-gray-50/10'
 			)}
 		>

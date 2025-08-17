@@ -8,11 +8,10 @@ export async function action() {}
 
 export function meta({}: Route.MetaArgs) {
 	return [
-		{ title: `Наши работы и успешные кейсы | ITDextra` },
+		{ title: `ITDextra успешные кейсы | Портфолио ITDextra` },
 		{
 			name: 'description',
-			content:
-				'Реальные примеры наших проектов в e-commerce, веб-разработке и design-e.',
+			content: 'Реальные примеры наших проектов в мире ИТ-технологий',
 		},
 
 		// Open Graph

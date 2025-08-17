@@ -11,14 +11,14 @@ export const surfacingVideo = async (
 	const overlay = overlayRef.current
 	if (!overlay) return
 
-	const videoTl = gsap.timeline({ defaults: { ease: 'power3' } })
+	const videoTl = gsap.timeline({ defaults: { ease: 'power2.out' } })
 
 	videoTl.fromTo(
 		overlay,
 		{ opacity: 1 },
 		{
 			opacity: 0,
-			duration: 1.5,
+			duration: 1.2,
 		}
 	)
 
@@ -26,7 +26,7 @@ export const surfacingVideo = async (
 		overlay,
 		{
 			clipPath: 'polygon(0% 0%, 50% 0%, 50% 50%, 0% 50%)',
-			duration: 0.8,
+			duration: 0.6,
 		},
 		0.2
 	)

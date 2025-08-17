@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import type { CasesAnimationRefs } from '../lib/types'
 
 import { useEffect, useRef, useState, useMemo } from 'react'
 import { useUnit } from 'effector-react'
@@ -12,6 +13,11 @@ import { TagBlock } from './TagBlock'
 export const CaseStudies: FC = () => {
 	const caseStudiesData = useUnit(casesList.stores.$cases).items
 
+	/* Уникальные теги для фильтрации */
+	const allTags = Array.from(
+		new Set(caseStudiesData.flatMap(caseStudy => caseStudy.tags))
+	)
+
 	const [selectedTag, setSelectedTag] = useState<string | null>(null)
 
 	const filteredCaseStudies = useMemo(
@@ -24,7 +30,7 @@ export const CaseStudies: FC = () => {
 		[caseStudiesData, selectedTag]
 	)
 
-	const animateRefs = {
+	const animateRefs: CasesAnimationRefs = {
 		section: useRef<HTMLElement | null>(null),
 		title: useRef<HTMLHeadingElement | null>(null),
 		tagBlock: useRef<HTMLDivElement | null>(null),
@@ -33,34 +39,29 @@ export const CaseStudies: FC = () => {
 	}
 
 	useEffect(() => {
+		/* Проверка на клиент */
 		if (typeof window === 'undefined') return
-
 		animateCaseStudies(animateRefs).catch(console.error)
-	}, [filteredCaseStudies])
-
-	/* Уникальные теги для фильтрации */
-	const allTags = Array.from(
-		new Set(caseStudiesData.flatMap(caseStudy => caseStudy.tags))
-	)
+	}, [selectedTag])
 
 	return (
 		<section
 			ref={animateRefs.section}
-			className='relative container flex flex-col gap-12 items-center justify-center min-h-[90dvh] py-5'
+			className='relative container flex flex-col gap-12 items-center justify-center min-h-[90dvh] py-5 font-thin'
 			aria-labelledby='case-studies-heading'
 		>
 			<h2
 				ref={animateRefs.title}
 				id='case-studies-heading'
 				className={cn(
-					'relative z-10 text-4xl md:text-6xl text-center font-light text-white',
-					'bg-gray-900/50 backdrop-blur-xl rounded-xl shadow-2xl shadow-gray-50/10',
-					'border border-gray-200/20 w-full max-w-4xl p-8 tracking-wider'
+					'relative text-4xl md:text-6xl text-center text-white',
+					'bg-gray-900/20 backdrop-blur-sm rounded-lg shadow-sm shadow-sky-500',
+					'border border-sky-500 w-full p-8 tracking-wider'
 				)}
 			>
-				Наши кейсы
+				Наше портфолио
 			</h2>
-
+			{/* Блок тегов */}
 			<TagBlock
 				tagBlockRef={animateRefs.tagBlock}
 				tagsRef={animateRefs.tags}
@@ -68,10 +69,10 @@ export const CaseStudies: FC = () => {
 				setSelectedTag={setSelectedTag}
 				allTags={allTags}
 			/>
-
+			{/* Блок карточек */}
 			{filteredCaseStudies.length ? (
-				<div className='relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start min-h-0 w-full'>
-					{filteredCaseStudies.map((caseStudy, index) => (
+				<div className='relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-0 w-full'>
+					{filteredCaseStudies.map((caseStudy, index: number) => (
 						<CaseStudyCard
 							key={caseStudy.id}
 							caseStudy={caseStudy}
@@ -81,7 +82,7 @@ export const CaseStudies: FC = () => {
 					))}
 				</div>
 			) : (
-				<p className='text-center text-gray-200 bg-gray-900/50 backdrop-blur-xl p-10 text-2xl rounded-lg'>
+				<p className='text-center text-white bg-gray-900/50 backdrop-blur-xl p-10 text-2xl rounded-lg'>
 					Кейсы временно недоступны. Просим подождать.
 				</p>
 			)}

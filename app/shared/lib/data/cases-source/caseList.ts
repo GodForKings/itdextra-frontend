@@ -8,7 +8,7 @@ export const defaultCases: CaseItem[] = [
 		title: 'Элитная аренда авто премиум-класса',
 		description:
 			'Роскошный digital-опыт увеличил конверсию бронирований на 200% и средний чек на 45%. AI-рекомендации для персонализированного подбора авто.',
-		tags: ['E-commerce', 'React', 'Luxury Branding'],
+		tags: ['E-commerce', 'SSR', 'Luxury Branding', 'TypeScript'],
 		image: CASE_IMGS.luxeCars,
 		link: '/cases/luxe-cars',
 		problem:
@@ -25,7 +25,13 @@ export const defaultCases: CaseItem[] = [
 		title: 'Корпоративная сеть нефтяной компании',
 		description:
 			'Real-time дашборды с 20+ метриками. Сократили время принятия решений на 60% и устранили утечки данных.',
-		tags: ['Enterprise SaaS', 'Data Visualization', 'Security'],
+		tags: [
+			'Enterprise SaaS',
+			'Data Visualization',
+			'Security',
+			'React',
+			'Node.js',
+		],
 		image: CASE_IMGS.oilCorporation,
 		link: '/cases/oil-portal',
 		problem:
@@ -46,7 +52,7 @@ export const defaultCases: CaseItem[] = [
 		title: 'Приложение для Web3 блокчейн-стартапа',
 		description:
 			'От идеи до релиза: DeFi-приложение с интуитивным UX привлекло 50K+ пользователей за первый месяц.',
-		tags: ['Fintech Innovation', 'Mobile-First', 'Blockchain'],
+		tags: ['Fintech Innovation', 'Mobile-First', 'Blockchain', 'Go'],
 		image: CASE_IMGS.deFi,
 		link: '/cases/fintech-app',
 		problem: 'Сложный UX для DeFi-операций отпугивал новичков.',
@@ -65,7 +71,7 @@ export const defaultCases: CaseItem[] = [
 		title: 'Ребрендинг приложения кофейни',
 		description:
 			'Новый UX с геймификацией увеличил частоту заказов на 130% и внедрил NFC-платежи.',
-		tags: ['Techno', 'React', 'UX Overhaul'],
+		tags: ['Techno', 'Next.js', 'UX/UI', 'SSR'],
 		image: CASE_IMGS.coffee,
 		link: '/cases/coffee',
 		problem: 'Устаревший интерфейс и низкая вовлеченность пользователей.',

@@ -1,4 +1,4 @@
-import type { SectionAnimationRefs } from './types'
+import type { CasesAnimationRefs, SectionAnimationRefs } from './types'
 
 /**
  * Функция анимации секции
@@ -85,117 +85,47 @@ export const animateSection = async (
 	} else return
 }
 
-interface AnimateRefs {
-	section: React.RefObject<HTMLElement | null>
-	title: React.RefObject<HTMLHeadingElement | null>
-	tagBlock: React.RefObject<HTMLDivElement | null>
-	tags: React.RefObject<(HTMLButtonElement | null)[]>
-	cards: React.RefObject<(HTMLDivElement | null)[]>
-}
 /**
  * анимация секции кейсов на собственной странице
- * @param param
+ * @param refs рефы для анимаций
  * @returns
  */
-export const animateCaseStudies = async ({
-	section,
-	title,
-	tagBlock,
-	tags,
-	cards,
-}: AnimateRefs) => {
-	if (!section.current) return
-
+export const animateCaseStudies = async (refs: CasesAnimationRefs) => {
+	const [section, title, tagBlock, tags, cards] = [
+		refs.section?.current,
+		refs.title?.current,
+		refs.tagBlock?.current,
+		refs.tags?.current,
+		refs.cards?.current,
+	]
 	const { gsap } = await import('gsap')
-	const { ScrollTrigger } = await import('gsap/ScrollTrigger')
-	gsap.registerPlugin(ScrollTrigger)
 
-	const ctx = gsap.context(() => {
-		// Анимация заголовка
-		if (title.current) {
-			gsap.fromTo(
-				title.current,
-				{ opacity: 0, y: 60, textShadow: '0 0 0px rgba(229, 231, 235, 0)' },
-				{
-					opacity: 1,
-					y: 0,
-					textShadow: '0 0 20px rgba(229, 231, 235, 0.5)',
-					duration: 1.2,
-					ease: 'power4.out',
-					scrollTrigger: {
-						trigger: section.current,
-						start: 'top 85%',
-					},
-				}
-			)
-		}
-
-		// Анимация блока фильтров
-		if (tagBlock.current) {
-			gsap.fromTo(
-				tagBlock.current,
+	if (section && title && tagBlock && tags.length && cards.length) {
+		const caseHelloTl = gsap
+			.timeline({
+				defaults: { ease: 'power4.inOut', duration: 0.8 },
+			})
+			.fromTo(
+				title,
 				{ opacity: 0, y: 40 },
-				{
-					opacity: 1,
-					y: 0,
-					duration: 1,
-					ease: 'power4.out',
-					delay: 0.3,
-					scrollTrigger: {
-						trigger: section.current,
-						start: 'top 85%',
-					},
-				}
+				{ opacity: 1, y: 0, textShadow: '0 0 10px rgb(0,240,255)' }
 			)
-		}
-
-		// Анимация тегов
-		if (tags.current.length) {
-			gsap.fromTo(
-				tags.current.filter((el): el is HTMLButtonElement => el !== null),
+			.fromTo(tagBlock, { opacity: 0, y: 20 }, { opacity: 1, y: 0 }, '0')
+			.fromTo(
+				tags.filter(el => !!el),
 				{ opacity: 0, scale: 0.85 },
-				{
-					opacity: 1,
-					scale: 1,
-					duration: 0.8,
-					stagger: 0.12,
-					ease: 'back.out(1.4)',
-					delay: 0.5,
-					scrollTrigger: {
-						trigger: section.current,
-						start: 'top 85%',
-					},
-				}
+				{ opacity: 1, scale: 1, stagger: 0.04 },
+				'0'
 			)
-		}
-
-		// Анимация карточек
-		if (cards.current.length) {
-			gsap.fromTo(
-				cards.current.filter((el): el is HTMLDivElement => el !== null),
-				{
-					opacity: 0,
-					y: 60,
-					scale: 0.95,
-					boxShadow: '0 0 0px rgba(229, 231, 235, 0)',
-				},
-				{
-					opacity: 1,
-					y: 0,
-					scale: 1,
-					boxShadow: '0 0 20px rgba(229, 231, 235, 0.3)',
-					duration: 1,
-					stagger: 0.2,
-					ease: 'power4.out',
-					delay: 0.7,
-					scrollTrigger: {
-						trigger: section.current,
-						start: 'top 85%',
-					},
-				}
+			.fromTo(
+				cards.filter(el => !!el),
+				{ opacity: 0, y: -60, scale: 0.9 },
+				{ opacity: 1, y: 0, scale: 1, stagger: 0.2 },
+				'-=1'
 			)
-		}
-	})
 
-	return () => ctx.revert()
+		return () => {
+			caseHelloTl.kill()
+		}
+	}
 }

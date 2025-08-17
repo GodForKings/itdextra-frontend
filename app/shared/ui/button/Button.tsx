@@ -5,16 +5,22 @@ import { cn } from '~/shared'
 interface ButtonProps {
 	children: React.ReactNode
 	onClick: () => void
-	styles?: string
 	square: boolean /* форма кнопки квадрат? */
+	styles?: string
+	ariaLabelDesc?: string /* описание для скрин-ридеров */
 }
 
 export const Button: FC<ButtonProps> = props => {
-	const { children, styles, onClick, square } = props
+	const { children, styles, onClick, square, ariaLabelDesc } = props
 
 	return (
 		<button
-			onClick={onClick}
+			aria-label={ariaLabelDesc}
+			onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+				e.preventDefault()
+				e.stopPropagation()
+				onClick()
+			}}
 			className={cn(
 				'font-mono transition-all duration-300 px-6 py-3 max-w-3xl flex items-center justify-center tracking-wider select-none',
 				'active:translate-y-0.5 hover:translate-y-0.5',

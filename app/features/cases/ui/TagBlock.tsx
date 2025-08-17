@@ -1,4 +1,5 @@
-import React, { type FC } from 'react'
+import type { FC } from 'react'
+
 import { cn } from '~/shared'
 
 interface TagBlockProps {
@@ -16,15 +17,18 @@ export const TagBlock: FC<TagBlockProps> = props => {
 		<div
 			ref={tagBlockRef}
 			className={cn(
-				'relative z-10 flex justify-center items-center flex-wrap gap-3 p-6 w-full max-w-4xl',
-				'bg-gray-900/50 backdrop-blur-xl rounded-xl border border-gray-200/20'
+				'relative flex justify-center items-center flex-wrap gap-2 py-6 w-full tracking-wide',
+				'bg-gray-900/20 backdrop-blur-xl rounded-lg border border-sky-500 shadow-sm shadow-sky-500 max-lg:text-sm'
 			)}
 		>
 			<button
+				aria-label='показать все услуги'
 				className={cn(
-					'text-sm font-sans font-medium text-gray-200 bg-gray-900/40 px-4 py-2 rounded-full',
-					!selectedTag && 'bg-gray-50 text-black shadow-gray-50/20',
-					'hover:bg-gray-50 hover:text-black transition-all duration-300 ease-out'
+					'text-white bg-black/60 px-4 py-2 rounded-full shadow-md shadow-black',
+					!selectedTag && 'bg-sky-500 text-black shadow-md shadow-sky-500',
+					'transition-all duration-200 ease-in-out',
+					'hover:bg-white hover:text-black hover:shadow-white',
+					'active:bg-white active:text-black active:shadow-white'
 				)}
 				onClick={() => setSelectedTag(null)}
 			>
@@ -33,14 +37,17 @@ export const TagBlock: FC<TagBlockProps> = props => {
 
 			{allTags.map((tag: string, index: number) => (
 				<button
-					ref={el => {
-						tagsRef.current[index] = el
+					aria-label={`Показать кейсы с тегом ${tag}`}
+					ref={(el: HTMLButtonElement | null) => {
+						if (el) tagsRef.current[index] = el
 					}}
 					key={tag}
 					className={cn(
-						'text-sm font-sans font-medium text-gray-200 bg-gray-900/40 px-4 py-2 rounded-full',
-						selectedTag === tag && 'bg-gray-50 text-black shadow-gray-50/20',
-						'hover:bg-gray-50 hover:text-black transition-all duration-300 ease-out'
+						'text-white bg-black/60 px-4 py-2 rounded-full shadow-md shadow-black',
+						selectedTag === tag && 'bg-sky-500 text-black shadow-sky-500',
+						'transition-all duration-200 ease-in-out',
+						'hover:bg-white hover:text-black hover:shadow-white',
+						'active:bg-white active:text-black active:shadow-white'
 					)}
 					onClick={() => setSelectedTag(tag)}
 				>

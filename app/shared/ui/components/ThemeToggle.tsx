@@ -13,12 +13,12 @@ export const ThemeToggle: FC = () => {
 	const sunRef = useRef<SVGGElement>(null)
 	const moonRef = useRef<SVGPathElement>(null)
 
-	// Ждём завершения гидратации
+	/* Ждём завершения гидратации */
 	useEffect(() => {
 		setIsMounted(true)
 	}, [])
 
-	// Анимации только после монтирования
+	/* Анимации только после монтирования */
 	useEffect(() => {
 		if (
 			!isMounted ||
@@ -30,17 +30,18 @@ export const ThemeToggle: FC = () => {
 
 		gsap.to(sunRef.current, {
 			opacity: theme === 'light' ? 1 : 0,
-			rotate: theme === 'light' ? 0 : -45,
-			duration: 0.6,
+			scale: theme === 'light' ? 1 : 0.1,
+			duration: 0.4,
 		})
 
 		gsap.to(moonRef.current, {
 			opacity: theme === 'dark' ? 1 : 0,
+			scale: theme === 'dark' ? 1 : 0.1,
 			duration: 0.4,
 		})
 	}, [theme, isMounted])
 
-	// Статичный SVG на сервере
+	/* Статичный SVG на сервере */
 	return (
 		<button
 			onClick={toggleTheme}
@@ -53,7 +54,7 @@ export const ThemeToggle: FC = () => {
 				viewBox='0 0 24 24'
 				fill='none'
 				stroke='currentColor'
-				strokeWidth={1.5}
+				strokeWidth={1.4}
 				strokeLinecap='round'
 			>
 				{/* Луна (изначально скрыта) */}
