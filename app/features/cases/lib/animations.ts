@@ -1,4 +1,8 @@
-import type { CasesAnimationRefs, SectionAnimationRefs } from './types'
+import type {
+	CasesAnimationRefs,
+	ModalDescCaseRefs,
+	SectionAnimationRefs,
+} from './types'
 
 /**
  * Функция анимации секции
@@ -127,5 +131,83 @@ export const animateCaseStudies = async (refs: CasesAnimationRefs) => {
 		return () => {
 			caseHelloTl.kill()
 		}
+	}
+}
+
+/**
+ * анимация модального окна для одиночного кейса
+ * @param refs рефы для анимаций
+ * @returns
+ */
+export const animateModalForSoloCase = async (refs: ModalDescCaseRefs) => {
+	const [
+		modal,
+		title,
+		image,
+		client,
+		problem,
+		solution,
+		result,
+		metrics,
+		form,
+	] = [
+		refs.modal?.current,
+		refs.title?.current,
+		refs.image?.current,
+		refs.client?.current,
+		refs.problem?.current,
+		refs.solution?.current,
+		refs.result?.current,
+		refs.metrics?.current,
+		refs.form?.current,
+	]
+	const { gsap } = await import('gsap')
+
+	if (
+		modal &&
+		title &&
+		image &&
+		client &&
+		problem &&
+		solution &&
+		result &&
+		metrics.length &&
+		form
+	) {
+		const { SplitText } = await import('gsap/SplitText')
+		let solutionText = new SplitText(solution, { type: 'chars' })
+
+		const modalCaseTlMain = gsap
+			.timeline({
+				defaults: { ease: 'back.in', duration: 0.4 },
+			})
+			.fromTo(modal, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1 })
+			.fromTo(
+				title,
+				{ scale: 0.9, opacity: 0 },
+				{ scale: 1, opacity: 1, stagger: 0.05 }
+			)
+			.fromTo(
+				image,
+				{ opacity: 0, scale: 0.5, rotation: 'random(40, 80)' },
+				{ opacity: 1, scale: 1, rotation: 0 }
+			)
+
+		const textTl = gsap
+			.timeline({ defaults: { ease: 'elastic.inOut(1,0.1)', duration: 1 } })
+			.fromTo(
+				solutionText.chars,
+				{
+					y: -100,
+					opacity: 0,
+					rotation: 'random(-80, 80)',
+				},
+				{
+					y: 0,
+					opacity: 1,
+					stagger: { from: 'random', each: 0.01 },
+				}
+			)
+			.to(solutionText.chars, { rotation: 0 })
 	}
 }

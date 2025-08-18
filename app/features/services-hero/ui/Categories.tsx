@@ -59,7 +59,7 @@ export const Categories: FC = () => {
 								if (el) animateRefs.card.current[index] = el
 							}}
 							key={category.title}
-							aria-label={`Показать подробнее ${category}`}
+							aria-label={`Подробнее о ${category}`}
 							onClick={() => handleCTAClick(category)}
 							className={cn(
 								'group relative p-6 md:p-8 rounded-lg transition-all',

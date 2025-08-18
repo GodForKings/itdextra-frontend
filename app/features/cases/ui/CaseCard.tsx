@@ -26,7 +26,6 @@ export const CaseCard: FC<CaseCardProps> = props => {
 				'border border-neutral-700',
 				'shadow-xl hover:shadow-2xl'
 			)}
-			onClick={() => {}}
 		>
 			{/* Изображение кейса */}
 			<div className='relative h-70 overflow-hidden'>

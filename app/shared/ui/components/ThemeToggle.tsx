@@ -45,12 +45,12 @@ export const ThemeToggle: FC = () => {
 	return (
 		<button
 			onClick={toggleTheme}
-			className='p-2 rounded-full text-sky-500 bg-gray-950/10 dark:bg-white/10 transition-transform'
+			className='p-1 rounded-full text-sky-500 bg-gray-950/10 dark:bg-white/10 transition-transform'
 			aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
 		>
 			<svg
-				width='20'
-				height='20'
+				width='24'
+				height='24'
 				viewBox='0 0 24 24'
 				fill='none'
 				stroke='currentColor'

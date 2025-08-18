@@ -14,3 +14,15 @@ export interface CasesAnimationRefs {
 	tags: React.RefObject<(HTMLButtonElement | null)[]>
 	cards: React.RefObject<(HTMLDivElement | null)[]>
 }
+
+export interface ModalDescCaseRefs {
+	modal: React.RefObject<HTMLDivElement | null>
+	title: React.RefObject<HTMLHeadingElement | null>
+	image: React.RefObject<HTMLImageElement | null>
+	client: React.RefObject<HTMLParagraphElement | null>
+	problem: React.RefObject<HTMLParagraphElement | null>
+	solution: React.RefObject<HTMLParagraphElement | null>
+	result: React.RefObject<HTMLParagraphElement | null>
+	metrics: React.RefObject<(HTMLLIElement | null)[]>
+	form: React.RefObject<HTMLFormElement | null>
+}

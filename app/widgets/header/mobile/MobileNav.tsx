@@ -73,6 +73,7 @@ export const MobileNav: FC = () => {
 	return (
 		<>
 			<button
+				aria-label={isOpen ? `Закрыть навигацию` : `открыть навигацию`}
 				onClick={handleBurgerClick}
 				className='relative w-8 h-5 flex flex-col items-center justify-between min-md:hidden'
 			>

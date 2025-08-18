@@ -25,6 +25,7 @@ export const PlusesCard: FC<PlusesCardProps> = props => {
 				'hover:border-sky-500/60 dark:hover:border-slate-100 active:border-sky-500/60 dark:active:border-slate-100'
 			)}
 			onClick={handleAboutClick}
+			aria-label='Подробнее про ITDextra'
 		>
 			<h3 className='text-xl text-sky-500'>{title}</h3>
 

@@ -29,7 +29,7 @@ export const Hero: FC = () => {
 	const animateRefs: AnimateHeroRefs = {
 		sectionRef: useRef<HTMLDivElement | null>(null),
 		nameBlock: useRef<HTMLDivElement | null>(null),
-		sloganBlock: useRef<HTMLDivElement | null>(null),
+		sloganBlock: useRef<(HTMLParagraphElement | null)[]>([]),
 		techBlock: useRef<HTMLDivElement | null>(null),
 	}
 	useEffect(() => {
@@ -69,12 +69,12 @@ export const Hero: FC = () => {
 				</p>
 			</article>
 
-			<div
-				ref={animateRefs.sloganBlock}
-				className='text-2xl text-white text-center max-w-3xl mx-6 p-10 bg-neutral-950/40 rounded-lg'
-			>
-				{mockHeroData.slogan.map((el: string) => (
+			<div className='text-2xl text-white text-center max-w-3xl mx-6 p-10 bg-neutral-950/40 rounded-lg'>
+				{mockHeroData.slogan.map((el: string, index: number) => (
 					<p
+						ref={(el: HTMLParagraphElement | null) => {
+							if (el) animateRefs.sloganBlock.current[index] = el
+						}}
 						key={el}
 						className={cn(
 							'inline',
@@ -90,6 +90,7 @@ export const Hero: FC = () => {
 				square={true}
 				styles='z-2 font-transparent text-white border-white'
 				onClick={handleCTAClick}
+				ariaLabelDesc='Запросить консультацию'
 			>
 				Получить консультацию
 			</Button>

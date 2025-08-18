@@ -119,7 +119,7 @@ export const ServiceCard: FC<ServiceCardProps> = memo(props => {
 					'active:bg-sky-500/40 active:translate-y-1'
 				)}
 				onClick={() => handleCTAClick(service)}
-				aria-label={`Заказать услугу ${title}`}
+				aria-label={`Открыть услугу ${title}`}
 			>
 				Выбрать
 			</button>

@@ -68,6 +68,7 @@ export const CTA: FC = () => {
 					onClick={handleCTAClick}
 					square={true}
 					styles='w-fit gap-2 text-sky-600 border-sky-600'
+					ariaLabelDesc='Перейти к осуждению своего кейса'
 				>
 					<Terminal strokeWidth={1.5} size={20} className='text-sky-400' />
 					/Забронировать

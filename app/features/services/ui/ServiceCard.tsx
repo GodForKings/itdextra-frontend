@@ -28,7 +28,7 @@ export const ServiceCard: FC<ServiceCardProps> = props => {
 		const card = cardsRef.current[index]
 		if (card) {
 			gsap.to(card, {
-				boxShadow: isActive ? '0 16px 44px #001eff' : 'none',
+				boxShadow: isActive ? '0 16px 44px #00a6f4' : 'none',
 				duration: 0.25,
 				scale: isActive ? 1.04 : 1,
 				ease: 'power4.inOut',
@@ -47,10 +47,11 @@ export const ServiceCard: FC<ServiceCardProps> = props => {
 				if (el) cardsRef.current[index] = el
 			}}
 			className={cn(
-				'relative p-8 rounded-lg backdrop-blur-lg flex flex-col items-start justify-center gap-5 font-mono',
-				'bg-slate-100/30 dark:bg-neutral-900/10 border border-dashed border-transparent transition-all duration-200',
+				'relative p-8 rounded-lg backdrop-blur-2xl flex flex-col items-start justify-center gap-5',
+				'border border-dashed border-transparent transition-all duration-200',
 				'active:bg-transparent hover:bg-transparent',
-				'active:border-sky-500 hover:border-sky-500'
+				'hover:border-black active:border-black',
+				'active:dark:border-sky-500 hover:dark:border-sky-500'
 			)}
 			onMouseEnter={() => handleCardInteraction(index, true)}
 			onMouseLeave={() => handleCardInteraction(index, false)}
@@ -62,16 +63,30 @@ export const ServiceCard: FC<ServiceCardProps> = props => {
 			{Icon}
 
 			{/* Заголовок */}
-			<h3 className='text-xl lg:text-2xl text-neutral-950/80 dark:text-sky-400'>
+			<h3 className='text-xl lg:text-2xl text-neutral-950/80 dark:text-sky-400 font-mono'>
 				{title}
 			</h3>
 
 			{/* Описание */}
-			<p className='text-sm tracking-wider text-sky-600 dark:text-white'>
+			<p
+				className={cn(
+					'text-sm tracking-wider text-black dark:text-white',
+					'p-3 rounded-lg',
+					'bg-white/80 dark:bg-black/20',
+					'backdrop-blur-sm',
+					'border border-sky-500 border-dotted',
+					'shadow-sm'
+				)}
+			>
 				{shortDescription}
 			</p>
 
-			<Button onClick={handleModalOpen} square={false} styles='mt-5 gap-2'>
+			<Button
+				onClick={handleModalOpen}
+				square={false}
+				styles='mt-5 gap-2'
+				ariaLabelDesc={`Подробнее о ${title}`}
+			>
 				Подробнее
 				<SquareArrowOutUpRight size={20} strokeWidth={1.5} />
 			</Button>

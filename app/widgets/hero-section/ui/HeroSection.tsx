@@ -18,7 +18,7 @@ export const HeroSection: FC = () => {
 	const animateRefs: animateHeroRefs = {
 		heroRef: useRef<HTMLDivElement>(null),
 		nameRef: useRef<(HTMLSpanElement | null)[]>([]),
-		titleRef: useRef<HTMLHeadingElement>(null),
+		titleRef: useRef<HTMLSpanElement>(null),
 		subtitleRef: useRef<HTMLParagraphElement>(null),
 		ctaRef: useRef<HTMLDivElement>(null),
 		trustRef: useRef<HTMLDivElement>(null),
@@ -39,16 +39,20 @@ export const HeroSection: FC = () => {
 		<section
 			role='banner'
 			aria-labelledby='main-hero-heading'
-			ref={animateRefs.heroRef}
 			className={cn(
-				'relative min-h-[80dvh] m-5 p-4 md:p-8 overflow-hidden rounded-lg bg-gray-950/[2.5%] after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:inset-ring after:inset-ring-gray-950/5 dark:after:inset-ring-white/10 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/5 dark:[--pattern-fg:var(--color-white)]/10'
+				'bg-gray-950/[2.5%] after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:inset-ring after:inset-ring-gray-950/5 dark:after:inset-ring-white/10 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/5 dark:[--pattern-fg:var(--color-white)]/10',
+				'flex justify-center items-center overflow-hidden',
+				'relative min-h-[80dvh] m-5 p-4 lg:p-8 rounded-lg'
 			)}
 		>
-			<div className='container mx-auto px-4 py-20 md:py-28 max-w-4xl text-center flex flex-col justify-center items-center gap-6 lg:gap-12'>
+			<div
+				ref={animateRefs.heroRef}
+				className='container p-4 lg:py-20 max-w-5xl text-center flex flex-col justify-center items-center gap-6 lg:gap-12 opacity-0'
+			>
 				{/* Заголовок */}
 				<article className='relative flex flex-col items-center justify-center gap-2 will-change-transform'>
 					<h1 className='flex text-6xl md:text-8xl gap-0.25'>
-						{hero.name.map((letter, index) => (
+						{hero.name.map((letter: string, index) => (
 							<span
 								ref={(element: HTMLSpanElement | null) => {
 									if (element) animateRefs.nameRef.current[index] = element
@@ -66,13 +70,19 @@ export const HeroSection: FC = () => {
 					</h1>
 
 					<h2
-						ref={animateRefs.titleRef}
 						className={cn(
-							'text-4xl md:text-6xl',
-							'text-transparent bg-clip-text bg-gradient-to-l from-sky-500 to-neutral-950 dark:from-sky-500 dark:to-sky-50'
+							'text-3xl lg:text-6xl',
+							'flex justify-center items-center'
 						)}
 					>
-						{hero.slogan}
+						<span
+							className={cn(
+								'[perspective:500px] [perspective-origin:50%_50%] [transform-style:preserve-3d] font-thin'
+							)}
+							ref={animateRefs.titleRef}
+						>
+							{hero.slogan}
+						</span>
 					</h2>
 				</article>
 
@@ -88,7 +98,11 @@ export const HeroSection: FC = () => {
 					ref={animateRefs.ctaRef}
 					className='flex justify-center gap-4 max-md:flex-col'
 				>
-					<Button square={false} onClick={handleCTAClick}>
+					<Button
+						square={false}
+						onClick={handleCTAClick}
+						ariaLabelDesc='Перейти к осуждению своего кейса'
+					>
 						Обсудить проект
 					</Button>
 
@@ -96,6 +110,7 @@ export const HeroSection: FC = () => {
 						square={true}
 						onClick={() => navigate('/cases')}
 						styles='gap-2'
+						ariaLabelDesc='Кейсы ITDextra'
 					>
 						Посмотреть кейсы
 						<ArrowRightToLine strokeWidth={1} size={20} />

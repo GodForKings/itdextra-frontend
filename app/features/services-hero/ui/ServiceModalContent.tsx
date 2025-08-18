@@ -106,8 +106,8 @@ export const ServiceModalContent: FC<ServiceModalContentProps> = props => {
 						{tags?.map((tag, index) => (
 							<span
 								key={tag}
-								ref={el => {
-									animateRefs.tags.current[index] = el
+								ref={(el: HTMLSpanElement | null) => {
+									if (el) animateRefs.tags.current[index] = el
 								}}
 								className={cn(
 									'text-sm shadow-xl shadow-sky-400/30 text-sky-400 bg-gray-950 px-3 py-1 rounded-full border border-sky-400/20',

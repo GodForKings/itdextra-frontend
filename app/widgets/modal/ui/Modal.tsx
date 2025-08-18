@@ -3,7 +3,7 @@ import type { FC } from 'react'
 import { useEffect, useRef } from 'react'
 import { useUnit } from 'effector-react'
 import { gsap } from 'gsap'
-import { CircleX } from 'lucide-react'
+import { CircleX, X } from 'lucide-react'
 
 import { cn } from '~/shared'
 import { $isModalOpen, $modalContent, closeModal } from '../model/modal'
@@ -21,7 +21,7 @@ export const Modal: FC = () => {
 
 		const modalTl = gsap
 			.timeline({
-				defaults: { ease: 'power4.out', duration: 0.2, opacity: 0 },
+				defaults: { ease: 'power4.out', duration: 0.5, opacity: 0 },
 			})
 			.fromTo(modalRef.current, {}, { opacity: 1 })
 			.fromTo(
@@ -34,13 +34,13 @@ export const Modal: FC = () => {
 			)
 
 		// Находим первый фокусируемый элемент
-		const focusable = modalContentRef.current.querySelectorAll(
-			'input, textarea, button, [tabindex]:not([tabindex="-1"])'
-		)[0] as HTMLElement
-		if (focusable) {
-			firstFocusableRef.current = focusable
-			focusable.focus()
-		}
+		// const focusable = modalContentRef.current.querySelectorAll(
+		// 	'input, textarea, button, [tabindex]:not([tabindex="-1"])'
+		// )[0] as HTMLElement
+		// if (focusable) {
+		// 	firstFocusableRef.current = focusable
+		// 	focusable.focus()
+		// }
 
 		return () => {
 			modalTl.kill()
@@ -69,27 +69,26 @@ export const Modal: FC = () => {
 							'modal-scrollbar'
 						)}
 					>
-						<button
-							onClick={() => closeModal()}
-							className={cn(
-								'absolute top-1 right-4 z-5 backdrop-blur-3xl rounded-lg',
-								'bg-gradient-to-tr from-black/90 to-gray-950/90'
-							)}
-							aria-label='Закрыть модальное окно'
-							tabIndex={0}
-						>
-							<CircleX
-								size={44}
-								strokeWidth={0.8}
-								className={cn(
-									'hover:text-white/40 active:text-white/40',
-									'text-white p-1'
-								)}
-							/>
-						</button>
-
 						{content}
 					</div>
+					{/* Кнопка для закрытия модального окна */}
+					<button
+						onClick={() => closeModal()}
+						className={cn(
+							'absolute top-[1dvh] right-[5dvw] z-5 backdrop-blur-3xl rounded-lg',
+							'bg-black opacity-65'
+						)}
+						aria-label='Закрыть модальное окно'
+						tabIndex={0}
+					>
+						<X
+							strokeWidth={1}
+							className={cn(
+								'hover:text-white/40 active:text-white/40',
+								'text-red-600 h-10 w-10 lg:h-12 lg:w-12'
+							)}
+						/>
+					</button>
 				</div>
 			)}
 		</>

@@ -2,7 +2,7 @@
 export interface AnimateHeroRefs {
 	sectionRef: React.RefObject<HTMLDivElement | null>
 	nameBlock: React.RefObject<HTMLDivElement | null>
-	sloganBlock: React.RefObject<HTMLDivElement | null>
+	sloganBlock: React.RefObject<(HTMLParagraphElement | null)[]>
 	techBlock: React.RefObject<HTMLDivElement | null>
 }
 /* Интерфейс для анимаций у секции категорий */

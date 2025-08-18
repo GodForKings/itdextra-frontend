@@ -75,7 +75,12 @@ export const CaseSection: FC = () => {
 
 			{/* Призыв к действию */}
 			<div ref={buttonRef} className='relative'>
-				<Button square={true} onClick={handleCTAClick} styles='gap-2'>
+				<Button
+					square={true}
+					onClick={handleCTAClick}
+					styles='gap-2'
+					ariaLabelDesc='Перейти к осуждению своего кейса'
+				>
 					Обсудить проект
 					<CircleArrowOutUpRight size={22} strokeWidth={2} />
 				</Button>

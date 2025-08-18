@@ -15,6 +15,8 @@ export const animateHeroServices = async (
 	refs: AnimateHeroRefs
 ): Promise<(() => void) | undefined> => {
 	const { gsap } = await import('gsap')
+	const { SplitText } = await import('gsap/SplitText')
+	gsap.registerPlugin(SplitText)
 
 	const [section, name, slogan, tech] = [
 		refs?.sectionRef?.current,
@@ -24,7 +26,10 @@ export const animateHeroServices = async (
 	]
 
 	if (section && name && slogan && tech) {
-		const heroTl = gsap.timeline({ defaults: { ease: 'back.inOut' } })
+		let sloganSplit = new SplitText(slogan, {
+			type: 'words,chars',
+		})
+		const heroTl = gsap.timeline({ defaults: { ease: 'back.out' } })
 
 		heroTl
 			.fromTo(section, { opacity: 0 }, { opacity: 1, duration: 1, delay: 1 })
@@ -35,13 +40,22 @@ export const animateHeroServices = async (
 				'-=0.5'
 			)
 			.fromTo(
-				slogan,
-				{ opacity: 0, y: '30' },
-				{ opacity: 1, y: 0, duration: 1 }
+				sloganSplit.chars,
+				{ y: -80, opacity: 0, rotation: 'random(-60, 60)' },
+				{
+					y: 0,
+					opacity: 1,
+					delay: 1.6,
+					duration: 0.8,
+					rotation: 0,
+					stagger: { from: 'random', each: 0.02 },
+				},
+				0
 			)
 			.fromTo(tech, { opacity: 0 }, { opacity: 1, duration: 1 }, '-=0.8')
 
 		return () => {
+			sloganSplit && sloganSplit.revert()
 			heroTl.kill()
 		}
 	} else return
