@@ -32,9 +32,8 @@ export const CaseStudyCard: FC<CaseStudyCardProps> = memo(props => {
 				if (el) cardRef.current[index] = el
 			}}
 			className={cn(
-				'relative p-6 bg-black/40 backdrop-blur-xl rounded-lg border border-sky-500 text-white',
-				'shadow-md shadow-sky-500 transition-all duration-300 ease-in',
-				'flex flex-col justify-between items-start gap-6 min-h-[85vh] lg:min-h-[65vh] h-fit',
+				'relative p-6 bg-black/40 backdrop-blur-xl rounded-lg',
+				'flex flex-col justify-between items-start gap-6 h-fit',
 				(index === 0 || index === 3) && 'lg:col-span-2'
 			)}
 			role='region'

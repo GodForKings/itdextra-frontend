@@ -2,7 +2,6 @@ import type { FC } from 'react'
 
 import { useEffect, useRef, useState } from 'react'
 import { useUnit } from 'effector-react'
-import { useNavigate } from 'react-router'
 
 import { cn, MAIN_TAGS } from '~/shared'
 import { ServicesListModel } from '../model/index'
@@ -16,7 +15,6 @@ import type { LucideIcon } from 'lucide-react'
 
 export const AllServices: FC = () => {
 	const services = useUnit(ServicesListModel.stores.$services)
-	const navigate = useNavigate()
 
 	const [selectedTag, setSelectedTag] = useState<string | null>(null)
 

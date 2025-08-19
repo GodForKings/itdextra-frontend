@@ -72,15 +72,11 @@ export const HeroSection: FC = () => {
 					<h2
 						className={cn(
 							'text-3xl lg:text-6xl',
-							'flex justify-center items-center'
+							'flex justify-center items-center',
+							'[perspective:500px] [perspective-origin:50%_50%] [transform-style:preserve-3d]'
 						)}
 					>
-						<span
-							className={cn(
-								'[perspective:500px] [perspective-origin:50%_50%] [transform-style:preserve-3d] font-thin'
-							)}
-							ref={animateRefs.titleRef}
-						>
+						<span className={cn(' font-thin')} ref={animateRefs.titleRef}>
 							{hero.slogan}
 						</span>
 					</h2>

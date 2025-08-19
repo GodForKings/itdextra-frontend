@@ -1,11 +1,12 @@
 import type { FC } from 'react'
-import type { CasesAnimationRefs } from '../lib/types'
+
+import type { CardCases3dRefs, CasesAnimationRefs } from '../lib/types'
 
 import { useEffect, useRef, useState, useMemo } from 'react'
 import { useUnit } from 'effector-react'
 
 import { CaseStudyCard } from './CaseStudyCard'
-import { animateCaseStudies } from '../lib/animations'
+import { animateCardCases3d, animateCaseStudies } from '../lib/animations'
 import { casesList } from '../model/caseList'
 import { cn } from '~/shared'
 import { TagBlock } from './TagBlock'
@@ -35,13 +36,24 @@ export const CaseStudies: FC = () => {
 		title: useRef<HTMLHeadingElement | null>(null),
 		tagBlock: useRef<HTMLDivElement | null>(null),
 		tags: useRef<(HTMLButtonElement | null)[]>([]),
+	}
+
+	const cardsRefs: CardCases3dRefs = {
 		cards: useRef<(HTMLDivElement | null)[]>([]),
 	}
 
 	useEffect(() => {
 		/* Проверка на клиент */
 		if (typeof window === 'undefined') return
+
 		animateCaseStudies(animateRefs).catch(console.error)
+	}, [])
+
+	useEffect(() => {
+		/* Проверка на клиент */
+		if (typeof window === 'undefined') return
+
+		animateCardCases3d(cardsRefs).catch(console.error)
 	}, [selectedTag])
 
 	return (
@@ -71,13 +83,18 @@ export const CaseStudies: FC = () => {
 			/>
 			{/* Блок карточек */}
 			{filteredCaseStudies.length ? (
-				<div className='relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-0 w-full'>
+				<div
+					className={cn(
+						'relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-0 w-full',
+						'[transform-style:preserve-3d] [perspective:800px] will-change-transform overflow-hidden'
+					)}
+				>
 					{filteredCaseStudies.map((caseStudy, index: number) => (
 						<CaseStudyCard
 							key={caseStudy.id}
 							caseStudy={caseStudy}
 							index={index}
-							cardRef={animateRefs.cards}
+							cardRef={cardsRefs.cards}
 						/>
 					))}
 				</div>

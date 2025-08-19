@@ -65,8 +65,8 @@ export const ServiceModal: FC<ServiceModalContentProps> = props => {
 				ref={animateRefs.description}
 				className={cn(
 					'bg-sky-400 text-black p-4 transition-all duration-200',
-					'shadow-2xl shadow-sky-500/60',
-					'rounded-lg border border-neutral-950 dark:border-sky-500/20',
+					'shadow-xl shadow-sky-400/80',
+					'rounded-lg overflow-hidden border border-black',
 					'hover:shadow-violet-700 active:shadow-violet-700'
 				)}
 			>

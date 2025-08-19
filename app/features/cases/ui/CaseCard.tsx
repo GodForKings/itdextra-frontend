@@ -12,7 +12,7 @@ interface CaseCardProps {
 
 export const CaseCard: FC<CaseCardProps> = props => {
 	const { caseCard, index, casesRef } = props
-	const { id, title, description, tags, image, link } = caseCard
+	const { title, description, tags, image } = caseCard
 
 	return (
 		<article
@@ -21,10 +21,10 @@ export const CaseCard: FC<CaseCardProps> = props => {
 				if (el) casesRef.current[index] = el
 			}}
 			className={cn(
-				'group relative rounded-lg overflow-hidden transition-all duration-200',
+				'group relative opacity-0 rounded-lg overflow-hidden transition-all duration-200',
 				'bg-white/50 dark:bg-neutral-800/60 backdrop-blur-2xl',
 				'border border-neutral-700',
-				'shadow-xl hover:shadow-2xl'
+				'shadow-xl shadow-black hover:shadow-2xl active:shadow-2xl'
 			)}
 		>
 			{/* Изображение кейса */}

@@ -75,8 +75,9 @@ export const Modal: FC = () => {
 					<button
 						onClick={() => closeModal()}
 						className={cn(
-							'absolute top-[1dvh] right-[5dvw] z-5 backdrop-blur-3xl rounded-lg',
-							'bg-black opacity-65'
+							'absolute z-5 backdrop-blur-3xl rounded-lg',
+							'bg-black opacity-65',
+							'md:top-[5dvh] md:right-[6dvw] top-1 right-1'
 						)}
 						aria-label='Закрыть модальное окно'
 						tabIndex={0}
@@ -85,7 +86,7 @@ export const Modal: FC = () => {
 							strokeWidth={1}
 							className={cn(
 								'hover:text-white/40 active:text-white/40',
-								'text-red-600 h-10 w-10 lg:h-12 lg:w-12'
+								'text-red-500 h-10 w-10 lg:h-14 lg:w-14'
 							)}
 						/>
 					</button>

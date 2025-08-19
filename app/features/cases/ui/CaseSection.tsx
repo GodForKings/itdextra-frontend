@@ -36,7 +36,12 @@ export const CaseSection: FC = () => {
 		<section
 			ref={sectionRef}
 			aria-labelledby='cases-section'
-			className='relative m-5 rounded-lg border border-(--pattern-fg) py-18 px-4 sm:px-8 overflow-hidden bg-gradient-to-r from-white to-slate-100 dark:from-gray-950/[7.5%] dark:to-gray-700/10 flex flex-col items-center justify-center gap-10 select-none'
+			className={cn(
+				'relative m-5 py-18 px-4 md:px-8 overflow-hidden select-none',
+				'bg-gradient-to-r from-white to-slate-100 dark:from-gray-950/[7.5%] dark:to-gray-700/10',
+				'flex flex-col items-center justify-center gap-10',
+				'rounded-lg border border-(--pattern-fg)'
+			)}
 		>
 			{/* Декоративный элемент */}
 			<div className='absolute top-10 left-10 w-[80%] h-[80%] pointer-events-none rounded-full bg-sky-500/20 dark:bg-blue-400/20 blur-3xl' />
@@ -45,7 +50,10 @@ export const CaseSection: FC = () => {
 			<div className='container max-w-6xl flex flex-col items-center justify-center gap-5'>
 				<h2
 					ref={titleRef}
-					className='text-4xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-br from-neutral-950 to-sky-700 dark:from-sky-500 dark:to-white'
+					className={cn(
+						'text-4xl md:text-6xl text-transparent',
+						'bg-clip-text bg-gradient-to-br from-neutral-950 to-sky-700 dark:from-sky-500 dark:to-white'
+					)}
 				>
 					{cases.title}
 				</h2>
@@ -53,8 +61,9 @@ export const CaseSection: FC = () => {
 				<p
 					ref={subtitleRef}
 					className={cn(
-						'text-xl text-sky-400 p-3 rounded-lg max-w-2xl',
-						'bg-gradient-to-br from-gray-800/80 to-neutral-950/80 backdrop-blur-3xl'
+						'text-xl text-center text-black dark:text-white px-4 py-2 rounded-lg max-w-2xl',
+						'bg-white/80 dark:bg-black/20',
+						'border border-dotted border-neutral-700'
 					)}
 				>
 					{cases.subtitle}

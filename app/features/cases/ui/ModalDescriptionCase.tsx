@@ -52,14 +52,15 @@ export const ModalDescriptionCase: FC<ModalDescriptionCaseProps> = props => {
 				className={cn(
 					'flex justify-start gap-5 max-lg:flex-col overflow-hidden',
 					'rounded-lg tracking-wider',
-					'bg-gradient-to-l from-gray-950/90 to-gray-800/25'
+					'bg-gradient-to-l from-gray-950/90 to-gray-800/25',
+					'[transform-style:preserve-3d] [perspective:600px] will-change-transform'
 				)}
 			>
 				<img
 					ref={animateRefs.image}
 					src={image}
 					alt={title}
-					className='h-128 object-cover object-center rounded-lg'
+					className={cn('h-128 object-cover object-center rounded-lg')}
 				/>
 
 				<div className='flex flex-col gap-4 lg:gap-10 p-4 lg:p-6'>

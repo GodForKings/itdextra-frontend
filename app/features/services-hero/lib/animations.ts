@@ -19,13 +19,13 @@ export const animateHeroServices = async (
 	gsap.registerPlugin(SplitText)
 
 	const [section, name, slogan, tech] = [
-		refs?.sectionRef?.current,
-		refs?.nameBlock?.current,
-		refs?.sloganBlock?.current,
-		refs?.techBlock?.current,
+		refs.sectionRef?.current,
+		refs.nameBlock?.current,
+		refs.sloganBlock?.current,
+		refs.techBlock?.current,
 	]
 
-	if (section && name && slogan && tech) {
+	if (section && name && slogan.length && tech) {
 		let sloganSplit = new SplitText(slogan, {
 			type: 'words,chars',
 		})
@@ -302,7 +302,11 @@ export const animateModal = async (
 		}
 	}
 }
-
+/**
+ * Анимация контента модального окна для соло услуги
+ * @param refs объект с рефами элементов
+ * @returns
+ */
 export const animateServiceModalContent = async (
 	refs: AnimateServiceModalRef
 ) => {
@@ -373,7 +377,7 @@ export const animateServiceModalContent = async (
 				'-=0.6'
 			)
 			.fromTo(
-				tags.filter((el): el is HTMLSpanElement => el !== null),
+				tags.filter(el => el !== null),
 				{ opacity: 0, y: 20 },
 				{
 					opacity: 1,
@@ -383,7 +387,7 @@ export const animateServiceModalContent = async (
 				'-=1'
 			)
 			.fromTo(
-				caseStudies.filter((el): el is HTMLLIElement => el !== null),
+				caseStudies.filter(el => el !== null),
 				{ opacity: 0, y: 20 },
 				{
 					opacity: 1,

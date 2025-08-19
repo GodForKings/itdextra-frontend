@@ -58,8 +58,6 @@ export const animateSection = async (
  * @returns
  */
 export const animateModalForService = async (refs: AnimateModalRefs) => {
-	const { gsap } = await import('gsap')
-
 	const [
 		modal,
 		title,
@@ -90,6 +88,12 @@ export const animateModalForService = async (refs: AnimateModalRefs) => {
 		tags.length &&
 		caseStudies.length
 	) {
+		const { gsap } = await import('gsap')
+		const { SplitText } = await import('gsap/SplitText')
+		gsap.registerPlugin(SplitText)
+
+		let descSplit = new SplitText(description, { type: 'words' })
+
 		const modalTl = gsap
 			.timeline({ defaults: { ease: 'expo.in', duration: 0.5 } })
 
@@ -99,7 +103,23 @@ export const animateModalForService = async (refs: AnimateModalRefs) => {
 				{ opacity: 0, y: 30 },
 				{ opacity: 1, y: 0, textShadow: '0 0 15px rgba(125, 211, 252, 0.8)' }
 			)
-			.fromTo(description, { opacity: 0, y: 20 }, { opacity: 1, y: 0 })
+			.fromTo(
+				descSplit.words,
+				{
+					scale: 'random(0, 0.4)',
+					y: 'random(-40, 20)',
+				},
+				{
+					y: 0,
+					scale: 1,
+					stagger: {
+						from: 'random',
+						amount: 1,
+					},
+					duration: 0.8,
+				},
+				0
+			)
 			.fromTo(category, { opacity: 0, y: 20 }, { opacity: 1, y: 0 }, '-=0.5')
 			.fromTo(priceRange, { opacity: 0, y: 20 }, { opacity: 1, y: 0 })
 			.fromTo(deliveryTime, { opacity: 0, y: 20 }, { opacity: 1, y: 0 })

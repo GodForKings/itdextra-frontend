@@ -12,6 +12,9 @@ export interface CasesAnimationRefs {
 	title: React.RefObject<HTMLHeadingElement | null>
 	tagBlock: React.RefObject<HTMLDivElement | null>
 	tags: React.RefObject<(HTMLButtonElement | null)[]>
+}
+
+export interface CardCases3dRefs {
 	cards: React.RefObject<(HTMLDivElement | null)[]>
 }
 

@@ -7,7 +7,7 @@ export const defaultCases: CaseItem[] = [
 		id: '1',
 		title: 'Элитная аренда авто премиум-класса',
 		description:
-			'Роскошный digital-опыт увеличил конверсию бронирований на 200% и средний чек на 45%. AI-рекомендации для персонализированного подбора авто.',
+			'Роскошный digital-опыт увеличил конверсию бронирований на 104% и средний чек на 37%. AI-рекомендации для персонализированного подбора авто.',
 		tags: ['E-commerce', 'SSR', 'Luxury Branding', 'TypeScript'],
 		image: CASE_IMGS.luxeCars,
 		link: '/cases/luxe-cars',
@@ -24,7 +24,7 @@ export const defaultCases: CaseItem[] = [
 		id: '2',
 		title: 'Корпоративная сеть нефтяной компании',
 		description:
-			'Real-time дашборды с 20+ метриками. Сократили время принятия решений на 60% и устранили утечки данных.',
+			'Real-time дашборды с 20+ метриками. Сократили время принятия решений на 53% и устранили утечки данных.',
 		tags: [
 			'Enterprise SaaS',
 			'Data Visualization',
