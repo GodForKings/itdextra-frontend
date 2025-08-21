@@ -13,19 +13,23 @@ import type {
 export const animateSection = async (
 	refs: SectionAnimationRefs
 ): Promise<(() => void) | undefined> => {
-	const { gsap } = await import('gsap')
-	const { ScrollTrigger } = await import('gsap/ScrollTrigger')
-	gsap.registerPlugin(ScrollTrigger)
+	try {
+		const { gsap } = await import('gsap')
+		const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+		gsap.registerPlugin(ScrollTrigger)
 
-	const [section, title, subtitle, cases, button] = [
-		refs.sectionRef?.current,
-		refs.titleRef?.current,
-		refs.subtitleRef?.current,
-		refs.casesRef?.current,
-		refs.buttonRef?.current,
-	]
+		const [section, title, subtitle, cases, button] = [
+			refs.sectionRef?.current,
+			refs.titleRef?.current,
+			refs.subtitleRef?.current,
+			refs.casesRef?.current,
+			refs.buttonRef?.current,
+		]
 
-	if (section && title && subtitle && cases.length && button) {
+		if (!section || !title || !subtitle || !cases?.length || !button) {
+			return
+		}
+
 		const masterTL = gsap
 			.timeline({
 				scrollTrigger: {
@@ -35,18 +39,17 @@ export const animateSection = async (
 				},
 				defaults: { ease: 'power4.out', duration: 1 },
 			})
-			// Анимация заголовка
 			.fromTo(title, { opacity: 0, y: -150 }, { opacity: 1, y: 0 })
-			// Подзаголовок
 			.fromTo(subtitle, { opacity: 0, x: 30 }, { opacity: 1, x: 0 }, '-=0.4')
-			// Кнопка(и)
 			.fromTo(button, { opacity: 0, y: 20 }, { opacity: 1, y: 0 }, '+=1')
 
-		// Анимация кейсов
+		const allTimelines: gsap.core.Timeline[] = [masterTL]
+		const allTriggers: ScrollTrigger[] = [masterTL.scrollTrigger!]
+
 		cases.forEach(caseEl => {
 			if (!caseEl) return
 
-			const caseTL = gsap
+			const caseTl = gsap
 				.timeline({
 					scrollTrigger: {
 						trigger: caseEl,
@@ -65,18 +68,20 @@ export const animateSection = async (
 					{ scale: 1, x: 0, rotation: 0, opacity: 1 }
 				)
 
-			return () => {
-				caseTL.kill()
-				ScrollTrigger.getAll().forEach(el => el.kill())
+			allTimelines.push(caseTl)
+			if (caseTl.scrollTrigger) {
+				allTriggers.push(caseTl.scrollTrigger)
 			}
 		})
 
-		// Очистка анимаций
 		return () => {
-			masterTL.kill()
-			ScrollTrigger.getAll().forEach((trigger: ScrollTrigger) => trigger.kill())
+			allTimelines.forEach(tl => tl.kill())
+			allTriggers.forEach(trigger => trigger.kill())
 		}
-	} else return
+	} catch (error) {
+		console.error('Animation error:', error)
+		return
+	}
 }
 
 /**
@@ -84,16 +89,23 @@ export const animateSection = async (
  * @param refs рефы для анимаций
  * @returns
  */
-export const animateCaseStudies = async (refs: CasesAnimationRefs) => {
-	const [section, title, tagBlock, tags] = [
-		refs.section?.current,
-		refs.title?.current,
-		refs.tagBlock?.current,
-		refs.tags?.current,
-	]
-	const { gsap } = await import('gsap')
+export const animateCaseStudies = async (
+	refs: CasesAnimationRefs
+): Promise<(() => void) | undefined> => {
+	try {
+		const [section, title, tagBlock, tags] = [
+			refs.section?.current,
+			refs.title?.current,
+			refs.tagBlock?.current,
+			refs.tags?.current,
+		]
 
-	if (section && title && tagBlock && tags.length) {
+		if (!section || !title || !tagBlock || !tags?.length) {
+			return
+		}
+
+		const { gsap } = await import('gsap')
+
 		const caseHelloTl = gsap
 			.timeline({
 				defaults: { ease: 'power4.inOut', duration: 0.7 },
@@ -113,18 +125,34 @@ export const animateCaseStudies = async (refs: CasesAnimationRefs) => {
 		return () => {
 			caseHelloTl.kill()
 		}
+	} catch (error) {
+		console.error('Animation error:', error)
+		return
 	}
 }
 
-export const animateCardCases3d = async (refs: CardCases3dRefs) => {
-	const cards = refs.cards.current
+/**
+ * анимация карточек кейсов
+ * @param refs рефы для анимаций
+ * @returns
+ */
+export const animateCardCases3d = async (
+	refs: CardCases3dRefs
+): Promise<(() => void) | undefined> => {
+	try {
+		const cards = refs.cards.current
 
-	if (cards.length) {
+		if (!cards?.length) {
+			return
+		}
+
 		const { gsap } = await import('gsap')
 		const { ScrollTrigger } = await import('gsap/ScrollTrigger')
 		gsap.registerPlugin(ScrollTrigger)
 
-		const tlArray: gsap.core.Timeline[] = []
+		const allTimelines: gsap.core.Timeline[] = []
+		const allTriggers: ScrollTrigger[] = []
+
 		cards.forEach(card => {
 			if (!card) return
 
@@ -142,7 +170,7 @@ export const animateCardCases3d = async (refs: CardCases3dRefs) => {
 					{
 						opacity: 0,
 						y: 60,
-						translateZ: 'random(0, 400)',
+						translateZ: 'random(-600, 600)',
 						rotationY: 'random(-150, 150)',
 						rotationX: 'random(-150, 150)',
 						scale: 0.8,
@@ -159,13 +187,19 @@ export const animateCardCases3d = async (refs: CardCases3dRefs) => {
 					}
 				)
 
-			tlArray.push(cardTl)
+			allTimelines.push(cardTl)
+			if (cardTl.scrollTrigger) {
+				allTriggers.push(cardTl.scrollTrigger)
+			}
 		})
 
 		return () => {
-			ScrollTrigger.getAll().forEach(el => el.kill())
-			tlArray.forEach(el => el.kill())
+			allTimelines.forEach(tl => tl.kill())
+			allTriggers.forEach(trigger => trigger.kill())
 		}
+	} catch (error) {
+		console.error('Animation error:', error)
+		return
 	}
 }
 
@@ -174,39 +208,46 @@ export const animateCardCases3d = async (refs: CardCases3dRefs) => {
  * @param refs рефы для анимаций
  * @returns
  */
-export const animateModalForSoloCase = async (refs: ModalDescCaseRefs) => {
-	const [
-		modal,
-		title,
-		image,
-		client,
-		problem,
-		solution,
-		result,
-		metrics,
-		form,
-	] = [
-		refs.modal?.current,
-		refs.title?.current,
-		refs.image?.current,
-		refs.client?.current,
-		refs.problem?.current,
-		refs.solution?.current,
-		refs.result?.current,
-		refs.metrics?.current,
-		refs.form?.current,
-	]
-	if (
-		modal &&
-		title &&
-		image &&
-		client &&
-		problem &&
-		solution &&
-		result &&
-		metrics.length &&
-		form
-	) {
+export const animateModalForSoloCase = async (
+	refs: ModalDescCaseRefs
+): Promise<(() => void) | undefined> => {
+	try {
+		const [
+			modal,
+			title,
+			image,
+			client,
+			problem,
+			solution,
+			result,
+			metrics,
+			form,
+		] = [
+			refs.modal?.current,
+			refs.title?.current,
+			refs.image?.current,
+			refs.client?.current,
+			refs.problem?.current,
+			refs.solution?.current,
+			refs.result?.current,
+			refs.metrics?.current,
+			refs.form?.current,
+		]
+
+		if (
+			!modal ||
+			!title ||
+			!image ||
+			!client ||
+			!problem ||
+			!solution ||
+			!result ||
+			!metrics?.length ||
+			!form
+		) {
+			return
+		}
+
 		const { gsap } = await import('gsap')
 		const { SplitText } = await import('gsap/SplitText')
 		gsap.registerPlugin(SplitText)
@@ -219,7 +260,7 @@ export const animateModalForSoloCase = async (refs: ModalDescCaseRefs) => {
 		})
 		const resultSplit = new SplitText(result, { type: 'chars,words' })
 
-		const splitEl = [clientSplit, solutionSplit, resultSplit]
+		const splitElements = [clientSplit, solutionSplit, resultSplit]
 
 		const baseTl = gsap
 			.timeline({
@@ -292,10 +333,14 @@ export const animateModalForSoloCase = async (refs: ModalDescCaseRefs) => {
 					opacity: 1,
 				}
 			)
+
 		return () => {
-			splitEl.forEach(el => el.revert())
-			descTl.kill()
+			splitElements.forEach(el => el.revert())
 			baseTl.kill()
+			descTl.kill()
 		}
+	} catch (error) {
+		console.error('Animation error:', error)
+		return
 	}
 }

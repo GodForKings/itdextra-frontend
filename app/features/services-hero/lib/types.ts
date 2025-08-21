@@ -18,6 +18,10 @@ export interface AnimateServicesRefs {
 	title: React.RefObject<HTMLHeadingElement | null>
 	tagBlock: React.RefObject<HTMLDivElement | null>
 	tags: React.RefObject<(HTMLButtonElement | null)[]>
+	serviceWell: React.RefObject<HTMLDivElement | null>
+}
+/* Интерфейс для анимаций карточек в Услугах */
+export interface AnimateCardRefs {
 	cards: React.RefObject<(HTMLElement | null)[]>
 }
 /* Интерфейс для анимаций у секции CTA */
@@ -36,7 +40,7 @@ export interface AnimateModalRefs {
 	benefits: React.RefObject<(HTMLLIElement | null)[]>
 	form: React.RefObject<HTMLFormElement | null>
 }
-
+/* Интерфейс для анимаций Одной Услуги в модальном окне */
 export interface AnimateServiceModalRef {
 	modal: React.RefObject<HTMLDivElement | null>
 	title: React.RefObject<HTMLHeadingElement | null>

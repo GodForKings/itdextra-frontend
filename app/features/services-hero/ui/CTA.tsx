@@ -16,10 +16,20 @@ export const CTA: FC = () => {
 	}
 
 	useEffect(() => {
-		/* Для работы только на клиенте */
+		/* SSR dodge */
 		if (typeof window === 'undefined') return
 
-		animateCTA(animateRefs).catch(console.error)
+		let cleanup: (() => void) | undefined
+
+		animateCTA(animateRefs)
+			.then(cleanupFn => {
+				cleanup = cleanupFn
+			})
+			.catch(console.error)
+		/* Очистка */
+		return () => {
+			cleanup?.()
+		}
 	}, [])
 
 	const handleCTAClick = () => {

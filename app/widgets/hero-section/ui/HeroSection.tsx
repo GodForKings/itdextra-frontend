@@ -29,10 +29,19 @@ export const HeroSection: FC = () => {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		/* Для работы только на клиенте */
+		/* SSR dodge */
 		if (typeof window === 'undefined') return
+		let cleanup: (() => void) | undefined
 
-		animateHero(animateRefs).catch(console.error)
+		animateHero(animateRefs)
+			.then(fn => {
+				cleanup = fn
+			})
+			.catch(console.error)
+		/* Очистка */
+		return () => {
+			cleanup?.()
+		}
 	}, [])
 
 	return (

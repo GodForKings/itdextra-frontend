@@ -27,15 +27,26 @@ export const Categories: FC = () => {
 	}
 
 	useEffect(() => {
+		/* SSR dodge */
 		if (typeof window === 'undefined') return
 
-		animateCategory(animateRefs).catch(console.error)
+		let cleanup: (() => void) | undefined
+
+		animateCategory(animateRefs)
+			.then(cleanupFn => {
+				cleanup = cleanupFn
+			})
+			.catch(console.error)
+		/* Очистка */
+		return () => {
+			cleanup?.()
+		}
 	}, [])
 
 	return (
 		<section
 			ref={animateRefs.section}
-			className='relative py-18 container overflow-hidden'
+			className='relative py-10 lg:py-16 container overflow-hidden min-h-[100dvh]'
 			aria-labelledby='section-categories-services'
 		>
 			<div className='flex flex-col items-end justify-center gap-10'>
@@ -43,12 +54,12 @@ export const Categories: FC = () => {
 				<h2
 					ref={animateRefs.title}
 					className={cn(
-						'text-4xl md:text-6xl font-thin',
+						'text-4xl md:text-6xl font-thin opacity-0',
 						'text-transparent bg-clip-text bg-gradient-to-tr from-white to-teal-400',
 						'backdrop-blur-xl py-6 px-16 rounded-lg'
 					)}
 				>
-					Ключевые направления
+					Основные направления
 				</h2>
 
 				{/* Сетка категорий */}
@@ -62,7 +73,7 @@ export const Categories: FC = () => {
 							aria-label={`Подробнее о ${category}`}
 							onClick={() => handleCTAClick(category)}
 							className={cn(
-								'group relative p-6 md:p-8 rounded-lg transition-all',
+								'group relative p-6 md:p-8 rounded-lg transition-all opacity-0',
 								'border border-transparent',
 								'bg-gradient-to-r from-gray-900/50 to-gray-800/60 backdrop-blur-xl',
 								'hover:backdrop-blur-md hover:border-teal-400/60',

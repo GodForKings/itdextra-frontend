@@ -12,29 +12,36 @@ import { CaseCard } from './CaseCard'
 export const CaseSection: FC = () => {
 	const cases = useUnit(casesList.stores.$cases)
 
-	const sectionRef = useRef<HTMLDivElement>(null)
-	const titleRef = useRef<HTMLHeadingElement>(null)
-	const subtitleRef = useRef<HTMLParagraphElement>(null)
-	const casesRef = useRef<(HTMLDivElement | null)[]>([])
-	const buttonRef = useRef<HTMLDivElement>(null)
-
 	const handleCTAClick = useCTAModal()
 
+	const animateRefs = {
+		sectionRef: useRef<HTMLDivElement>(null),
+		titleRef: useRef<HTMLHeadingElement>(null),
+		subtitleRef: useRef<HTMLParagraphElement>(null),
+		casesRef: useRef<(HTMLDivElement | null)[]>([]),
+		buttonRef: useRef<HTMLDivElement>(null),
+	}
+
 	useEffect(() => {
+		/* SSR dodge */
 		if (typeof window === 'undefined') return
 
-		animateSection({
-			sectionRef,
-			titleRef,
-			subtitleRef,
-			casesRef,
-			buttonRef,
-		}).catch(console.error)
+		let cleanup: (() => void) | undefined
+
+		animateSection(animateRefs)
+			.then(cleanupFn => {
+				cleanup = cleanupFn
+			})
+			.catch(console.error)
+		/* Очистка */
+		return () => {
+			cleanup?.()
+		}
 	}, [])
 
 	return (
 		<section
-			ref={sectionRef}
+			ref={animateRefs.sectionRef}
 			aria-labelledby='cases-section'
 			className={cn(
 				'relative m-5 py-18 px-4 md:px-8 overflow-hidden select-none',
@@ -49,19 +56,21 @@ export const CaseSection: FC = () => {
 			{/* Заголовок секции */}
 			<div className='container max-w-6xl flex flex-col items-center justify-center gap-5'>
 				<h2
-					ref={titleRef}
+					ref={animateRefs.titleRef}
 					className={cn(
-						'text-4xl md:text-6xl text-transparent',
+						'text-4xl md:text-6xl text-transparent opacity-0',
 						'bg-clip-text bg-gradient-to-br from-neutral-950 to-sky-700 dark:from-sky-500 dark:to-white'
 					)}
 				>
 					{cases.title}
 				</h2>
 
+				{/* Подзаголовок */}
 				<p
-					ref={subtitleRef}
+					ref={animateRefs.subtitleRef}
 					className={cn(
-						'text-xl text-center text-black dark:text-white px-4 py-2 rounded-lg max-w-2xl',
+						'px-4 py-2 rounded-lg max-w-2xl opacity-0',
+						'text-xl text-center text-black dark:text-white',
 						'bg-white/80 dark:bg-black/20',
 						'border border-dotted border-neutral-700'
 					)}
@@ -77,13 +86,13 @@ export const CaseSection: FC = () => {
 						key={caseItem.id}
 						caseCard={caseItem}
 						index={index}
-						casesRef={casesRef}
+						casesRef={animateRefs.casesRef}
 					/>
 				))}
 			</div>
 
 			{/* Призыв к действию */}
-			<div ref={buttonRef} className='relative'>
+			<div ref={animateRefs.buttonRef} className='relative opacity-0'>
 				<Button
 					square={true}
 					onClick={handleCTAClick}

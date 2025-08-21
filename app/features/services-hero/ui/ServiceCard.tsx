@@ -1,10 +1,10 @@
 import type { FC } from 'react'
-import type { LucideIcon } from 'lucide-react'
+import { type LucideIcon, Expand } from 'lucide-react'
 
 import type { Service } from '../model/types'
 
 import { memo } from 'react'
-import { cn } from '~/shared'
+import { Button, cn } from '~/shared'
 
 interface ServiceCardProps {
 	service: Service<LucideIcon>
@@ -16,17 +16,7 @@ interface ServiceCardProps {
 export const ServiceCard: FC<ServiceCardProps> = memo(props => {
 	const { service, index, cardRefs, handleCTAClick } = props
 
-	const {
-		title,
-		shortDescription,
-		fullDescription,
-		category,
-		priceRange,
-		deliveryTime,
-		tags,
-		caseStudies,
-		icon: Icon,
-	} = service
+	const { title, shortDescription, category, tags, icon: Icon } = service
 
 	return (
 		<article
@@ -34,17 +24,15 @@ export const ServiceCard: FC<ServiceCardProps> = memo(props => {
 				if (el) cardRefs.current[index] = el
 			}}
 			className={cn(
-				'p-8 bg-gradient-to-b from-gray-900 to-gray-800 backdrop-blur-2xl rounded-lg',
-				'border-x-2 border-teal-400',
+				'p-8 rounded-lg max-h-120',
+				'backdrop-blur-3xl bg-neutral-950/50',
 				'active:border-sky-500 hover:border-sky-500',
-				'transition-all duration-300',
-				'flex flex-col justify-between gap-5',
-				(index === 0 || index === 3 || index === 7) && 'lg:col-span-2'
+				'flex flex-col justify-between items-start gap-5'
 			)}
 			role='region'
 			aria-label={`Услуга: ${title}`}
 		>
-			<div className='flex items-center justify-between text-sky-400/90'>
+			<div className='flex items-center justify-between text-sky-400/90 w-full'>
 				{/* Категория */}
 				<span className='text-sm lowercase tracking-widest bg-neutral-950/60 p-3 rounded-lg'>
 					{category}
@@ -64,24 +52,6 @@ export const ServiceCard: FC<ServiceCardProps> = memo(props => {
 			{/* Краткое описание */}
 			<p className='text-lg/normal text-sky-500'>{shortDescription}</p>
 
-			{/* Полное описание */}
-			<p className='text-base/snug bg-neutral-950/60 p-4 rounded-2xl text-teal-400'>
-				{fullDescription}
-			</p>
-
-			{/* Цена и сроки */}
-			<div className='text-base text-sky-500 flex justify-between items-center'>
-				<p className='font-thin'>
-					Цена:
-					<span className='font-bold italic'> {priceRange}</span>
-				</p>
-
-				<p className='font-thin'>
-					Сроки:
-					<span className='font-bold italic'> {deliveryTime}</span>
-				</p>
-			</div>
-
 			{/* Теги */}
 			<div className='flex flex-wrap items-center gap-3'>
 				{tags.map((tag: string) => (
@@ -94,35 +64,16 @@ export const ServiceCard: FC<ServiceCardProps> = memo(props => {
 				))}
 			</div>
 
-			{/* Кейсы */}
-			{caseStudies.length > 0 && (
-				<div className='flex flex-col gap-1'>
-					<h4 className='text-sm font-thin text-sky-500'>Кейсы:</h4>
-
-					<ul className='text-sm text-teal-400/80'>
-						{caseStudies.map(caseStudy => (
-							<li key={caseStudy.title}>
-								<span className='font-bold'>{caseStudy.title}: </span>
-								{caseStudy.result}
-							</li>
-						))}
-					</ul>
-				</div>
-			)}
-
 			{/* CTA-кнопка */}
-			<button
-				className={cn(
-					'w-full py-3 px-6 bg-sky-500 text-gray-900 font-mono font-bold rounded-lg',
-					'transition-all duration-250 ease-in',
-					'hover:bg-sky-500/40 hover:translate-y-1',
-					'active:bg-sky-500/40 active:translate-y-1'
-				)}
+			<Button
+				ariaLabelDesc={`Открыть услугу ${title}`}
+				square={false}
 				onClick={() => handleCTAClick(service)}
-				aria-label={`Открыть услугу ${title}`}
+				styles='font-inherit gap-3'
 			>
-				Выбрать
-			</button>
+				Ознакомиться
+				<Expand size={20} strokeWidth={1.5} />
+			</Button>
 		</article>
 	)
 })

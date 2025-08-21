@@ -8,12 +8,6 @@ import { BotMessageSquare } from 'lucide-react'
 import { animateModal } from '../lib/animation'
 
 export const DefaultCallToAction: FC = () => {
-	useEffect(() => {
-		if (typeof window === 'undefined') return
-
-		animateModal(animateRefs).catch(console.error)
-	}, [])
-
 	const animateRefs = {
 		sectionRef: useRef<HTMLDivElement | null>(null),
 		titleRef: useRef<HTMLHeadingElement | null>(null),
@@ -21,6 +15,24 @@ export const DefaultCallToAction: FC = () => {
 		formRef: useRef<HTMLFormElement | null>(null),
 		iconRef: useRef<SVGSVGElement | null>(null),
 	}
+
+	useEffect(() => {
+		/* SSR dodge */
+		if (typeof window === 'undefined') return
+
+		let cleanup: (() => void) | undefined
+
+		animateModal(animateRefs)
+			.then(cleanupFn => {
+				cleanup = cleanupFn
+			})
+			.catch(console.error)
+		/* Очистка */
+		return () => {
+			cleanup?.()
+		}
+	}, [])
+
 	return (
 		<div
 			ref={animateRefs.sectionRef}

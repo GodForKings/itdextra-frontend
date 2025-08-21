@@ -33,10 +33,20 @@ export const Hero: FC = () => {
 		techBlock: useRef<HTMLDivElement | null>(null),
 	}
 	useEffect(() => {
-		/* Для работы только на клиенте */
+		/* SSR dodge */
 		if (typeof window === 'undefined') return
 
-		animateHeroServices(animateRefs).catch(console.error)
+		let cleanup: (() => void) | undefined
+
+		animateHeroServices(animateRefs)
+			.then(cleanupFn => {
+				cleanup = cleanupFn
+			})
+			.catch(console.error)
+		/* Очистка */
+		return () => {
+			cleanup?.()
+		}
 	}, [])
 
 	return (
@@ -44,7 +54,8 @@ export const Hero: FC = () => {
 			ref={animateRefs.sectionRef}
 			aria-labelledby='section-heading-services'
 			className={cn(
-				'relative min-h-[80dvh] overflow-hidden flex flex-col items-center justify-center gap-12 backdrop-blur-xl rounded-lg select-none my-10 py-5 container font-light'
+				'relative min-h-[80dvh] overflow-hidden  gap-12 backdrop-blur-xl rounded-lg select-none my-10 py-5 container font-light opacity-0',
+				'flex flex-col items-center justify-center'
 			)}
 		>
 			{/* Фоновые линии */}

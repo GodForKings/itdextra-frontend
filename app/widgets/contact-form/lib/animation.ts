@@ -8,16 +8,17 @@ import type { DefaultCTARefs } from './types'
 export const animateModal = async (
 	refs: DefaultCTARefs
 ): Promise<(() => void) | undefined> => {
-	const [section, title, icon, desc, form] = [
-		refs.sectionRef?.current,
-		refs.titleRef?.current,
-		refs.iconRef?.current,
-		refs.descriptionRef?.current,
-		refs.formRef?.current,
-	]
-	const { gsap } = await import('gsap')
+	try {
+		const [section, title, icon, desc, form] = [
+			refs.sectionRef?.current,
+			refs.titleRef?.current,
+			refs.iconRef?.current,
+			refs.descriptionRef?.current,
+			refs.formRef?.current,
+		]
+		const { gsap } = await import('gsap')
 
-	if (section && title && icon && desc && form) {
+		if (!section || !title || !icon || !desc || !form) return
 		const modalTl = gsap
 			.timeline({ defaults: { ease: 'back.in', duration: 0.5 } })
 			.fromTo(section, { opacity: 0 }, { opacity: 1 })
@@ -33,5 +34,8 @@ export const animateModal = async (
 		return () => {
 			modalTl.kill()
 		}
+	} catch (error: unknown) {
+		console.log(`animate error ${error}`)
+		return
 	}
 }

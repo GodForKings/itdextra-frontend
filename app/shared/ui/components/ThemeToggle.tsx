@@ -30,13 +30,13 @@ export const ThemeToggle: FC = () => {
 
 		gsap.to(sunRef.current, {
 			opacity: theme === 'light' ? 1 : 0,
-			scale: theme === 'light' ? 1 : 0.1,
+			scale: theme === 'light' ? 1 : 0,
 			duration: 0.4,
 		})
 
 		gsap.to(moonRef.current, {
 			opacity: theme === 'dark' ? 1 : 0,
-			scale: theme === 'dark' ? 1 : 0.1,
+			scale: theme === 'dark' ? 1 : 0,
 			duration: 0.4,
 		})
 	}, [theme, isMounted])
@@ -54,18 +54,18 @@ export const ThemeToggle: FC = () => {
 				viewBox='0 0 24 24'
 				fill='none'
 				stroke='currentColor'
-				strokeWidth={1.4}
+				strokeWidth={1}
 				strokeLinecap='round'
 			>
 				{/* Луна (изначально скрыта) */}
 				<path
 					ref={moonRef}
 					d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'
-					opacity={isMounted ? (theme === 'dark' ? 1 : 0) : 0}
+					opacity={isMounted && theme === 'dark' ? 1 : 0}
 				/>
 
 				{/* Солнце (изначально скрыто) */}
-				<g ref={sunRef} opacity={isMounted ? (theme === 'light' ? 1 : 0) : 0}>
+				<g ref={sunRef} opacity={isMounted && theme === 'light' ? 1 : 0}>
 					<circle cx='12' cy='12' r='4' />
 					{[...Array(8)].map((_, i) => (
 						<line

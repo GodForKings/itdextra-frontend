@@ -6,16 +6,18 @@ import type { animateHeroRefs } from './types'
  * @returns
  */
 export const animateHero = async (refs: animateHeroRefs) => {
-	const [hero, name, title, subtitle, cta, trust] = [
-		refs.heroRef?.current,
-		refs.nameRef?.current,
-		refs.titleRef?.current,
-		refs.subtitleRef?.current,
-		refs.ctaRef?.current,
-		refs.trustRef?.current,
-	]
+	try {
+		const [hero, name, title, subtitle, cta, trust] = [
+			refs.heroRef?.current,
+			refs.nameRef?.current,
+			refs.titleRef?.current,
+			refs.subtitleRef?.current,
+			refs.ctaRef?.current,
+			refs.trustRef?.current,
+		]
 
-	if (hero && name.length && title && subtitle && cta && trust) {
+		if (!hero || !name.length || !title || !subtitle || !cta || !trust) return
+
 		const { gsap } = await import('gsap')
 		const { SplitText } = await import('gsap/SplitText')
 		gsap.registerPlugin(SplitText)
@@ -128,5 +130,7 @@ export const animateHero = async (refs: animateHeroRefs) => {
 			subtitleSplit && subtitleSplit.revert()
 			titleSplit && titleSplit.revert()
 		}
+	} catch (error: unknown) {
+		console.log(`animate hero section error: ${error}`)
 	}
 }

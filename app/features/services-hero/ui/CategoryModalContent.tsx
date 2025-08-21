@@ -27,9 +27,20 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = ({
 	}
 
 	useEffect(() => {
+		/* SSR dodge */
 		if (typeof window === 'undefined') return
 
-		animateModal(animateRefs).catch(console.error)
+		let cleanup: (() => void) | undefined
+
+		animateModal(animateRefs)
+			.then(cleanupFn => {
+				cleanup = cleanupFn
+			})
+			.catch(console.error)
+		/* Очистка */
+		return () => {
+			cleanup?.()
+		}
 	}, [])
 
 	return (

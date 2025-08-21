@@ -31,9 +31,20 @@ export const ModalDescriptionCase: FC<ModalDescriptionCaseProps> = props => {
 	}
 
 	useEffect(() => {
-		/* Выход на сервере */
+		/* SSR dodge */
 		if (typeof window === 'undefined') return
-		animateModalForSoloCase(animateRefs).catch(console.error)
+
+		let cleanup: (() => void) | undefined
+
+		animateModalForSoloCase(animateRefs)
+			.then(cleanupFn => {
+				cleanup = cleanupFn
+			})
+			.catch(console.error)
+		/* Очистка */
+		return () => {
+			cleanup?.()
+		}
 	}, [])
 
 	return (

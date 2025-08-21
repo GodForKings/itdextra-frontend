@@ -1,10 +1,11 @@
 import type { FC } from 'react'
 
+import type { Pluses } from '../model/types'
+import type { SectionAnimationRefs } from '../lib/types'
+
 import { useRef, useEffect } from 'react'
 import { useUnit } from 'effector-react'
 import { useNavigate } from 'react-router'
-
-import type { Pluses } from '../model/types'
 
 import { ROUTES_DATA, cn } from '~/shared'
 import { whyUsList } from '../model/whyUsList'
@@ -20,26 +21,34 @@ export const WhyUsSection: FC = () => {
 		navigate(ROUTES_DATA.about.path)
 	}
 
-	const sectionRef = useRef<HTMLDivElement>(null)
-	const sloganRef = useRef<HTMLSpanElement>(null)
-	const thesisRef = useRef<HTMLHeadingElement | null>(null)
-	const plusesRef = useRef<(HTMLButtonElement | null)[]>([])
+	const animateRefs: SectionAnimationRefs = {
+		sectionRef: useRef<HTMLDivElement>(null),
+		sloganRef: useRef<HTMLSpanElement>(null),
+		thesisRef: useRef<HTMLHeadingElement | null>(null),
+		plusesRef: useRef<(HTMLButtonElement | null)[]>([]),
+	}
 
 	useEffect(() => {
+		/* SSR dodge */
 		if (typeof window === 'undefined') return
 
-		animateSection({
-			sectionRef,
-			sloganRef,
-			thesisRef,
-			plusesRef,
-		}).catch(console.error)
+		let cleanup: (() => void) | undefined
+
+		animateSection(animateRefs)
+			.then(cleanupFn => {
+				cleanup = cleanupFn
+			})
+			.catch(console.error)
+		/* Очистка */
+		return () => {
+			cleanup?.()
+		}
 	}, [])
 
 	return (
 		<section
 			aria-labelledby='section-main-whyUs'
-			ref={sectionRef}
+			ref={animateRefs.sectionRef}
 			className='relative rounded-lg m-5 py-10 px-4 sm:px-8 bg-gray-950/[2.5%] after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:inset-ring after:inset-ring-gray-950/5 dark:after:inset-ring-white/10 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/10 dark:[--pattern-fg:var(--color-white)]/10 select-none overflow-hidden'
 		>
 			{/* Декоративные элементы */}
@@ -54,13 +63,16 @@ export const WhyUsSection: FC = () => {
 				{/* Текстовки */}
 				<div className='text-center flex flex-col items-center justify-center gap-2 lg:gap-10'>
 					<span
-						ref={sloganRef}
+						ref={animateRefs.sloganRef}
 						className='relative text-xl tracking-widest font-mono text-neutral-950 dark:text-sky-400'
 					>
 						{whyList.slogan}
 					</span>
 
-					<h2 ref={thesisRef} className='relative text-4xl lg:text-6xl'>
+					<h2
+						ref={animateRefs.thesisRef}
+						className='relative text-4xl lg:text-6xl'
+					>
 						{whyList.thesis.map((item: string) => (
 							<span
 								key={item}
@@ -82,7 +94,7 @@ export const WhyUsSection: FC = () => {
 							key={item.title}
 							card={item}
 							index={index}
-							plusesRef={plusesRef}
+							plusesRef={animateRefs.plusesRef}
 							handleAboutClick={handleAboutClick}
 						/>
 					))}

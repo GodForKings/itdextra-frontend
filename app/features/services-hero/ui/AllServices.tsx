@@ -1,4 +1,8 @@
 import type { FC } from 'react'
+import type { LucideIcon } from 'lucide-react'
+
+import type { Service } from '../model/types'
+import type { AnimateCardRefs, AnimateServicesRefs } from '../lib/types'
 
 import { useEffect, useRef, useState } from 'react'
 import { useUnit } from 'effector-react'
@@ -8,10 +12,8 @@ import { ServicesListModel } from '../model/index'
 
 import { ServiceCard } from './ServiceCard'
 import { ServiceModalContent } from './ServiceModalContent'
-import { animateServices } from '../lib/animations'
+import { animateCardsForServices, animateServices } from '../lib/animations'
 import { openModal } from '~/widgets'
-import type { Service } from '../model/types'
-import type { LucideIcon } from 'lucide-react'
 
 export const AllServices: FC = () => {
 	const services = useUnit(ServicesListModel.stores.$services)
@@ -31,26 +33,59 @@ export const AllServices: FC = () => {
 		openModal({ content: <ServiceModalContent service={service} /> })
 	}
 
-	const animateRefs = {
+	const animateRefs: AnimateServicesRefs = {
 		section: useRef<HTMLDivElement | null>(null),
 		title: useRef<HTMLHeadingElement | null>(null),
 		tagBlock: useRef<HTMLDivElement | null>(null),
 		tags: useRef<(HTMLButtonElement | null)[]>([]),
-		cards: useRef<(HTMLElement | null)[]>([]),
+		serviceWell: useRef<HTMLDivElement | null>(null),
 	}
 
+	const cardsRefs: AnimateCardRefs = {
+		cards: useRef<(HTMLElement | null)[]>([]),
+	}
+	// Для верхнего UI
 	useEffect(() => {
-		/* Для работы только на клиенте */
+		/* SSR dodge */
 		if (typeof window === 'undefined') return
 
-		animateServices(animateRefs).catch(console.error)
+		let cleanup: (() => void) | undefined
+
+		animateServices(animateRefs)
+			.then(cleanupFn => {
+				cleanup = cleanupFn
+			})
+			.catch(console.error)
+		/* Очистка */
+		return () => {
+			cleanup?.()
+		}
 	}, [])
+
+	// Для карточек
+	useEffect(() => {
+		/* SSR dodge */
+		if (typeof window === 'undefined') return
+
+		let cleanup: (() => void) | undefined
+
+		animateCardsForServices(cardsRefs)
+			.then(cleanupFn => {
+				cleanup = cleanupFn
+			})
+			.catch(console.error)
+		/* Очистка */
+		return () => {
+			cleanup?.()
+		}
+	}, [selectedTag, filteredServices?.length])
 
 	return (
 		<section
 			ref={animateRefs.section}
 			className={cn(
-				'relative py-14 container overflow-hidden flex flex-col gap-10 items-center justify-center'
+				'relative py-14 container overflow-hidden min-h-[100dvh]',
+				'flex flex-col gap-10'
 			)}
 			aria-labelledby='services-heading'
 		>
@@ -62,7 +97,7 @@ export const AllServices: FC = () => {
 					'text-5xl md:text-7xl text-center font-light text-teal-300',
 					'bg-gradient-to-r from-gray-900/40 to-gray-800/50 backdrop-blur-xl',
 					'rounded-lg border-y-2 border-teal-400',
-					'w-full p-6'
+					'w-full p-6 opacity-0'
 				)}
 			>
 				Наши услуги
@@ -72,7 +107,7 @@ export const AllServices: FC = () => {
 			<div
 				ref={animateRefs.tagBlock}
 				className={cn(
-					'flex justify-evenly items-center flex-wrap gap-4 p-5 w-full',
+					'flex justify-evenly items-center flex-wrap gap-4 p-5 w-full opacity-0',
 					'border-2 border-teal-400 rounded-lg',
 					'bg-gradient-to-r from-gray-900/50 to-gray-800/60 backdrop-blur-xl'
 				)}
@@ -113,22 +148,31 @@ export const AllServices: FC = () => {
 			{filteredServices?.length ? (
 				<div
 					className={cn(
-						'relative max-h-[100dvh] py-10 pr-5 rounded-lg overflow-y-auto',
-						'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center modal-scrollbar'
+						'relative h-[80dvh] p-5 rounded-lg overflow-x-hidden overflow-y-auto',
+						'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8',
+						'[transform-style:preserve-3d] [perspective:500px] will-change-transform'
 					)}
 				>
-					{filteredServices.map((service, index) => (
+					{filteredServices.map((service, index: number) => (
 						<ServiceCard
-							cardRefs={animateRefs.cards}
+							cardRefs={cardsRefs.cards}
 							key={service.id}
 							service={service}
 							index={index}
 							handleCTAClick={handleCTAClick}
 						/>
 					))}
+
+					<div
+						ref={animateRefs.serviceWell}
+						className={cn(
+							'absolute inset-0 z-5 w-full h-[150dvh]',
+							'bg-black blur-lg'
+						)}
+					></div>
 				</div>
 			) : (
-				<p className='text-center text-teal-300 backdrop-blur-2xl p-10 font-mono text-2xl'>
+				<p className='rounded-lg text-center text-teal-300 backdrop-blur-3xl p-10 font-mono text-2xl'>
 					Услуги временно недоступны
 				</p>
 			)}

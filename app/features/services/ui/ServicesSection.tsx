@@ -1,5 +1,7 @@
 import type { FC } from 'react'
 
+import type { SectionAnimationRefs } from '../lib/types'
+
 import { useRef, useEffect } from 'react'
 import { useUnit } from 'effector-react'
 
@@ -11,24 +13,33 @@ import { ServiceCard } from './ServiceCard'
 export const ServicesSection: FC = () => {
 	const service = useUnit(servicesList.stores.$services)
 
-	const sectionRef = useRef<HTMLDivElement>(null)
-	const titleRef = useRef<HTMLHeadingElement>(null)
-	const cardsRef = useRef<(HTMLDivElement | null)[]>([])
+	const animateRefs: SectionAnimationRefs = {
+		sectionRef: useRef<HTMLDivElement>(null),
+		titleRef: useRef<HTMLHeadingElement>(null),
+		cardsRef: useRef<(HTMLDivElement | null)[]>([]),
+	}
 
 	useEffect(() => {
+		/* SSR dodge */
 		if (typeof window === 'undefined') return
 
-		animateSection({
-			sectionRef,
-			titleRef,
-			cardsRef,
-		}).catch(console.error)
+		let cleanup: (() => void) | undefined
+
+		animateSection(animateRefs)
+			.then(cleanupFn => {
+				cleanup = cleanupFn
+			})
+			.catch(console.error)
+		/* Очистка */
+		return () => {
+			cleanup?.()
+		}
 	}, [])
 
 	return (
 		<section
 			aria-labelledby='section-main-services'
-			ref={sectionRef}
+			ref={animateRefs.sectionRef}
 			className={cn(
 				'relative m-5 py-18 px-4 sm:px-8 overflow-hidden rounded-lg min-h-[80dvh] flex flex-col justify-evenly items-center gap-12 border',
 				DASHED_BACKGROUND
@@ -50,9 +61,10 @@ export const ServicesSection: FC = () => {
 					)}
 				/>
 			))}
+
 			{/* Заголовок */}
 			<h2
-				ref={titleRef}
+				ref={animateRefs.titleRef}
 				className={cn(
 					'text-4xl max-w-6xl md:text-7xl text-center text-transparent',
 					'bg-clip-text bg-gradient-to-bl from-neutral-950 to-sky-600 dark:from-sky-500 dark:to-slate-200'
@@ -60,6 +72,7 @@ export const ServicesSection: FC = () => {
 			>
 				{service.title}
 			</h2>
+
 			{/* Карточки */}
 			<div className='container max-w-7xl grid grid-cols-1 lg:grid-cols-3 gap-12'>
 				{service.services.map((service, index: number) => (
@@ -67,7 +80,7 @@ export const ServicesSection: FC = () => {
 						key={service.id}
 						service={service}
 						index={index}
-						cardsRef={cardsRef}
+						cardsRef={animateRefs.cardsRef}
 					/>
 				))}
 			</div>

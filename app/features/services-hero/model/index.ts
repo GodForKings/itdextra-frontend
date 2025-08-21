@@ -289,6 +289,10 @@ const $categories = createStore<Category<LucideIcon>[] | null>(null).on(
 	(_, categories) => categories
 )
 
+// для загрузчиков ui
+// const $isLoadingServices = fetchServicesFx.pending
+// const $isLoadingCategories = fetchCategoriesFx.pending
+
 /* Триггер на открытие ворот */
 sample({
 	clock: [ServiceGeneralGate.open],

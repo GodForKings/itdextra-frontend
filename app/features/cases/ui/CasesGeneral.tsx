@@ -41,20 +41,41 @@ export const CaseStudies: FC = () => {
 	const cardsRefs: CardCases3dRefs = {
 		cards: useRef<(HTMLDivElement | null)[]>([]),
 	}
-
+	// Для верхнего UI
 	useEffect(() => {
-		/* Проверка на клиент */
+		/* SSR dodge */
 		if (typeof window === 'undefined') return
 
-		animateCaseStudies(animateRefs).catch(console.error)
+		let cleanup: (() => void) | undefined
+
+		animateCaseStudies(animateRefs)
+			.then(cleanupFn => {
+				cleanup = cleanupFn
+			})
+			.catch(console.error)
+		/* Очистка */
+		return () => {
+			cleanup?.()
+		}
 	}, [])
 
+	// Для карточек
 	useEffect(() => {
-		/* Проверка на клиент */
+		/* SSR dodge */
 		if (typeof window === 'undefined') return
 
-		animateCardCases3d(cardsRefs).catch(console.error)
-	}, [selectedTag])
+		let cleanup: (() => void) | undefined
+
+		animateCardCases3d(cardsRefs)
+			.then(cleanupFn => {
+				cleanup = cleanupFn
+			})
+			.catch(console.error)
+		/* Очистка */
+		return () => {
+			cleanup?.()
+		}
+	}, [selectedTag, filteredCaseStudies?.length])
 
 	return (
 		<section

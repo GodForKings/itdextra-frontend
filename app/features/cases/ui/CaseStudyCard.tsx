@@ -32,7 +32,7 @@ export const CaseStudyCard: FC<CaseStudyCardProps> = memo(props => {
 				if (el) cardRef.current[index] = el
 			}}
 			className={cn(
-				'relative p-6 bg-black/40 backdrop-blur-xl rounded-lg',
+				'relative p-6 bg-black/40 text-white backdrop-blur-xl rounded-lg',
 				'flex flex-col justify-between items-start gap-6 h-fit',
 				(index === 0 || index === 3) && 'lg:col-span-2'
 			)}

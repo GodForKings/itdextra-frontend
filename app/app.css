@@ -47,33 +47,18 @@ video {
 @layer utilities {
 }
 
-.modal-scrollbar::-webkit-scrollbar {
-	width: 3px; /* Толщина скроллбара */
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	border-radius: 10px;
+	background-color: #0b0a0a;
 }
 
-.modal-scrollbar::-webkit-scrollbar-track {
-	background: transparent; /* Прозрачный трек */
+::-webkit-scrollbar {
+	width: 4px;
+	background-color: #0b0a0a;
 }
 
-.modal-scrollbar::-webkit-scrollbar-thumb {
-	background: linear-gradient(
-		to bottom,
-		#ffffff,
-		#000000
-	); /* Градиентный ползунок */
-	border-radius: 3px; /* Закругленные углы */
-}
-
-.modal-scrollbar::-webkit-scrollbar-thumb:hover {
-	background: linear-gradient(
-		to bottom,
-		#f0f0f0,
-		#333333
-	); /* Эффект при наведении */
-}
-
-/* Для Firefox */
-.modal-scrollbar {
-	scrollbar-width: thin;
-	scrollbar-color: #f9fafb transparent;
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: #f9f6f6;
 }
