@@ -12,6 +12,7 @@ import type { Route } from './+types/root'
 import './app.css'
 
 import { SpeedInsights } from '@vercel/speed-insights/react'
+import { Analytics } from '@vercel/analytics/react'
 
 import { Footer, Header } from '~/widgets'
 import { MainLayout, cn } from '~/shared'
@@ -48,6 +49,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 				{/* Vercel метрики*/}
 				<SpeedInsights />
+				{/* Vercel метрики*/}
+				<Analytics />
 
 				<ScrollRestoration />
 
