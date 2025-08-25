@@ -6,7 +6,7 @@ import type { ContactSchema, ResponseContact } from './types'
 export const sendDataFx = createEffect(async (data: ContactSchema) => {
 	try {
 		return await axios.post<ResponseContact>(
-			'https://itdextra-backend.vercel.app/api/submit-request',
+			`${import.meta.env.VITE_API_BASE_URL}/api/submit-request`,
 			data
 		)
 	} catch (error) {

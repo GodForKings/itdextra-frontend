@@ -17,6 +17,7 @@ interface ContactFormProps {
 export const ContactForm: FC<ContactFormProps> = props => {
 	const { formRef, subjectOfRequest } = props
 
+	console.log(import.meta.env.VITE_API_BASE_URL)
 	const sendData = useUnit(effects.sendDataFx)
 
 	const isSendDataLoading = useUnit(stores.$sendIsLoading)
