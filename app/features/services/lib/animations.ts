@@ -26,8 +26,9 @@ export const animateSection = async (
 				scrollTrigger: {
 					trigger: sectionRef,
 					start: 'top center',
-					end: 'bottom 20%',
+					end: 'center center',
 					toggleActions: 'play none reverse none',
+					scrub: true,
 				},
 				defaults: { ease: 'sine.out', duration: 0.8 },
 			})
@@ -44,7 +45,6 @@ export const animateSection = async (
 					y: 0,
 					scale: 1,
 					filter: 'blur(0px)',
-					duration: 1,
 				}
 			)
 			// Карточек
@@ -77,36 +77,38 @@ export const animateSection = async (
  * @returns
  */
 export const animateModalForService = async (refs: AnimateModalRefs) => {
-	const [
-		modal,
-		title,
-		description,
-		category,
-		priceRange,
-		deliveryTime,
-		tags,
-		caseStudies,
-	] = [
-		refs.modal?.current,
-		refs.title?.current,
-		refs.description?.current,
-		refs.category?.current,
-		refs.priceRange?.current,
-		refs.deliveryTime?.current,
-		refs.tags?.current,
-		refs.caseStudies?.current,
-	]
+	try {
+		const [
+			modal,
+			title,
+			description,
+			category,
+			priceRange,
+			deliveryTime,
+			tags,
+			caseStudies,
+		] = [
+			refs.modal?.current,
+			refs.title?.current,
+			refs.description?.current,
+			refs.category?.current,
+			refs.priceRange?.current,
+			refs.deliveryTime?.current,
+			refs.tags?.current,
+			refs.caseStudies?.current,
+		]
+		if (
+			!modal ||
+			!title ||
+			!description ||
+			!category ||
+			!priceRange ||
+			!deliveryTime ||
+			tags.length === 0 ||
+			caseStudies.length === 0
+		)
+			return
 
-	if (
-		modal &&
-		title &&
-		description &&
-		category &&
-		priceRange &&
-		deliveryTime &&
-		tags.length &&
-		caseStudies.length
-	) {
 		const { gsap } = await import('gsap')
 		const { SplitText } = await import('gsap/SplitText')
 		gsap.registerPlugin(SplitText)
@@ -158,5 +160,8 @@ export const animateModalForService = async (refs: AnimateModalRefs) => {
 		return () => {
 			modalTl.kill()
 		}
+	} catch (error: unknown) {
+		console.log(`animate error ${error}`)
+		return
 	}
 }

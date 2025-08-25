@@ -8,7 +8,10 @@ import { ServicesPage } from '~/pages'
 
 export function meta({}: Route.MetaArgs) {
 	return [
-		{ title: 'Услуги веб-разработки | ITDextra — полный цикл создания сайтов' },
+		{
+			title:
+				'Услуги веб-разработки | ITDextra — Разработка сайтов, интернет-магазинов, корпоративных платформ',
+		},
 		{
 			name: 'description',
 			content:

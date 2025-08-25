@@ -8,6 +8,7 @@ import type { LucideIcon } from 'lucide-react'
 
 import { animateCategory } from '../lib/animations'
 import { CategoryModalContent } from './CategoryModalContent'
+import { CategoryCard } from './CategoryCard'
 import { ServicesListModel } from '../model/index'
 import { openModal } from '~/widgets/modal'
 import { cn } from '~/shared'
@@ -65,66 +66,15 @@ export const Categories: FC = () => {
 				{/* Сетка категорий */}
 				<div className='grid grid-cols-1 lg:grid-cols-12 gap-4 w-full'>
 					{categories?.map((category, index: number) => (
-						<button
-							ref={(el: HTMLButtonElement | null) => {
-								if (el) animateRefs.card.current[index] = el
-							}}
+						<CategoryCard
 							key={category.title}
-							aria-label={`Подробнее о ${category}`}
-							onClick={() => handleCTAClick(category)}
-							className={cn(
-								'group relative p-6 md:p-8 rounded-lg transition-all opacity-0',
-								'border border-transparent',
-								'bg-gradient-to-r from-gray-900/50 to-gray-800/60 backdrop-blur-xl',
-								'hover:backdrop-blur-md hover:border-teal-400/60',
-								'active:backdrop-blur-md active:border-teal-400/60',
-								index === 0 || index === categories.length - 1
-									? 'md:col-span-7'
-									: 'md:col-span-5',
-								'flex flex-col items-end gap-4',
-								'min-h-[200px] md:min-h-[290px]'
-							)}
-						>
-							<div className='flex items-start gap-6 h-full min-h-fit'>
-								<div className='relative'>
-									<category.icon
-										strokeWidth={1}
-										size={65}
-										className={cn(
-											'text-sky-500 transition-colors duration-200 p-2',
-											'group-hover:text-teal-400'
-										)}
-									/>
-
-									<div
-										className={cn(
-											'absolute inset-0 rounded-lg bg-sky-400/5 transition-all -z-10',
-											'group-hover:bg-sky-400/10 group-active:bg-sky-400/10'
-										)}
-									></div>
-								</div>
-
-								<div className='flex-1 text-left flex flex-col gap-3'>
-									<h3
-										className={cn(
-											'text-xl md:text-4xl font-thin',
-											'text-transparent bg-clip-text bg-gradient-to-tr from-white to-teal-400'
-										)}
-									>
-										{category.title}
-									</h3>
-
-									<p
-										ref={(el: HTMLParagraphElement | null) => {
-											if (el) animateRefs.paragraphs.current[index] = el
-										}}
-										className='text-white/80 text-sm md:text-lg leading-relaxed'
-									>
-										{category.description}
-									</p>
-								</div>
-							</div>
-						</button>
+							lastIndex={categories.length - 1}
+							cardRef={animateRefs.card}
+							paragraphsRef={animateRefs.paragraphs}
+							index={index}
+							category={category}
+							clickFn={handleCTAClick}
+						/>
 					))}
 				</div>
 			</div>

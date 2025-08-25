@@ -33,9 +33,19 @@ export const ServiceModal: FC<ServiceModalContentProps> = props => {
 	}
 
 	useEffect(() => {
+		/* SSR dodge */
 		if (typeof window === 'undefined') return
+		let cleanup: (() => void) | undefined
 
-		animateModalForService(animateRefs).catch(console.error)
+		animateModalForService(animateRefs)
+			.then(cleanupFn => {
+				cleanup = cleanupFn
+			})
+			.catch(console.error)
+		/* Очистка */
+		return () => {
+			cleanup?.()
+		}
 	}, [])
 
 	return (

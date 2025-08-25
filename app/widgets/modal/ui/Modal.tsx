@@ -3,13 +3,13 @@ import type { FC } from 'react'
 import { useEffect, useRef } from 'react'
 import { useUnit } from 'effector-react'
 import { gsap } from 'gsap'
-import { CircleX, X } from 'lucide-react'
+import { X } from 'lucide-react'
 
 import { cn } from '~/shared'
 import { $isModalOpen, $modalContent, closeModal } from '../model/modal'
 
 export const Modal: FC = () => {
-	const isOpen = useUnit($isModalOpen)
+	const [isOpen, setIsClose] = useUnit([$isModalOpen, closeModal])
 	const content = useUnit($modalContent)
 
 	const modalRef = useRef<HTMLDivElement | null>(null)
@@ -23,7 +23,7 @@ export const Modal: FC = () => {
 			.timeline({
 				defaults: { ease: 'power4.out', duration: 0.5, opacity: 0 },
 			})
-			.fromTo(modalRef.current, {}, { opacity: 1 })
+			.to(modalRef.current, { opacity: 1 })
 			.fromTo(
 				modalContentRef.current,
 				{ scale: 0.95 },
@@ -73,7 +73,7 @@ export const Modal: FC = () => {
 					</div>
 					{/* Кнопка для закрытия модального окна */}
 					<button
-						onClick={() => closeModal()}
+						onClick={setIsClose}
 						className={cn(
 							'absolute z-5 backdrop-blur-3xl rounded-lg',
 							'bg-black opacity-65',

@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+
 import { type LucideIcon, Expand } from 'lucide-react'
 
 import type { Service } from '../model/types'
@@ -24,7 +25,7 @@ export const ServiceCard: FC<ServiceCardProps> = memo(props => {
 				if (el) cardRefs.current[index] = el
 			}}
 			className={cn(
-				'p-8 rounded-lg max-h-120',
+				'p-8 rounded-lg max-h-fit',
 				'backdrop-blur-3xl bg-neutral-950/50',
 				'active:border-sky-500 hover:border-sky-500',
 				'flex flex-col justify-between items-start gap-5'

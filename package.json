@@ -9,13 +9,14 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.1",
     "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.3",
     "@types/gsap": "^1.20.2",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
+    "axios": "^1.11.0",
     "clsx": "^2.1.1",
-    "dotenv": "^17.0.1",
     "effector": "^23.4.1",
     "effector-react": "^23.3.0",
     "gsap": "^3.13.0",
@@ -23,9 +24,11 @@
     "lucide-react": "^0.525.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-hook-form": "^7.62.0",
     "react-responsive": "^10.0.1",
     "react-router": "^7.5.3",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "zod": "^4.1.1"
   },
   "devDependencies": {
     "@react-router/dev": "^7.5.3",
@@ -33,7 +36,6 @@
     "@types/node": "^20",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
-    "motion": "^12.23.12",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3",
     "vite": "^6.3.3",

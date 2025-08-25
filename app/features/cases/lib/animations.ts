@@ -56,7 +56,7 @@ export const animateSection = async (
 						start: 'top 70%',
 						toggleActions: 'play none none none',
 					},
-					defaults: { ease: 'power1', duration: 1 },
+					defaults: { ease: 'power3.in', duration: 1 },
 				})
 				.fromTo(
 					caseEl,

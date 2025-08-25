@@ -93,7 +93,7 @@ export const animateCategory = async (
 			defaults: { ease: 'power3.out' },
 			scrollTrigger: {
 				trigger: section,
-				start: 'top 50%',
+				start: 'top center',
 				toggleActions: 'play none none none',
 			},
 		})

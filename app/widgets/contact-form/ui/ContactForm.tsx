@@ -1,27 +1,47 @@
 import type { FC } from 'react'
 
-import { useNavigate } from 'react-router'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useUnit } from 'effector-react'
 
+import { contactSchema, type ContactSchema } from '../model/types'
 import { cn } from '~/shared'
+import { effects, stores } from '../model/contactFormModel'
 import { closeModal } from '~/widgets'
 
 interface ContactFormProps {
 	formRef: React.RefObject<HTMLFormElement | null>
-	subjectOfRequest: string /* Тема для обращения */
+	subjectOfRequest: string // Тема для обращения
 }
 
 export const ContactForm: FC<ContactFormProps> = props => {
 	const { formRef, subjectOfRequest } = props
 
-	const navigate = useNavigate()
+	const sendData = useUnit(effects.sendDataFx)
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		closeModal()
-		navigate('/')
+	const isSendDataLoading = useUnit(stores.$sendIsLoading)
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, isSubmitting },
+		reset,
+	} = useForm<ContactSchema>({ resolver: zodResolver(contactSchema) })
+
+	const onSubmit = async (data: ContactSchema) => {
+		await sendData(data).then(response => {
+			reset()
+			alert(response?.data?.message)
+			closeModal()
+		})
 	}
+
 	return (
-		<form ref={formRef} onSubmit={handleSubmit} className='flex flex-col gap-4'>
+		<form
+			ref={formRef}
+			onSubmit={handleSubmit(onSubmit)}
+			className='flex flex-col gap-4'
+		>
 			<div className='flex flex-col gap-1'>
 				<label
 					htmlFor='name'
@@ -31,15 +51,19 @@ export const ContactForm: FC<ContactFormProps> = props => {
 				</label>
 
 				<input
+					{...register('name')}
 					id='name'
 					type='text'
-					required
 					className={cn(
 						'w-full p-3 bg-gray-800/25 text-white rounded-lg border border-gray-100/10',
 						'focus:outline-none focus:ring focus:ring-white transition-all duration-300'
 					)}
 					placeholder='Как к вам обращаться?'
 				/>
+
+				{errors.name && (
+					<p className='text-red-500 text-sm'>{`${errors.name?.message}`}</p>
+				)}
 			</div>
 
 			<div className='flex gap-4 max-md:flex-col'>
@@ -52,53 +76,65 @@ export const ContactForm: FC<ContactFormProps> = props => {
 					</label>
 
 					<input
+						{...register('email')}
 						id='email'
 						type='email'
-						required
 						className={cn(
 							'w-full p-3 bg-gray-800/25 text-white rounded-lg border border-gray-100/10',
 							'focus:outline-none focus:ring focus:ring-white transition-all duration-300'
 						)}
 						placeholder='Введите email'
 					/>
+
+					{errors.email && (
+						<p className='text-red-500 text-sm'>{`${errors.email?.message}`}</p>
+					)}
 				</div>
 
 				<div className='flex flex-col gap-1 flex-1/2'>
 					<label
-						htmlFor='tel'
+						htmlFor='phone'
 						className='text-sm text-sky-400 font-thin tracking-wider'
 					>
 						Телефон для связи (опционально)
 					</label>
 
 					<input
-						id='tel'
-						type='tel'
+						{...register('phone')}
+						id='phone'
 						className={cn(
 							'w-full p-3 bg-gray-800/25 text-white rounded-lg border border-gray-100/10',
 							'focus:outline-none focus:ring focus:ring-white transition-all duration-300'
 						)}
 						placeholder='Введите ваш телефон'
 					/>
+
+					{errors.phone && (
+						<p className='text-red-500 text-sm'>{`${errors.phone?.message}`}</p>
+					)}
 				</div>
 			</div>
 
 			<div className='flex flex-col gap-1'>
 				<label
-					htmlFor='message'
+					htmlFor='textMessage'
 					className='text-sm text-sky-400 font-thin tracking-wider'
 				>
 					Расскажите о вашем проекте
 				</label>
 
+				{errors.textMessage && (
+					<p className='text-red-500 text-sm'>{`${errors.textMessage?.message}`}</p>
+				)}
+
 				<textarea
-					id='message'
-					required
+					{...register('textMessage')}
+					id='textMessage'
 					className={cn(
 						'w-full min-h-25 p-3 bg-gray-800/25 text-white rounded-lg border border-gray-100/10',
 						'focus:outline-none focus:ring focus:ring-white transition-all duration-300'
 					)}
-					rows={4}
+					rows={5}
 					defaultValue={
 						subjectOfRequest
 							? `Здравствуйте. Интересует/Хочу обсудить: ${subjectOfRequest}.`
@@ -139,12 +175,23 @@ export const ContactForm: FC<ContactFormProps> = props => {
 				</div>
 
 				<button
+					disabled={
+						!!(
+							isSubmitting ||
+							errors.email?.message ||
+							errors.name?.message ||
+							errors.textMessage?.message ||
+							errors.phone?.message ||
+							isSendDataLoading
+						)
+					}
 					type='submit'
 					className={cn(
 						'p-2 bg-white text-black rounded-full',
 						'transition-all duration-250 ease-in',
 						'hover:scale-95 hover:translate-y-0.5',
-						'active:scale-95 active:translate-y-0.5'
+						'active:scale-95 active:translate-y-0.5',
+						'disabled:bg-gray-600'
 					)}
 					aria-label='Отправить заявку'
 				>

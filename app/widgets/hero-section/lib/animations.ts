@@ -116,7 +116,7 @@ export const animateHero = async (refs: animateHeroRefs) => {
 				},
 				0
 			)
-			/* Кнопки и статистика */
+			/* Кнопки и Статистика */
 			.fromTo(
 				cta,
 				{ scale: 0.9, opacity: 0, x: -100 },

@@ -29,7 +29,7 @@ export const Header: FC = () => {
 				!bgVideo && 'border-b border-black/10 dark:border-white/10'
 			)}
 		>
-			<div className='relative flex items-center justify-between w-28'>
+			<div className='relative flex items-center justify-between w-26'>
 				<Logo />
 
 				<ThemeToggle />
