@@ -1,4 +1,3 @@
-// features/services-hero/model/index.ts
 import { createStore, createEffect, sample } from 'effector'
 import { createGate } from 'effector-react'
 

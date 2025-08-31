@@ -34,38 +34,40 @@ export const animateSection = async (
 			.timeline({
 				scrollTrigger: {
 					trigger: section,
-					start: 'top 60%',
+					start: 'top center',
 					toggleActions: 'play none none none',
 				},
 				defaults: { ease: 'power4.out', duration: 1 },
 			})
 			.fromTo(title, { opacity: 0, y: -150 }, { opacity: 1, y: 0 })
-			.fromTo(subtitle, { opacity: 0, x: 30 }, { opacity: 1, x: 0 }, '-=0.4')
-			.fromTo(button, { opacity: 0, y: 20 }, { opacity: 1, y: 0 }, '+=1')
+			.fromTo(subtitle, { opacity: 0, x: 30 }, { opacity: 1, x: 0 })
+			.fromTo(button, { opacity: 0, y: 20 }, { opacity: 1, y: 0 })
 
 		const allTimelines: gsap.core.Timeline[] = [masterTL]
 		const allTriggers: ScrollTrigger[] = [masterTL.scrollTrigger!]
 
-		cases.forEach(caseEl => {
+		cases.forEach((caseEl, index: number) => {
 			if (!caseEl) return
 
 			const caseTl = gsap
 				.timeline({
 					scrollTrigger: {
 						trigger: caseEl,
-						start: 'top 70%',
+						start: 'top center',
+						end: 'center center',
 						toggleActions: 'play none none none',
 					},
-					defaults: { ease: 'power3.in', duration: 1 },
+					defaults: { ease: 'power4.inOut', duration: 1 },
 				})
 				.fromTo(
 					caseEl,
 					{
-						scale: 'random(0.4, 0.8)',
-						x: 'random(-150, 150)',
-						rotation: 'random(-50,50)',
+						scale: 0.5,
+						rotate: 120,
+						x: index % 2 ? -200 : 0,
+						y: index % 2 ? 200 : 0,
 					},
-					{ scale: 1, x: 0, rotation: 0, opacity: 1 }
+					{ scale: 1, x: 0, y: 0, opacity: 1, rotate: 0 }
 				)
 
 			allTimelines.push(caseTl)
@@ -284,47 +286,63 @@ export const animateModalForSoloCase = async (
 					duration: 3,
 				}
 			)
-			.fromTo(title, { opacity: 0 }, { opacity: 1 })
+			.fromTo(
+				title,
+				{ scale: 0.8, opacity: 0, y: 60 },
+				{ scale: 1, opacity: 1, y: 0 }
+			)
 
 		const descTl = gsap
 			.timeline({
-				defaults: { ease: 'expo.out', duration: 0.6 },
+				defaults: { ease: 'power4', duration: 0.7 },
 			})
 			.fromTo(
 				clientSplit.chars,
-				{ x: -50, opacity: 0 },
 				{
-					delay: 2.4,
+					x: 150,
+					opacity: 0,
+				},
+				{
 					x: 0,
 					opacity: 1,
-					stagger: { from: 'random', each: 0.01 },
+					color: '#00a6f4',
+					stagger: 0.02,
 				}
 			)
 			.fromTo(problem, { opacity: 0 }, { opacity: 1 })
 			.fromTo(
 				solutionSplit.chars,
-				{ y: 'random(-50,50)', rotation: 'random(-60,60)', color: '#fff' },
 				{
-					y: 0,
-					duration: 1,
-					rotation: 0,
-					color: '#00a6f4',
-					stagger: { from: 'random', each: 0.02 },
-					ease: 'elastic.inOut',
-					delay: 1.4,
+					x: 150,
+					opacity: 0,
 				},
-				0
+				{
+					x: 0,
+					opacity: 1,
+					color: '#00a6f4',
+					stagger: 0.02,
+				},
+				'-=1'
 			)
 			.fromTo(
 				resultSplit.chars,
-				{ opacity: 0 },
-				{ opacity: 1, stagger: 0.03, delay: 2 },
-				0
+				{
+					x: 150,
+					opacity: 0,
+				},
+				{
+					x: 0,
+					opacity: 1,
+					color: '#00a6f4',
+					stagger: 0.02,
+				},
+				'-=1.3'
 			)
 			.fromTo(
 				metrics,
-				{ scale: 0.9, opacity: 0, y: 'random(-40,0)' },
-				{ scale: 1, opacity: 1, y: 0, stagger: 0.1 }
+				{ scale: 0.8, opacity: 0, y: 60 },
+				{ scale: 1, opacity: 1, y: 0, stagger: 0.1 },
+				'-=2'
 			)
 			.fromTo(
 				form,

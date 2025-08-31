@@ -87,9 +87,9 @@ export const CaseStudies: FC = () => {
 				ref={animateRefs.title}
 				id='case-studies-heading'
 				className={cn(
-					'relative text-4xl md:text-6xl text-center text-white',
-					'bg-gray-900/20 backdrop-blur-sm rounded-lg shadow-sm shadow-sky-500',
-					'border border-sky-500 w-full p-8 tracking-wider'
+					'relative text-4xl lg:text-7xl text-center text-white',
+					'bg-gray-900/20 backdrop-blur-sm rounded-lg',
+					'w-full p-8 tracking-wider'
 				)}
 			>
 				Наше портфолио

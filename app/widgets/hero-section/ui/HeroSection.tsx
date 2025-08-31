@@ -106,7 +106,7 @@ export const HeroSection: FC = () => {
 					<Button
 						square={false}
 						onClick={handleCTAClick}
-						ariaLabelDesc='Перейти к осуждению своего кейса'
+						ariaLabelDesc='Перейти к обсуждению своего кейса'
 					>
 						Обсудить проект
 					</Button>

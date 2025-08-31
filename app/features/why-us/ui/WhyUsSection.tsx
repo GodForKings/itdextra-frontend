@@ -64,14 +64,14 @@ export const WhyUsSection: FC = () => {
 				<div className='text-center flex flex-col items-center justify-center gap-2 lg:gap-10'>
 					<span
 						ref={animateRefs.sloganRef}
-						className='relative text-xl tracking-widest font-mono text-neutral-950 dark:text-sky-400'
+						className='relative text-xl tracking-widest font-mono text-neutral-950 dark:text-sky-400 opacity-0'
 					>
 						{whyList.slogan}
 					</span>
 
 					<h2
 						ref={animateRefs.thesisRef}
-						className='relative text-4xl lg:text-6xl'
+						className='relative text-4xl lg:text-6xl opacity-0'
 					>
 						{whyList.thesis.map((item: string) => (
 							<span

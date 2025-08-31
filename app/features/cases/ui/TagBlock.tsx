@@ -18,7 +18,7 @@ export const TagBlock: FC<TagBlockProps> = props => {
 			ref={tagBlockRef}
 			className={cn(
 				'relative flex justify-center items-center flex-wrap gap-2 py-6 w-full tracking-wide',
-				'bg-gray-900/20 backdrop-blur-xl rounded-lg border border-sky-500 shadow-sm shadow-sky-500 max-lg:text-sm'
+				'bg-gray-900/20 backdrop-blur-lg rounded-lg max-lg:text-sm'
 			)}
 		>
 			<button

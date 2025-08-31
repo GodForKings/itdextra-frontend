@@ -21,13 +21,14 @@ export const PlusesCard: FC<PlusesCardProps> = props => {
 				if (el) plusesRef.current[index] = el
 			}}
 			className={cn(
-				'font-mono backdrop-blur-sm rounded-lg p-6 transition-all duration-200 group',
+				'font-mono backdrop-blur-sm rounded-lg p-6 transition-all duration-200 group opacity-0',
 				'flex flex-col items-start justify-center gap-3',
 				'border border-neutral-950/90 dark:border-sky-600/90',
-				'hover:border-sky-500/60 dark:hover:border-slate-100 active:border-sky-500/60 dark:active:border-slate-100'
+				'hover:border-sky-500/60 active:border-sky-500/60',
+				'dark:active:border-white dark:hover:border-white'
 			)}
 			onClick={handleAboutClick}
-			aria-label='Подробнее про ITDextra'
+			aria-label='Подробнее об ITDextra'
 		>
 			<h3 className='text-xl text-sky-500'>{title}</h3>
 

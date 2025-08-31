@@ -3,7 +3,7 @@ import type { animateHeroRefs } from './types'
 /**
  * Анимация приветственной секции на главной странице
  * @param refs объект рефов
- * @returns
+ * @returns очистку
  */
 export const animateHero = async (refs: animateHeroRefs) => {
 	try {

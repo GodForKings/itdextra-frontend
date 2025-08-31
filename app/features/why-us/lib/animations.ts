@@ -68,7 +68,6 @@ export const animateSection = async (
 				plus,
 				{
 					x: 70,
-					opacity: 0,
 				},
 				{ x: 0, opacity: 1, ease: 'power3.out' }
 			)
