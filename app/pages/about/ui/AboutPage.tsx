@@ -1,11 +1,15 @@
 import type { FC } from 'react'
 
-import { HeroSection, MissionSection, TeamSection } from '~/features'
+import { useUnit } from 'effector-react'
 
-import { GRID_LINES, cn } from '~/shared'
+import { HeroSection, MissionSection, TeamSection } from '~/features'
+import { cn } from '~/shared'
 import { FAQSection } from '~/widgets'
+import { faqList } from '../model/index'
 
 export const AboutPage: FC = () => {
+	const faqAbout = useUnit(faqList.$faqAboutItems)
+
 	return (
 		<main
 			className={cn(
@@ -19,7 +23,7 @@ export const AboutPage: FC = () => {
 
 			<TeamSection />
 
-			<FAQSection />
+			<FAQSection faqItems={faqAbout} />
 		</main>
 	)
 }

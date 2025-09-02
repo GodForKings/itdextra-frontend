@@ -25,5 +25,6 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Contacts() {
-	return <ContactsPage />
+	// return <ContactsPage />
+	return <></>
 }

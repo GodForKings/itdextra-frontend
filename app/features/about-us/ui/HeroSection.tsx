@@ -5,17 +5,14 @@ import { useEffect, useRef } from 'react'
 import { useUnit } from 'effector-react'
 import { Headset } from 'lucide-react'
 
-import { Button, cn } from '~/shared'
-import { DefaultCallToAction, openModal } from '~/widgets'
+import { Button, cn, useCTAModal } from '~/shared'
 import { animateHeroAbout } from '../lib/animations'
 import { aboutListModel } from '../model'
 
 export const HeroSection: FC = () => {
 	const aboutHero = useUnit(aboutListModel.stores.$aboutHero)
 
-	const handleCTAClick = () => {
-		openModal({ content: <DefaultCallToAction /> })
-	}
+	const handleCTAClick = useCTAModal()
 
 	const animateRefs: HeroAboutRefs = {
 		section: useRef<HTMLDivElement>(null),
@@ -34,6 +31,7 @@ export const HeroSection: FC = () => {
 				cleanup = clear
 			})
 			.catch(console.error)
+
 		return () => {
 			cleanup?.()
 		}

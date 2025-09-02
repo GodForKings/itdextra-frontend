@@ -56,9 +56,10 @@ export const MissionSection: FC = () => {
 			<div
 				className={cn(
 					'flex flex-col gap-3 max-w-6xl justify-center items-end',
-					'p-4 lg:p-8 rounded-lg',
-					'bg-gray-100 dark:bg-gray-950 z-1',
-					'border border-sky-400 border-dotted'
+					'p-4 lg:p-8 rounded-lg z-1',
+					'bg-gradient-to-r from-gray-100/90 to-white/80',
+					'dark:from-gray-900/80 dark:to-gray-800/80',
+					'border border-black dark:border-sky-500/20'
 				)}
 			>
 				{missionList.map((element, index: number) => (
@@ -80,7 +81,7 @@ export const MissionSection: FC = () => {
 				className={cn(
 					'absolute rounded-full pointer-events-none blur-2xl animate-pulse',
 					'bg-gradient-to-tl from-blue-600 to-transparent w-60 h-full',
-					'bottom-0 left-0 max-lg:hidden'
+					'bottom-0 left-0'
 				)}
 				ref={animateRefs.verticalGlare}
 			></div>

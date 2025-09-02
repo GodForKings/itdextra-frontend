@@ -1,13 +1,12 @@
 import type { FC } from 'react'
 
-import { useEffect, useRef } from 'react'
-
 import type { HeroData } from '../model/types'
 import type { AnimateHeroRefs } from '../lib/types'
 
-import { Button, cn } from '~/shared'
+import { useEffect, useRef } from 'react'
+
+import { Button, cn, useCTAModal } from '~/shared'
 import { animateHeroServices } from '../lib/animations'
-import { DefaultCallToAction, openModal } from '~/widgets'
 
 const mockHeroData: HeroData = {
 	name: 'ITDextra',
@@ -22,9 +21,7 @@ const mockHeroData: HeroData = {
 }
 
 export const Hero: FC = () => {
-	const handleCTAClick = () => {
-		openModal({ content: <DefaultCallToAction /> })
-	}
+	const handleCTAClick = useCTAModal()
 
 	const animateRefs: AnimateHeroRefs = {
 		sectionRef: useRef<HTMLDivElement | null>(null),
@@ -80,7 +77,7 @@ export const Hero: FC = () => {
 				</p>
 			</article>
 
-			<div className='text-2xl text-white text-center max-w-3xl mx-6 p-10 bg-neutral-950/40 rounded-lg'>
+			<div className='text-2xl text-white text-center max-w-3xl mx-6 p-10 bg-black/50 rounded-lg'>
 				{mockHeroData.slogan.map((el: string, index: number) => (
 					<p
 						ref={(el: HTMLParagraphElement | null) => {

@@ -3,8 +3,7 @@ import type { FC } from 'react'
 import { useEffect, useRef } from 'react'
 import { Terminal } from 'lucide-react'
 
-import { Button, cn } from '~/shared'
-import { openModal, DefaultCallToAction } from '~/widgets'
+import { Button, cn, useCTAModal } from '~/shared'
 import { animateCTA } from '../lib/animations'
 
 export const CTA: FC = () => {
@@ -32,11 +31,7 @@ export const CTA: FC = () => {
 		}
 	}, [])
 
-	const handleCTAClick = () => {
-		openModal({
-			content: <DefaultCallToAction />,
-		})
-	}
+	const handleCTAClick = useCTAModal()
 
 	return (
 		<section
