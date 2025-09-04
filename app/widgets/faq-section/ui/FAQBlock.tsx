@@ -58,7 +58,7 @@ export const FAQBlock: FC<FAQBlockProps> = props => {
 				isOpen ? `Закрыть блок: ${question}` : `Посмотреть блок: ${question}`
 			}
 		>
-			<div className='flex justify-between items-center'>
+			<div className='flex justify-between items-center py-1'>
 				<h3
 					className={cn(
 						'text-lg lg:text-2xl font-thin',
@@ -81,10 +81,11 @@ export const FAQBlock: FC<FAQBlockProps> = props => {
 					'overflow-hidden h-0',
 					'text-black dark:text-sky-500',
 					'text-sm lg:text-lg font-normal',
-					'flex flex-col gap-1'
+					'flex flex-col gap-1 justify-center',
+					'border-t border-black dark:border-white/30'
 				)}
 			>
-				{answer.map(element => (
+				{answer?.map(element => (
 					<p key={element}>{element}</p>
 				))}
 			</div>

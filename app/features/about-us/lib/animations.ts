@@ -1,4 +1,4 @@
-import type { HeroAboutRefs, MissionAboutRefs } from './types'
+import type { HeroAboutRefs, MissionAboutRefs, TeamAboutRefs } from './types'
 
 /**
  * Анимация Приветствия на стр ABOUT
@@ -152,6 +152,90 @@ export const animateMissionAbout = async (refs: MissionAboutRefs) => {
 			descSplit && descSplit.revert()
 		}
 	} catch (error: unknown) {
+		console.log(`animate error: ${error}`)
+	}
+}
+
+export const animateTeamAbout = async (refs: TeamAboutRefs) => {
+	try {
+		const [section, title, persons] = [
+			refs.section?.current,
+			refs.title?.current,
+			refs.personsRef?.current,
+		]
+
+		if (!section || !title || !persons.length) return
+
+		const { gsap } = await import('gsap')
+		const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+		const { SplitText } = await import('gsap/SplitText')
+		gsap.registerPlugin(SplitText, ScrollTrigger)
+
+		let titleSplit = new SplitText(title, { type: 'chars,words' })
+
+		const teamTl = gsap
+			.timeline({
+				scrollTrigger: {
+					trigger: section,
+					start: 'top center',
+					toggleActions: 'play none none none',
+				},
+				defaults: {
+					ease: 'power1.out',
+				},
+			})
+			.to(section, { opacity: 1, duration: 0.4 })
+			.fromTo(
+				titleSplit.chars,
+				{
+					opacity: 0,
+					y: (i: number) => (i % 2 === 0 ? -80 : 80),
+					rotationX: -90,
+					scale: 0.5,
+				},
+				{
+					opacity: 1,
+					y: 0,
+					rotationX: 0,
+					scale: 1,
+					duration: 1,
+					stagger: {
+						each: 0.03,
+						from: 'center',
+						grid: [1, titleSplit.chars.length],
+						ease: 'power2.inOut',
+					},
+				}
+			)
+			.fromTo(
+				persons,
+				{
+					opacity: 0,
+					y: 60,
+					rotationY: -25,
+					scale: 0.8,
+					filter: 'blur(15px)',
+				},
+				{
+					opacity: 1,
+					y: 0,
+					rotationY: 0,
+					scale: 1,
+					filter: 'blur(0px)',
+					duration: 1,
+					stagger: {
+						each: 0.1,
+						from: 'start',
+						amount: 1.5,
+					},
+				}
+			)
+
+		return () => {
+			teamTl.kill()
+			titleSplit && titleSplit.revert()
+		}
+	} catch (error) {
 		console.log(`animate error: ${error}`)
 	}
 }

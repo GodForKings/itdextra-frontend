@@ -1,8 +1,9 @@
 import { type FC, useRef, useEffect } from 'react'
-import { Button, cn } from '~/shared' // Предполагаемые пути
-import { openModal } from '~/widgets' // Предполагаемый путь
+import { Button, cn } from '~/shared'
+import { openModal } from '~/widgets'
 
-// Типы для данных (вынеси в отдельный файл при необходимости)
+import { HACKER_ALBUM } from '~/features/about-us/assets'
+
 interface TeamMember {
 	name: string
 	position: string
@@ -17,24 +18,35 @@ interface ContactInfo {
 	socials: { name: string; url: string; icon?: string }[]
 }
 
-// Пропсы для страницы (данные будем передавать извне)
 interface ContactsPageProps {
 	contactData: ContactInfo
-	onCtaClick: () => void // Колбэк для кнопки
+	onCtaClick: () => void
 }
 
-export const ContactsPage: FC<ContactsPageProps> = ({
-	contactData,
-	onCtaClick,
-}) => {
+export const ContactsPage: FC = () => {
 	const sectionRef = useRef<HTMLElement>(null)
 	const cardsRef = useRef<HTMLDivElement>(null)
 	const infoRef = useRef<HTMLDivElement>(null)
 
 	const teamData: TeamMember[] = [
-		{ name: '43434', position: 'admin', bio: 'male', imageUrl: '232' },
-		{ name: '43434', position: 'admin', bio: 'male', imageUrl: '232' },
-		{ name: '43434', position: 'admin', bio: 'male', imageUrl: '232' },
+		{
+			name: '43434',
+			position: 'admin',
+			bio: 'male',
+			imageUrl: HACKER_ALBUM.hacker3,
+		},
+		{
+			name: '43434',
+			position: 'admin',
+			bio: 'male',
+			imageUrl: HACKER_ALBUM.hacker1,
+		},
+		{
+			name: '43434',
+			position: 'admin',
+			bio: 'male',
+			imageUrl: HACKER_ALBUM.hacker3,
+		},
 	]
 	useEffect(() => {
 		if (typeof window === 'undefined') return

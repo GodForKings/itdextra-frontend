@@ -12,3 +12,9 @@ export interface MissionAboutRefs {
 	horizontalGlare: React.RefObject<HTMLDivElement | null>
 	verticalGlare: React.RefObject<HTMLDivElement | null>
 }
+
+export interface TeamAboutRefs {
+	section: React.RefObject<HTMLDivElement | null>
+	title: React.RefObject<HTMLHeadingElement | null>
+	personsRef: React.RefObject<(HTMLElement | null)[]>
+}

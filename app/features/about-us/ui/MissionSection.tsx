@@ -55,22 +55,23 @@ export const MissionSection: FC = () => {
 
 			<div
 				className={cn(
-					'flex flex-col gap-3 max-w-6xl justify-center items-end',
+					'flex flex-col gap-3 max-w-4xl justify-center items-start',
 					'p-4 lg:p-8 rounded-lg z-1',
-					'bg-gradient-to-r from-gray-100/90 to-white/80',
+					'bg-gradient-to-r from-gray-100/70 to-white/80',
 					'dark:from-gray-900/80 dark:to-gray-800/80',
 					'border border-black dark:border-sky-500/20'
 				)}
 			>
-				{missionList.map((element, index: number) => (
+				{missionList?.map((element, index: number) => (
 					<p
 						key={element}
-						className='text-gray-700 dark:text-sky-400 leading-relaxed text-xl lg:text-3xl text-right'
+						className='text-gray-700 dark:text-sky-400 leading-relaxed text-xl lg:text-3xl text-left'
 						ref={(text: HTMLParagraphElement | null) => {
 							if (text) animateRefs.description.current[index] = text
 						}}
 					>
 						<span className='text-sky-500 dark:text-white'>• </span>
+
 						{element}
 					</p>
 				))}

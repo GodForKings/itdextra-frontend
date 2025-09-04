@@ -37,11 +37,11 @@ export const animateSection = async (
 					start: 'top center',
 					toggleActions: 'play none none none',
 				},
-				defaults: { ease: 'power4.out', duration: 1 },
+				defaults: { ease: 'power4.out', duration: 0.8 },
 			})
-			.fromTo(title, { opacity: 0, y: -150 }, { opacity: 1, y: 0 })
-			.fromTo(subtitle, { opacity: 0, x: 30 }, { opacity: 1, x: 0 })
-			.fromTo(button, { opacity: 0, y: 20 }, { opacity: 1, y: 0 })
+			.fromTo(title, { opacity: 0, x: 100 }, { opacity: 1, x: 0 })
+			.fromTo(subtitle, { opacity: 0, x: -100 }, { opacity: 1, x: 0 })
+			.fromTo(button, { opacity: 0, x: 100 }, { opacity: 1, x: 0 })
 
 		const allTimelines: gsap.core.Timeline[] = [masterTL]
 		const allTriggers: ScrollTrigger[] = [masterTL.scrollTrigger!]
@@ -54,20 +54,22 @@ export const animateSection = async (
 					scrollTrigger: {
 						trigger: caseEl,
 						start: 'top center',
-						end: 'center center',
 						toggleActions: 'play none none none',
 					},
-					defaults: { ease: 'power4.inOut', duration: 1 },
 				})
 				.fromTo(
 					caseEl,
 					{
-						scale: 0.5,
-						rotate: 120,
-						x: index % 2 ? -200 : 0,
-						y: index % 2 ? 200 : 0,
+						scale: 0.6,
+						x: index % 2 ? 50 : -50,
 					},
-					{ scale: 1, x: 0, y: 0, opacity: 1, rotate: 0 }
+					{
+						scale: 1,
+						x: 0,
+						opacity: 1,
+						ease: 'elastic.inOut',
+						duration: 0.6,
+					}
 				)
 
 			allTimelines.push(caseTl)

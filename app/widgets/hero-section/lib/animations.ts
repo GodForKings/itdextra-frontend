@@ -30,7 +30,7 @@ export const animateHero = async (refs: animateHeroRefs) => {
 		})
 
 		const heroTl = gsap
-			.timeline({ defaults: { ease: 'back.out', duration: 0.5 } })
+			.timeline({ defaults: { ease: 'expo.inOut', duration: 0.8 } })
 			/* Фоновая сетка */
 			.to(hero, { opacity: 1 })
 		/* Эффект цифрового появления для названия */
@@ -53,9 +53,9 @@ export const animateHero = async (refs: animateHeroRefs) => {
 						gsap.to(letter, {
 							duration: 1,
 							x: '+=15',
-							repeat: 2,
+							repeat: 1,
 							yoyo: true,
-							ease: 'sine.inOut',
+							ease: 'expo.inOut',
 						})
 					},
 				}
@@ -64,7 +64,7 @@ export const animateHero = async (refs: animateHeroRefs) => {
 		/* Финальные эффекты */
 		heroTl
 			.to(name, {
-				duration: 1,
+				duration: 0.5,
 				scale: 0.4,
 				yoyo: true,
 				repeat: 1,
@@ -76,43 +76,41 @@ export const animateHero = async (refs: animateHeroRefs) => {
 				rotationX: 360,
 				rotation: 360,
 				ease: 'elastic.inOut',
-				duration: 4,
-				stagger: 0.1,
+				duration: 3,
+				stagger: 0.04,
 				textShadow: '1px 2px 3px',
 			})
 			/* Заголовок */
 			.fromTo(
 				titleSplit.chars,
 				{
-					y: 'random(-75, 75)',
-					x: 'random(-150, 150)',
-					rotation: 'random(0, 720)',
+					y: gsap.utils.random(-50, 50),
 					opacity: 0,
+					rotationY: gsap.utils.random(-90, 90),
+					rotateZ: -45,
 				},
 				{
 					y: 0,
-					x: 0,
-					rotation: 0,
 					opacity: 1,
-					duration: 2,
-					color: '#00a6f4',
-					textShadow: '0px 0px 4px',
-					stagger: { from: 'random', each: 0.04 },
-					delay: 3,
+					rotationY: 0,
+					rotateZ: 0,
+					stagger: { each: 0.03, from: 'center' },
+					color: '#38BDF8',
+					textShadow: '0 0 8px rgba(56, 189, 248, 0.4)',
 				},
 				0
 			)
 			/* Подзаголовок */
 			.fromTo(
 				subtitleSplit.chars,
-				{ y: 80, opacity: 0, rotation: 'random(-60, 60)' },
+				{ y: 80, opacity: 0, rotation: gsap.utils.random(-50, 50) },
 				{
 					y: 0,
 					opacity: 1,
 					delay: 2,
 					duration: 0.8,
 					rotation: 0,
-					stagger: { from: 'random', each: 0.01 },
+					stagger: { from: 'edges', each: 0.01 },
 				},
 				0
 			)
